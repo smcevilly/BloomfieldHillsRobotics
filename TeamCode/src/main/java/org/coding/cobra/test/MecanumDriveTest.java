@@ -35,13 +35,11 @@ public class MecanumDriveTest extends LinearOpMode {
                 Handle the events on gamepad
                  */
             handleGamepadEvents (gamepad1);
-
+            if (isStopRequested()) return;
         }
 
 
     }
-
-
 
     public void handleGamepadEvents (Gamepad gamePad) {
 

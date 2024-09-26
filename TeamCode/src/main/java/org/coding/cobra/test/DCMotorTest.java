@@ -45,7 +45,7 @@ public class DCMotorTest extends LinearOpMode {
         while (opModeIsActive()) {
 
             moveMotor ();
-
+            if (isStopRequested()) return;
         }
 
     }

@@ -3,7 +3,7 @@ package org.coding.cobra.config;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 
-public class DriveConfig {
+public class MecanumDriveConfig {
 
     /**
      * Motor Names

@@ -38,7 +38,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 
-import org.coding.cobra.config.DriveConfig;
+import org.coding.cobra.config.MecanumDriveConfig;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 import org.firstinspires.ftc.teamcode.messages.DriveCommandMessage;
@@ -53,7 +53,7 @@ import java.util.List;
 
 @Config
 public class MecanumDrive {
-    public static DriveConfig PARAMS = new DriveConfig();
+    public static MecanumDriveConfig PARAMS = new MecanumDriveConfig();
 
     public final MecanumKinematics kinematics = new MecanumKinematics(
             PARAMS.inPerTick * PARAMS.trackWidthTicks, PARAMS.inPerTick / PARAMS.lateralInPerTick);
