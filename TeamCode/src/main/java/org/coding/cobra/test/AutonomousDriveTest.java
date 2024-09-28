@@ -32,6 +32,8 @@ public class AutonomousDriveTest extends LinearOpMode {
         waitForStart();
         //This is telling the robot to wait until start is clicked on the driver hub.
 
+        // run once
+        moveToPosition();
 
         // Continuous loop
         while (opModeIsActive()) {
@@ -40,10 +42,10 @@ public class AutonomousDriveTest extends LinearOpMode {
                  */
 
 
-            moveToPosition();
             handleGamepadEvents (gamepad1);
 
             if (isStopRequested()) return;
+
         }
 
 
@@ -56,7 +58,7 @@ public class AutonomousDriveTest extends LinearOpMode {
          */
 
         Action TrajectoryAction1 = mecanumDrive.actionBuilder(mecanumDrive.pose)
-                .lineToX(10)
+                .lineToX(20)
                 .build();
 
         Action TrajectoryAction2 = mecanumDrive.actionBuilder(new Pose2d(15,20,0))
@@ -64,7 +66,35 @@ public class AutonomousDriveTest extends LinearOpMode {
                 .build();
 
 
+        // Step 1 : Linear Motion
+
         Actions.runBlocking(
+
+                new SequentialAction(
+                        TrajectoryAction1, // Example of a drive action
+
+                        new Action() {
+                            @Override
+                            public boolean run(@NonNull TelemetryPacket telemetryPacket) {
+                                telemetry.addLine("Action!");
+                                telemetry.update();
+                                return false;
+                            }
+                        }
+
+                )
+
+
+
+        );
+
+        return;
+
+        /*
+
+        // Step 2 : Complex Motion
+            Actions.runBlocking(
+
                 new SequentialAction(
                         TrajectoryAction1, // Example of a drive action
 
@@ -96,6 +126,8 @@ public class AutonomousDriveTest extends LinearOpMode {
 
                 )
         );
+
+         */
 
     }
 

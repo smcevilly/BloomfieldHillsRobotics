@@ -14,6 +14,7 @@ public final class ManualFeedbackTuner extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
+        telemetry.addData("Initializing Mecanum Drive", "");
         if (TuningOpModes.DRIVE_CLASS.equals(MecanumDrive.class)) {
             MecanumDrive drive = new MecanumDrive(hardwareMap, new Pose2d(0, 0, 0));
             
@@ -29,6 +30,9 @@ public final class ManualFeedbackTuner extends LinearOpMode {
             waitForStart();
 
             while (opModeIsActive()) {
+
+                telemetry.addData("Testing:Action", "Manual Tuner");
+
                 Actions.runBlocking(
                     drive.actionBuilder(new Pose2d(0, 0, 0))
                             .lineToX(DISTANCE)

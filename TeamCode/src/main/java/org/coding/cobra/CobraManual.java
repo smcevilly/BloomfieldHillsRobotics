@@ -17,14 +17,14 @@ public class CobraManual extends LinearOpMode {
     SystemConfig sysConfig = new SystemConfig();
 
     MecanumDriveEx mecanumDrive;
-    DCMotorControllerEx armExtenderMotor;
-    ServoMotorControllerEx claw;
+    //DCMotorControllerEx armExtenderMotor;
+    //ServoMotorControllerEx claw;
 
 
     public void initialize () {
         mecanumDrive = new MecanumDriveEx(hardwareMap, telemetry, sysConfig.ROBOT_START_POSITION);
-        armExtenderMotor = new DCMotorControllerEx(hardwareMap, telemetry, sysConfig.ARM_EXTENDER);
-        claw = new ServoMotorControllerEx(hardwareMap, telemetry, sysConfig.CLAW_MOTOR);
+        //armExtenderMotor = new DCMotorControllerEx(hardwareMap, telemetry, sysConfig.ARM_EXTENDER);
+        //claw = new ServoMotorControllerEx(hardwareMap, telemetry, sysConfig.CLAW_MOTOR);
     }
 
     @Override
@@ -49,9 +49,9 @@ public class CobraManual extends LinearOpMode {
     public void handleGamepadEvents () {
         // Apply desired axes motions to the drivetrain.
         mecanumDrive.moveRobot(-gamepad1.left_stick_y, -gamepad1.left_stick_x, -gamepad1.right_stick_x,sysConfig.DRIVE_POWER_FACTOR);
-        armExtenderMotor.handleEvents(gamepad2.left_stick_y);
-        claw.handleEvents(gamepad2.dpad_up, gamepad2.dpad_down);
-        claw.handlePresets(gamepad2.a, false, false);
+        //armExtenderMotor.handleEvents(gamepad2.left_stick_y);
+        //claw.handleEvents(gamepad2.dpad_up, gamepad2.dpad_down);
+        //claw.handlePresets(gamepad2.a, false, false);
     }
 
 }

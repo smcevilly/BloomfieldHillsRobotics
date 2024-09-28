@@ -34,13 +34,23 @@ public class MecanumDriveEx extends MecanumDrive {
     New version that uses target position to move
     This version is yet to be tested
      */
-    public void moveRobot(double dr, double strafe, double twist, double power){
+    public void moveRobot(double left_stick_y, double left_stick_x, double right_stick_x, double power){
 
-        setDrivePowers( new PoseVelocity2d(
+       /* setDrivePowers( new PoseVelocity2d(
                 new Vector2d(dr*power, // drive power
                 strafe*power), // strafe power
                 twist*power  // twist power
         ));
+        */
+
+        setDrivePowers(new PoseVelocity2d(
+                new Vector2d(
+                        left_stick_y,
+                        left_stick_x
+                ),
+                right_stick_x
+        ));
+
 
         //turns 90 degress
         //Actions.runBlocking(actionBuilder(startPose).strafeTo(new Vector2d(10, 10)).waitSeconds(2).build());
