@@ -2,6 +2,8 @@ package org.coding.cobra.config;
 
 import com.acmerobotics.roadrunner.Pose2d;
 
+import org.coding.cobra.config.helpers.DCMotorConfig;
+
 /**
  * Class where we will populate system configuration such as motor names
  * motor types, limits, etc

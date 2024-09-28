@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
 
-import org.coding.cobra.config.DCMotorConfig;
+import org.coding.cobra.config.helpers.DCMotorConfig;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 /**
