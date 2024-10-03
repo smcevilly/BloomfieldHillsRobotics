@@ -41,6 +41,14 @@ public class SystemConfig {
             0.75
     );
 
+    // CrServo
+    public static CRServoConfig INTAKE = new CRServoConfig(
+            "Intake",
+            1,
+            1,
+            -1
+    );
+
 
 
 
