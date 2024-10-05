@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.coding.cobra.config.SystemConfig;
 import org.coding.cobra.ext.CRServoControllerEx;
 import org.coding.cobra.ext.DCMotorControllerEx;
+import org.coding.cobra.ext.LimelightEx;
 import org.coding.cobra.ext.MecanumDriveEx;
 import org.coding.cobra.ext.ServoMotorControllerEx;
 
@@ -18,6 +19,7 @@ public class CobraManual extends LinearOpMode {
     DCMotorControllerEx armExtenderMotor;
     ServoMotorControllerEx claw;
     CRServoControllerEx intake;
+    LimelightEx camera;
 
 
     public void initialize () {
@@ -25,6 +27,7 @@ public class CobraManual extends LinearOpMode {
         armExtenderMotor = new DCMotorControllerEx(hardwareMap, telemetry, sysConfig.ARM_EXTENDER);
         claw = new ServoMotorControllerEx(hardwareMap, telemetry, sysConfig.CLAW_MOTOR);
         intake = new CRServoControllerEx(hardwareMap, telemetry, sysConfig.INTAKE);
+        camera = new LimelightEx(hardwareMap, telemetry, sysConfig.CAMERA);
     }
 
     @Override
@@ -53,6 +56,7 @@ public class CobraManual extends LinearOpMode {
         claw.handleEvents(gamepad2.dpad_up, gamepad2.dpad_down);
         claw.handlePresets(gamepad2.a, false, false);
         intake.handlePresets(gamepad2.left_bumper,gamepad2.right_bumper);
+        camera.handleEvents(gamepad1.dpad_left, gamepad1.dpad_right);
     }
 
 }

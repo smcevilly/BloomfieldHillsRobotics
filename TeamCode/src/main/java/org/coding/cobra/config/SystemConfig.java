@@ -49,6 +49,10 @@ public class SystemConfig {
             -1
     );
 
+    public static LimelightConfig CAMERA = new LimelightConfig(
+            "limelight"
+    );
+
 
 
 
