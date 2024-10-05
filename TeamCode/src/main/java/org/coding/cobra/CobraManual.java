@@ -1,6 +1,5 @@
 package org.coding.cobra;
 
-import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -8,7 +7,9 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.coding.cobra.config.SystemConfig;
+import org.coding.cobra.ext.CRServoControllerEx;
 import org.coding.cobra.ext.DCMotorControllerEx;
+import org.coding.cobra.ext.LimelightEx;
 import org.coding.cobra.ext.MecanumDriveEx;
 import org.coding.cobra.ext.ServoMotorControllerEx;
 
@@ -18,6 +19,10 @@ public class CobraManual extends LinearOpMode {
     SystemConfig sysConfig = new SystemConfig();
 
     MecanumDriveEx mecanumDrive;
+    DCMotorControllerEx armExtenderMotor;
+    ServoMotorControllerEx claw;
+    CRServoControllerEx intake;
+    LimelightEx camera;
     //DCMotorControllerEx armExtenderMotor;
     //ServoMotorControllerEx claw;
     DCMotorControllerEx leftElevator;
@@ -31,6 +36,10 @@ public class CobraManual extends LinearOpMode {
         leftElevator.resetEncoders();
         rightElevator.resetEncoders();
         //claw = new ServoMotorControllerEx(hardwareMap, telemetry, sysConfig.CLAW_MOTOR);
+        armExtenderMotor = new DCMotorControllerEx(hardwareMap, telemetry, sysConfig.ARM_EXTENDER);
+        claw = new ServoMotorControllerEx(hardwareMap, telemetry, sysConfig.CLAW_MOTOR);
+        intake = new CRServoControllerEx(hardwareMap, telemetry, sysConfig.INTAKE);
+        camera = new LimelightEx(hardwareMap, telemetry, sysConfig.CAMERA);
     }
 
     @Override
@@ -59,6 +68,11 @@ public class CobraManual extends LinearOpMode {
         rightElevator.handleEvents(gamepad2.left_stick_y);
         //claw.handleEvents(gamepad2.dpad_up, gamepad2.dpad_down);
         //claw.handlePresets(gamepad2.a, false, false);
+        armExtenderMotor.handleEvents(gamepad2.left_stick_y);
+        claw.handleEvents(gamepad2.dpad_up, gamepad2.dpad_down);
+        claw.handlePresets(gamepad2.a, false, false);
+        intake.handlePresets(gamepad2.left_bumper,gamepad2.right_bumper);
+        camera.handleEvents(gamepad1.dpad_left, gamepad1.dpad_right);
     }
 
 }
