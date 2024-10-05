@@ -3,6 +3,7 @@ package org.coding.cobra;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -19,11 +20,16 @@ public class CobraManual extends LinearOpMode {
     MecanumDriveEx mecanumDrive;
     //DCMotorControllerEx armExtenderMotor;
     //ServoMotorControllerEx claw;
+    DCMotorControllerEx leftElevator;
+    DCMotorControllerEx rightElevator;
 
 
     public void initialize () {
         mecanumDrive = new MecanumDriveEx(hardwareMap, telemetry, sysConfig.ROBOT_START_POSITION);
-        //armExtenderMotor = new DCMotorControllerEx(hardwareMap, telemetry, sysConfig.ARM_EXTENDER);
+        leftElevator = new DCMotorControllerEx(hardwareMap, telemetry, sysConfig.Left_Elevator);
+        rightElevator = new DCMotorControllerEx(hardwareMap, telemetry, sysConfig.Right_Elevator);
+        leftElevator.resetEncoders();
+        rightElevator.resetEncoders();
         //claw = new ServoMotorControllerEx(hardwareMap, telemetry, sysConfig.CLAW_MOTOR);
     }
 
@@ -49,7 +55,8 @@ public class CobraManual extends LinearOpMode {
     public void handleGamepadEvents () {
         // Apply desired axes motions to the drivetrain.
         mecanumDrive.moveRobot(-gamepad1.left_stick_y, -gamepad1.left_stick_x, -gamepad1.right_stick_x,sysConfig.DRIVE_POWER_FACTOR);
-        //armExtenderMotor.handleEvents(gamepad2.left_stick_y);
+        leftElevator.handleEvents(gamepad2.left_stick_y);
+        rightElevator.handleEvents(gamepad2.left_stick_y);
         //claw.handleEvents(gamepad2.dpad_up, gamepad2.dpad_down);
         //claw.handlePresets(gamepad2.a, false, false);
     }

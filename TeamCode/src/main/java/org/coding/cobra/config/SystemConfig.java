@@ -29,6 +29,32 @@ public class SystemConfig {
             400
     );
 
+    public static DCMotorConfig Left_Elevator = new DCMotorConfig(
+            "leftElevator",
+            0,
+            0,
+            1000,
+            15,
+            DCMotorConfig.MotorDirection.FORWARD,
+            1,
+            500,
+            800,
+            900
+    );
+
+    public static DCMotorConfig Right_Elevator = new DCMotorConfig(
+            "rightElevator",
+            0,
+            0,
+            1000,
+            15,
+            DCMotorConfig.MotorDirection.FORWARD,
+            1,
+            500,
+            800,
+            900
+    );
+
     // Servo
     public static DCMotorConfig CLAW_MOTOR = new DCMotorConfig(
             "Claw",
