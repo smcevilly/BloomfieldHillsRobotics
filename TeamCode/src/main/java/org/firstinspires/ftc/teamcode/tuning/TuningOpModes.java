@@ -69,7 +69,7 @@ public final class TuningOpModes {
                     ThreeDeadWheelLocalizer dl = (ThreeDeadWheelLocalizer) md.localizer;
                     parEncs.add(dl.par0);
                     parEncs.add(dl.par1);
-                    perpEncs.add(dl.perp);
+                    perpEncs.add(dl.perp0);
                 } else if (md.localizer instanceof TwoDeadWheelLocalizer) {
                     TwoDeadWheelLocalizer dl = (TwoDeadWheelLocalizer) md.localizer;
                     parEncs.add(dl.par);
@@ -118,7 +118,7 @@ public final class TuningOpModes {
                     ThreeDeadWheelLocalizer dl = (ThreeDeadWheelLocalizer) td.localizer;
                     parEncs.add(dl.par0);
                     parEncs.add(dl.par1);
-                    perpEncs.add(dl.perp);
+                    perpEncs.add(dl.perp0);
                 } else if (td.localizer instanceof TwoDeadWheelLocalizer) {
                     TwoDeadWheelLocalizer dl = (TwoDeadWheelLocalizer) td.localizer;
                     parEncs.add(dl.par);
