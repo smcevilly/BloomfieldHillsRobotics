@@ -36,7 +36,7 @@ public class CobraManual extends LinearOpMode {
         leftElevator.resetEncoders();
         rightElevator.resetEncoders();
         //claw = new ServoMotorControllerEx(hardwareMap, telemetry, sysConfig.CLAW_MOTOR);
-        armExtenderMotor = new DCMotorControllerEx(hardwareMap, telemetry, sysConfig.ARM_EXTENDER);
+        armExtenderMotor = new DCMotorControllerEx(hardwareMap, telemetry, sysConfig.ARM_EXTENDER_LEFT);
         claw = new ServoMotorControllerEx(hardwareMap, telemetry, sysConfig.CLAW_MOTOR);
         intake = new CRServoControllerEx(hardwareMap, telemetry, sysConfig.INTAKE);
         camera = new LimelightEx(hardwareMap, telemetry, sysConfig.CAMERA);

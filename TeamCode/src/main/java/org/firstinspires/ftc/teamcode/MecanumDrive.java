@@ -205,7 +205,10 @@ public class MecanumDrive {
         voltageSensor = hardwareMap.voltageSensor.iterator().next();
 
 //        localizer = new DriveLocalizer();
-        localizer = new ThreeDeadWheelLocalizer(hardwareMap, PARAMS.inPerTick);
+//        localizer = new ThreeDeadWheelLocalizer(hardwareMap, PARAMS.inPerTick);
+        localizer = new TwoDeadWheelLocalizer(hardwareMap, lazyImu.get(), PARAMS.inPerTick);
+
+
         FlightRecorder.write("MECANUM_PARAMS", PARAMS);
     }
 
