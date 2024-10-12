@@ -18,12 +18,13 @@ public class SystemConfig {
     // DCMotor
     public static DCMotorConfig ARM_EXTENDER_LEFT = new DCMotorConfig(
             "leftExtender",
-            0,
+            100,
             100,
             1000,
-            15,
+            300,
             DCMotorConfig.MotorDirection.FORWARD,
-            1,
+            100,
+            100,
             200,
             300,
             400
@@ -33,12 +34,13 @@ public class SystemConfig {
     // DCMotor
     public static DCMotorConfig ARM_EXTENDER_RIGHT = new DCMotorConfig(
             "rightExtender",
-            0,
+            100,
             100,
             1000,
-            15,
-            DCMotorConfig.MotorDirection.FORWARD,
-            1,
+            300,
+            DCMotorConfig.MotorDirection.REVERSE,
+            100,
+            100,
             200,
             300,
             400
@@ -49,9 +51,10 @@ public class SystemConfig {
             0,
             0,
             1000,
-            15,
-            DCMotorConfig.MotorDirection.FORWARD,
-            1,
+            300,
+            DCMotorConfig.MotorDirection.REVERSE,
+            100,
+            100,
             500,
             800,
             900
@@ -62,9 +65,10 @@ public class SystemConfig {
             0,
             0,
             1000,
-            15,
+            300,
             DCMotorConfig.MotorDirection.FORWARD,
-            1,
+            100,
+            100,
             500,
             800,
             900
@@ -72,13 +76,14 @@ public class SystemConfig {
 
     // Servo
     public static DCMotorConfig CLAW_MOTOR = new DCMotorConfig(
-            "Claw",
+            "claw",
             0,
             0,
             1,
             0.55,
             DCMotorConfig.MotorDirection.FORWARD,
-            1,
+            10,
+            10,
             0.25,
             0.5,
             0.75
@@ -86,7 +91,7 @@ public class SystemConfig {
 
     // CrServo
     public static CRServoConfig INTAKE = new CRServoConfig(
-            "Intake",
+            "intake",
             1,
             1,
             -1
@@ -95,13 +100,6 @@ public class SystemConfig {
     public static LimelightConfig CAMERA = new LimelightConfig(
             "limelight"
     );
-
-
-
-
-
-
-
 
 
 }

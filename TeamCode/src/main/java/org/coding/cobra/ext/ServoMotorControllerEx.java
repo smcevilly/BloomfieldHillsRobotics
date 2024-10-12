@@ -37,7 +37,7 @@ public class ServoMotorControllerEx {
             motor.setDirection(Servo.Direction.REVERSE);
         }
 
-        telemetry.addData("Servo ", motorConfig.motorName, " Initialized with Position, Velocity : ", motor.getPosition());
+        telemetry.addData("Servo : ", motorConfig.motorName.toString() + " Initialized with Position, Velocity : " + motor.getPosition());
         // This will tell us the motors position on the drive hub. Anytime anything says telemtry.addData it is to send things to d the driver hub.
         motor.setPosition(Range.clip(motorConfig.startPosition, motorConfig.minPosition, motorConfig.maxPosition));
 
@@ -50,11 +50,14 @@ public class ServoMotorControllerEx {
         if   (upKey && position<motorConfig.maxPosition){
             position = position + motorConfig.steps;
             motor.setPosition(position);
+            telemetry.addData("Servo : ", motorConfig.motorName.toString(), " Start Postion : ", motor.getPosition());
+
         } else if (downKey && position>motorConfig.minPosition) {
             position = position - motorConfig.steps;
             motor.setPosition(position);
-        }
+            telemetry.addData("Servo : ", motorConfig.motorName.toString(), " Start Postion : ", motor.getPosition());
 
+        }
     }
 
 
@@ -69,5 +72,7 @@ public class ServoMotorControllerEx {
         if (preset3Triggerred)
             motor.setPosition(motorConfig.preset3);
 
+        if (preset2Triggerred || preset1Trigerred || preset3Triggerred)
+        telemetry.addData("Servo : ", motorConfig.motorName.toString() + " Postion : " + motor.getPosition());
     }
 }
