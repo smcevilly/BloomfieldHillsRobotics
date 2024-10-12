@@ -2,6 +2,7 @@ package org.coding.cobra.config;
 
 import com.acmerobotics.roadrunner.Pose2d;
 
+import org.coding.cobra.config.helpers.CRServoConfig;
 import org.coding.cobra.config.helpers.DCMotorConfig;
 
 /**
@@ -50,7 +51,7 @@ public class SystemConfig {
             "leftElevator",
             100,
             0,
-            1000,
+            6000,
             300,
             DCMotorConfig.MotorDirection.REVERSE,
             100,
@@ -64,7 +65,7 @@ public class SystemConfig {
             "rightElevator",
             100,
             0,
-            1000,
+            6000,
             300,
             DCMotorConfig.MotorDirection.FORWARD,
             100,
@@ -77,16 +78,16 @@ public class SystemConfig {
     // Servo
     public static DCMotorConfig CLAW_MOTOR = new DCMotorConfig(
             "claw",
-            0,
-            0,
-            1,
-            0.55,
+            0.0,
+            0.0,
+            0.5,
+            0.001,
             DCMotorConfig.MotorDirection.FORWARD,
-            10,
-            10,
+            5,
+            5,
             0.25,
             0.5,
-            0.75
+            0.5
     );
 
     // CrServo

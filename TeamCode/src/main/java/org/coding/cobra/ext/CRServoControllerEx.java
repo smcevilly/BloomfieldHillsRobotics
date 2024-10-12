@@ -1,11 +1,9 @@
 package org.coding.cobra.ext;
 
 import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.CRServoImplEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.util.Range;
 
-import org.coding.cobra.config.CRServoConfig;
+import org.coding.cobra.config.helpers.CRServoConfig;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 /**

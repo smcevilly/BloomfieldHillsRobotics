@@ -48,15 +48,16 @@ public class ServoMotorControllerEx {
         double position = motor.getPosition();
 
         if   (upKey && position<motorConfig.maxPosition){
+            telemetry.addData("Servo Up : ", motorConfig.motorName.toString()+ " Start Postion : "+ motor.getPosition());
             position = position + motorConfig.steps;
             motor.setPosition(position);
-            telemetry.addData("Servo : ", motorConfig.motorName.toString(), " Start Postion : ", motor.getPosition());
+            telemetry.addData("Servo Up : ", motorConfig.motorName.toString()+ " Target Postion : "+ motor.getPosition());
 
         } else if (downKey && position>motorConfig.minPosition) {
+            telemetry.addData("Servo Down : ", motorConfig.motorName.toString()+ " Start Postion : "+ motor.getPosition());
             position = position - motorConfig.steps;
             motor.setPosition(position);
-            telemetry.addData("Servo : ", motorConfig.motorName.toString(), " Start Postion : ", motor.getPosition());
-
+            telemetry.addData("Servo Down : ", motorConfig.motorName.toString()+ " Postion : "+ motor.getPosition());
         }
     }
 

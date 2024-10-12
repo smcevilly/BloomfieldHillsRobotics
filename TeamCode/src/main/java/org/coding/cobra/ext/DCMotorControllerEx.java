@@ -50,6 +50,7 @@ public class DCMotorControllerEx {
             encoder.setDirection(DcMotorSimple.Direction.REVERSE);
         }
 
+       // resetEncoders();
         // This will tell us the motors position on the drive hub. Anytime anything says telemtry.addData it is to send things to d the driver hub.
         motor.setTargetPosition((int) Math.round(Range.clip(motorConfig.startPosition, motorConfig.minPosition, motorConfig.maxPosition)));
 
