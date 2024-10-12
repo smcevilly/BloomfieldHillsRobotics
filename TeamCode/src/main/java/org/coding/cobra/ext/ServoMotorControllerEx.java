@@ -72,7 +72,8 @@ public class ServoMotorControllerEx {
         if (preset3Triggerred)
             motor.setPosition(motorConfig.preset3);
 
-        if (preset2Triggerred || preset1Trigerred || preset3Triggerred)
-        telemetry.addData("Servo : ", motorConfig.motorName.toString() + " Postion : " + motor.getPosition());
+        if (preset2Triggerred || preset1Trigerred || preset3Triggerred) {
+            telemetry.addData("Servo : ", motorConfig.motorName + " Postion : " + motor.getPosition());
+        }
     }
 }

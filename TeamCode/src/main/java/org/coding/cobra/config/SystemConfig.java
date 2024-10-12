@@ -19,8 +19,8 @@ public class SystemConfig {
     public static DCMotorConfig ARM_EXTENDER_LEFT = new DCMotorConfig(
             "leftExtender",
             100,
-            100,
-            1000,
+            0,
+            2500,
             300,
             DCMotorConfig.MotorDirection.FORWARD,
             100,
@@ -35,8 +35,8 @@ public class SystemConfig {
     public static DCMotorConfig ARM_EXTENDER_RIGHT = new DCMotorConfig(
             "rightExtender",
             100,
-            100,
-            1000,
+            0,
+            2500,
             300,
             DCMotorConfig.MotorDirection.REVERSE,
             100,
@@ -48,7 +48,7 @@ public class SystemConfig {
 
     public static DCMotorConfig Left_Elevator = new DCMotorConfig(
             "leftElevator",
-            0,
+            100,
             0,
             1000,
             300,
@@ -62,7 +62,7 @@ public class SystemConfig {
 
     public static DCMotorConfig Right_Elevator = new DCMotorConfig(
             "rightElevator",
-            0,
+            100,
             0,
             1000,
             300,
