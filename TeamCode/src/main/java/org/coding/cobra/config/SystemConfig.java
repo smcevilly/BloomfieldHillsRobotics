@@ -16,8 +16,23 @@ public class SystemConfig {
     public static final double DRIVE_POWER_FACTOR = 1;
 
     // DCMotor
-    public static DCMotorConfig ARM_EXTENDER = new DCMotorConfig(
-            "Arm Extender",
+    public static DCMotorConfig ARM_EXTENDER_LEFT = new DCMotorConfig(
+            "leftExtender",
+            0,
+            100,
+            1000,
+            15,
+            DCMotorConfig.MotorDirection.FORWARD,
+            1,
+            200,
+            300,
+            400
+    );
+
+
+    // DCMotor
+    public static DCMotorConfig ARM_EXTENDER_RIGHT = new DCMotorConfig(
+            "rightExtender",
             0,
             100,
             1000,
