@@ -37,8 +37,6 @@ public class DCMotorControllerEx {
     public void init () {
 
         motor = hardwareMap.get(DcMotorEx.class, motorConfig.motorName);
-        motor.setPower(motorConfig.power);
-        motor.setVelocity(motorConfig.velocity);
         encoder = new OverflowEncoder(new RawEncoder(motor));
 
         if (motorConfig.direction == DCMotorConfig.MotorDirection.FORWARD) {
@@ -52,8 +50,12 @@ public class DCMotorControllerEx {
 
        // resetEncoders();
         // This will tell us the motors position on the drive hub. Anytime anything says telemtry.addData it is to send things to d the driver hub.
-        motor.setTargetPosition((int) Math.round(Range.clip(motorConfig.startPosition, motorConfig.minPosition, motorConfig.maxPosition)));
 
+        resetEncoders();
+        motor.setPower(motorConfig.power);
+        motor.setVelocity(motorConfig.velocity);
+        motorConfig.startPosition = motor.getCurrentPosition();
+        motor.setTargetPosition((int) Math.round(Range.clip(motorConfig.startPosition, motorConfig.minPosition, motorConfig.maxPosition)));
         motor.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
         telemetry.addData("DC Motor : ", motorConfig.motorName.toString() + " Initialized with Position, Velocity : " + motor.getCurrentPosition()+","+motor.getVelocity());

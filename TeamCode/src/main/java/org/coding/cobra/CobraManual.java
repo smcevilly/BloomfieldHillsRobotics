@@ -49,15 +49,17 @@ public class CobraManual extends LinearOpMode {
 
         waitForStart();
 
-        if (gamepad1.share) {
-            resetRobot();
-            return;
-        }
 
         //This is telling the robot to wait until start is clicked on the driver hub.
 
         // Continuous loop
         while (opModeIsActive()) {
+
+            if (gamepad1.right_bumper) {
+                resetRobot();
+                return;
+            }
+
              /*
                 Handle the events on gamepad
                  */
@@ -77,9 +79,9 @@ public class CobraManual extends LinearOpMode {
         //claw.handlePresets(gamepad2.a, false, false);
         armExtenderMotorLeft.handleEvents(-gamepad2.right_stick_y);
         armExtenderMotorRight.handleEvents(-gamepad2.right_stick_y);
-        claw.handleEvents(gamepad2.dpad_up, gamepad2.dpad_down);
+        claw.handleEvents(gamepad2.dpad_down, gamepad2.dpad_up);
         claw.handlePresets(gamepad2.a, false, false);
-        intake.handlePresets(gamepad2.left_bumper,gamepad2.right_bumper);
+        intake.handlePresets(gamepad2.right_bumper, gamepad2.left_bumper);
       //  camera.handleEvents(gamepad1.dpad_left, gamepad1.dpad_right);
 
     }

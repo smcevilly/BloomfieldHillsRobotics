@@ -19,13 +19,13 @@ public class SystemConfig {
     // DCMotor
     public static DCMotorConfig ARM_EXTENDER_LEFT = new DCMotorConfig(
             "leftExtender",
-            100,
             0,
-            2500,
-            300,
+            0,
+            2200,
+            800,
             DCMotorConfig.MotorDirection.FORWARD,
-            100,
-            100,
+            1,
+            1,
             200,
             300,
             400
@@ -35,13 +35,13 @@ public class SystemConfig {
     // DCMotor
     public static DCMotorConfig ARM_EXTENDER_RIGHT = new DCMotorConfig(
             "rightExtender",
-            100,
             0,
-            2500,
-            300,
+            0,
+            2200,
+            800,
             DCMotorConfig.MotorDirection.REVERSE,
-            100,
-            100,
+            1,
+            1,
             200,
             300,
             400
@@ -49,13 +49,13 @@ public class SystemConfig {
 
     public static DCMotorConfig Left_Elevator = new DCMotorConfig(
             "leftElevator",
-            100,
             0,
-            6000,
-            300,
+            0,
+            6500,
+            1500,
             DCMotorConfig.MotorDirection.REVERSE,
-            100,
-            100,
+            1,
+            1,
             500,
             800,
             900
@@ -63,13 +63,13 @@ public class SystemConfig {
 
     public static DCMotorConfig Right_Elevator = new DCMotorConfig(
             "rightElevator",
-            100,
             0,
-            6000,
-            300,
+            0,
+            6500,
+            1500 ,
             DCMotorConfig.MotorDirection.FORWARD,
-            100,
-            100,
+            1,
+            1,
             500,
             800,
             900
@@ -78,13 +78,13 @@ public class SystemConfig {
     // Servo
     public static DCMotorConfig CLAW_MOTOR = new DCMotorConfig(
             "claw",
-            0.0,
-            0.0,
-            0.5,
+            0.3,
+            0.3,
+            0.84,
             0.001,
             DCMotorConfig.MotorDirection.FORWARD,
-            5,
-            5,
+            10,
+            10,
             0.25,
             0.5,
             0.5
