@@ -19,7 +19,7 @@ public class CobraManual extends LinearOpMode {
     DCMotorControllerEx armExtenderMotorLeft;
     DCMotorControllerEx armExtenderMotorRight;
 
-    ServoMotorControllerEx claw;
+    ServoMotorControllerEx claw, flexiClawLeft, flexiClawRight;
     CRServoControllerEx intake;
     LimelightEx camera;
     //DCMotorControllerEx armExtenderMotor;
@@ -38,6 +38,9 @@ public class CobraManual extends LinearOpMode {
         armExtenderMotorLeft = new DCMotorControllerEx(hardwareMap, telemetry, sysConfig.ARM_EXTENDER_LEFT);
         armExtenderMotorRight = new DCMotorControllerEx(hardwareMap, telemetry, sysConfig.ARM_EXTENDER_RIGHT);
         claw = new ServoMotorControllerEx(hardwareMap, telemetry, sysConfig.CLAW_MOTOR);
+        flexiClawLeft = new ServoMotorControllerEx(hardwareMap, telemetry, sysConfig.FLEXI_CLAW_MOTOR_L);
+        flexiClawRight = new ServoMotorControllerEx(hardwareMap, telemetry, sysConfig.FLEXI_CLAW_MOTOR_R);
+
         intake = new CRServoControllerEx(hardwareMap, telemetry, sysConfig.INTAKE);
        // camera = new LimelightEx(hardwareMap, telemetry, sysConfig.CAMERA);
     }
@@ -79,8 +82,16 @@ public class CobraManual extends LinearOpMode {
         //claw.handlePresets(gamepad2.a, false, false);
         armExtenderMotorLeft.handleEvents(-gamepad2.right_stick_y);
         armExtenderMotorRight.handleEvents(-gamepad2.right_stick_y);
-        claw.handleEvents(gamepad2.dpad_down, gamepad2.dpad_up);
-        claw.handlePresets(gamepad2.a, false, false);
+
+        flexiClawLeft.handleEvents(gamepad2.dpad_down, gamepad2.dpad_up);
+        flexiClawRight.handleEvents(gamepad2.dpad_down, gamepad2.dpad_up);
+
+        claw.handleEvents(gamepad1.dpad_down, gamepad1.dpad_up);
+        claw.handlePresets(gamepad1.a, false, false);
+
+
+
+
         intake.handlePresets(gamepad2.right_bumper, gamepad2.left_bumper);
       //  camera.handleEvents(gamepad1.dpad_left, gamepad1.dpad_right);
 

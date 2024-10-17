@@ -78,10 +78,26 @@ public class SystemConfig {
     // Servo
     public static DCMotorConfig CLAW_MOTOR = new DCMotorConfig(
             "claw",
-            0.3,
-            0.3,
-            0.84,
+            0.04,
+            0.04,
+            0.78,
             0.001,
+            DCMotorConfig.MotorDirection.FORWARD,
+            5,
+            5,
+            0.25,
+            0.5,
+            0.5
+    );
+
+
+    // Servo
+    public static DCMotorConfig FLEXI_CLAW_MOTOR_L = new DCMotorConfig(
+            "flexiClawLeft",
+            0.7,
+            0.2,
+            0.85,
+            0.005,
             DCMotorConfig.MotorDirection.FORWARD,
             10,
             10,
@@ -89,6 +105,22 @@ public class SystemConfig {
             0.5,
             0.5
     );
+
+    // Servo
+    public static DCMotorConfig FLEXI_CLAW_MOTOR_R = new DCMotorConfig(
+            "flexiClawRight",
+            0.7,
+            0.2,
+            0.85,
+            0.005,
+            DCMotorConfig.MotorDirection.REVERSE,
+            10,
+            10,
+            0.25,
+            0.5,
+            0.5
+    );
+
 
     // CrServo
     public static CRServoConfig INTAKE = new CRServoConfig(
