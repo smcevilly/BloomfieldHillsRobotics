@@ -48,40 +48,29 @@ public class DCMotorControllerEx {
             encoder.setDirection(DcMotorSimple.Direction.REVERSE);
         }
 
+       // resetEncoders();
+        // This will tell us the motors position on the drive hub. Anytime anything says telemtry.addData it is to send things to d the driver hub.
 
-
+        resetEncoders();
+        motor.setPower(motorConfig.power);
+        motor.setVelocity(motorConfig.velocity);
+        motorConfig.startPosition = motor.getCurrentPosition();
+        motor.setTargetPosition((int) Math.round(Range.clip(motorConfig.startPosition, motorConfig.minPosition, motorConfig.maxPosition)));
         motor.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
 
-        telemetry.addData("Motor ", motorConfig.motorName, " Initialized with Position, Velocity : ", motor.getCurrentPosition()+","+motor.getVelocity());
-        // This will tell us the motors position on the drive hub. Anytime anything says telemtry.addData it is to send things to d the driver hub.
-        motor.setTargetPosition((int) Math.round(Range.clip(motorConfig.startPosition, motorConfig.minPosition, motorConfig.maxPosition)));
+        telemetry.addData("DC Motor : ", motorConfig.motorName.toString() + " Initialized with Position, Velocity : " + motor.getCurrentPosition()+","+motor.getVelocity());
 
     }
 
     public void handleEvents (float moveKey) {
 
+        if (moveKey!=0) {
             int motorposition = motor.getCurrentPosition();
-            telemetry.addData("motor ", "position=" + motor.getCurrentPosition() + "  target=" + motorposition);
-
-            if (moveKey == 1 && motorposition < motorConfig.maxPosition) {
-                // Gamepad controls and arm movement.
-
-                motorposition = motorposition + (int)motorConfig.steps;
-                // This isi how much to move the arm so we will move it 15 steps if you click the button on the controller.
-
-
-            } else if (moveKey == -1 && motorposition > motorConfig.maxPosition) {
-                // Same thing as above it is just for moving the arm down instead of up.
-
-                motorposition = motorposition - (int)motorConfig.steps;
-                // Same thing as above it is just for moving the arm down instead of up.
-            }
-            motor.setPower(motorConfig.power);
-            // We are setting how much power the number is set on code line 18
+            motorposition = (int) Range.clip(motorposition +  (motorConfig.steps * moveKey), motorConfig.minPosition, motorConfig.maxPosition);
             motor.setTargetPosition(motorposition);
-            // This is our arm position target
-            telemetry.addData("Motor ", "position=" + motor.getCurrentPosition() + "  target=" + motorposition);
-            // Displaying things on the driver hub.
+            telemetry.addData("DC Motor : ", motorConfig.motorName.toString() + " position=" + motor.getCurrentPosition() + "  target=" + motorposition);
+        }
+
     }
 
     public void handlePresets (boolean preset1Trigerred, boolean preset2Triggerred, boolean preset3Triggerred ) {
@@ -94,6 +83,10 @@ public class DCMotorControllerEx {
 
         if (preset3Triggerred)
             motor.setTargetPosition((int)motorConfig.preset3);
+
+        if (preset1Trigerred || preset2Triggerred || preset3Triggerred) {
+            telemetry.addData("DCMotor : ", motorConfig.motorName.toString() + "Postion : " + motor.getCurrentPosition());
+        }
 
     }
 

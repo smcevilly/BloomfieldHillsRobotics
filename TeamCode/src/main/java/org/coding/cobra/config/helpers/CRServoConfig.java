@@ -1,4 +1,4 @@
-package org.coding.cobra.config;
+package org.coding.cobra.config.helpers;
 
 public class CRServoConfig {
 

@@ -2,6 +2,7 @@ package org.coding.cobra.config;
 
 import com.acmerobotics.roadrunner.Pose2d;
 
+import org.coding.cobra.config.helpers.CRServoConfig;
 import org.coding.cobra.config.helpers.DCMotorConfig;
 
 /**
@@ -19,10 +20,11 @@ public class SystemConfig {
     public static DCMotorConfig ARM_EXTENDER_LEFT = new DCMotorConfig(
             "leftExtender",
             0,
-            100,
-            1000,
-            15,
+            0,
+            2500,
+            500,
             DCMotorConfig.MotorDirection.FORWARD,
+            1,
             1,
             200,
             300,
@@ -34,10 +36,11 @@ public class SystemConfig {
     public static DCMotorConfig ARM_EXTENDER_RIGHT = new DCMotorConfig(
             "rightExtender",
             0,
-            100,
-            1000,
-            15,
-            DCMotorConfig.MotorDirection.FORWARD,
+            0,
+            2500,
+            500,
+            DCMotorConfig.MotorDirection.REVERSE,
+            1,
             1,
             200,
             300,
@@ -48,9 +51,10 @@ public class SystemConfig {
             "leftElevator",
             0,
             0,
-            1000,
-            15,
-            DCMotorConfig.MotorDirection.FORWARD,
+            5600,
+            500,
+            DCMotorConfig.MotorDirection.REVERSE,
+            1,
             1,
             500,
             800,
@@ -61,9 +65,10 @@ public class SystemConfig {
             "rightElevator",
             0,
             0,
-            1000,
-            15,
+            5600,
+            500 ,
             DCMotorConfig.MotorDirection.FORWARD,
+            1,
             1,
             500,
             800,
@@ -71,22 +76,55 @@ public class SystemConfig {
     );
 
     // Servo
-    public static DCMotorConfig CLAW_MOTOR = new DCMotorConfig(
-            "Claw",
-            0,
-            0,
+    public static DCMotorConfig CLAW_ROTATOR = new DCMotorConfig(
+            "clawRotator",
             1,
-            0.55,
+            0.04,
+            1,
+            0.001,
             DCMotorConfig.MotorDirection.FORWARD,
-            1,
+            5,
+            5,
             0.25,
             0.5,
-            0.75
+            0.5
     );
+
+
+    // Servo
+    public static DCMotorConfig FLEXI_CLAW_MOTOR_L = new DCMotorConfig(
+            "flexiClawLeft",
+            0.7,
+            0.42,
+            0.85,
+            0.001,
+            DCMotorConfig.MotorDirection.FORWARD,
+            10,
+            10,
+            0.25,
+            0.5,
+            0.5
+    );
+
+    // Servo
+    public static DCMotorConfig FLEXI_CLAW_MOTOR_R = new DCMotorConfig(
+            "flexiClawRight",
+            0.7,
+            0.42,
+            0.85,
+            0.001,
+            DCMotorConfig.MotorDirection.REVERSE,
+            10,
+            10,
+            0.25,
+            0.5,
+            0.5
+    );
+
 
     // CrServo
     public static CRServoConfig INTAKE = new CRServoConfig(
-            "Intake",
+            "intake",
             1,
             1,
             -1
@@ -95,13 +133,6 @@ public class SystemConfig {
     public static LimelightConfig CAMERA = new LimelightConfig(
             "limelight"
     );
-
-
-
-
-
-
-
 
 
 }

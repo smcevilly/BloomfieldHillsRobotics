@@ -1,11 +1,9 @@
 package org.coding.cobra.ext;
 
 import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.CRServoImplEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.util.Range;
 
-import org.coding.cobra.config.CRServoConfig;
+import org.coding.cobra.config.helpers.CRServoConfig;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 /**
@@ -27,16 +25,24 @@ public class CRServoControllerEx {
     }
 
     public void init () {
-        crServo = hardwareMap.get(CRServo.class, crConfig.crServoName);
+        crServo = hardwareMap.crservo.get(crConfig.crServoName);
         crServo.setPower(0);
     }
 
     public void handlePresets (boolean preset1Trigerred, boolean preset2Triggerred) {
 
-        if (preset1Trigerred)
-            crServo.setPower(crConfig.power * (int)crConfig.preset1);
+        if (preset1Trigerred) {
+            crServo.setPower(crConfig.power * (int) crConfig.preset1);
+            telemetry.addData("CRServo ", crConfig.crServoName.toString() + " activated at power " + crConfig.power * (int) crConfig.preset1);
+        }
+        if (preset2Triggerred) {
+            crServo.setPower(crConfig.power * (int) crConfig.preset2);
+            telemetry.addData("CRServo ", crConfig.crServoName.toString() + " activated at power " + crConfig.power * (int) crConfig.preset2);
+        }
+        else {
+            crServo.setPower(0);
+        }
 
-        if (preset2Triggerred)
-            crServo.setPower(crConfig.power * (int)crConfig.preset2);
+
     }
 }
