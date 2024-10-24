@@ -19,9 +19,8 @@ public class CobraManual extends LinearOpMode {
     DCMotorControllerEx armExtenderMotorLeft;
     DCMotorControllerEx armExtenderMotorRight;
 
-    ServoMotorControllerEx claw, flexiClawLeft, flexiClawRight;
-    CRServoControllerEx intake;
-    LimelightEx camera;
+    ServoMotorControllerEx clawRotator, flexiClawLeft, flexiClawRight;
+    LimelightEx cameclaw,ra;
     //DCMotorControllerEx armExtenderMotor;
     //ServoMotorControllerEx claw;
     DCMotorControllerEx leftElevator;
@@ -29,6 +28,7 @@ public class CobraManual extends LinearOpMode {
 
 
     public void initialize () {
+
         mecanumDrive = new MecanumDriveEx(hardwareMap, telemetry, sysConfig.ROBOT_START_POSITION);
         leftElevator = new DCMotorControllerEx(hardwareMap, telemetry, sysConfig.Left_Elevator);
         rightElevator = new DCMotorControllerEx(hardwareMap, telemetry, sysConfig.Right_Elevator);
@@ -37,11 +37,10 @@ public class CobraManual extends LinearOpMode {
         //claw = new ServoMotorControllerEx(hardwareMap, telemetry, sysConfig.CLAW_MOTOR);
         armExtenderMotorLeft = new DCMotorControllerEx(hardwareMap, telemetry, sysConfig.ARM_EXTENDER_LEFT);
         armExtenderMotorRight = new DCMotorControllerEx(hardwareMap, telemetry, sysConfig.ARM_EXTENDER_RIGHT);
-        claw = new ServoMotorControllerEx(hardwareMap, telemetry, sysConfig.CLAW_MOTOR);
+        clawRotator = new ServoMotorControllerEx(hardwareMap, telemetry, sysConfig.CLAW_ROTATOR);
         flexiClawLeft = new ServoMotorControllerEx(hardwareMap, telemetry, sysConfig.FLEXI_CLAW_MOTOR_L);
         flexiClawRight = new ServoMotorControllerEx(hardwareMap, telemetry, sysConfig.FLEXI_CLAW_MOTOR_R);
 
-        intake = new CRServoControllerEx(hardwareMap, telemetry, sysConfig.INTAKE);
        // camera = new LimelightEx(hardwareMap, telemetry, sysConfig.CAMERA);
     }
 
@@ -83,17 +82,12 @@ public class CobraManual extends LinearOpMode {
         armExtenderMotorLeft.handleEvents(-gamepad2.right_stick_y);
         armExtenderMotorRight.handleEvents(-gamepad2.right_stick_y);
 
-        flexiClawLeft.handleEvents(gamepad2.dpad_down, gamepad2.dpad_up);
-        flexiClawRight.handleEvents(gamepad2.dpad_down, gamepad2.dpad_up);
+        flexiClawLeft.handleEvents(gamepad2.dpad_left, gamepad2.dpad_right);
+        flexiClawRight.handleEvents(gamepad2.dpad_left, gamepad2.dpad_right);
+        clawRotator.handleEvents(gamepad2.dpad_up, gamepad2.dpad_down);
+        clawRotator.handlePresets(gamepad2.a, false, false);
 
-        claw.handleEvents(gamepad1.dpad_down, gamepad1.dpad_up);
-        claw.handlePresets(gamepad1.a, false, false);
-
-
-
-
-        intake.handlePresets(gamepad2.right_bumper, gamepad2.left_bumper);
-      //  camera.handleEvents(gamepad1.dpad_left, gamepad1.dpad_right);
+     //  camera.handleEvents(gamepad1.dpad_left, gamepad1.dpad_right);
 
     }
 
