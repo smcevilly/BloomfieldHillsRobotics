@@ -35,6 +35,19 @@ public class LimelightEx {
         telemetry.addData("Limelight", "Initialized");
         telemetry.update();
     }
+
+
+    public Pose3D getRobotPosition () {
+
+        LLResult result = camera.getLatestResult();
+        if (result != null) {
+            if (result.isValid()) {
+                return result.getBotpose();
+            }
+        }
+        return null;
+    }
+
     public void getResults() {
         LLResult result = camera.getLatestResult();
         if (result != null) {
