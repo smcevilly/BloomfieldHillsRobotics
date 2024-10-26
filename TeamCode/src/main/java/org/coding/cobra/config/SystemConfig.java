@@ -35,29 +35,29 @@ public class SystemConfig {
 
     public static DCMotorConfig Left_Elevator = new DCMotorConfig(
             "leftElevator",
-            0,
-            800,
-            5800,
+            529,
+            529,
+            5700,
             500,
             DCMotorConfig.MotorDirection.REVERSE,
             1,
             1,
-            800,
-            5800,
+            529,
+            5700,
             3000
     );
 
     public static DCMotorConfig Right_Elevator = new DCMotorConfig(
             "rightElevator",
-            0,
-            800,
-            5800,
+            529,
+            529,
+            5700,
             500 ,
             DCMotorConfig.MotorDirection.FORWARD,
             1,
             1,
-            800,
-            5800,
+            529,
+            5700,
             900
     );
 
@@ -71,8 +71,8 @@ public class SystemConfig {
             DCMotorConfig.MotorDirection.FORWARD,
             5,
             5,
-            0.85,
-            0.42,
+            0.5,
+            0.075,
             0.5
     );
 
@@ -87,8 +87,8 @@ public class SystemConfig {
             DCMotorConfig.MotorDirection.FORWARD,
             10,
             10,
-            0.75,   // open
-            0.55,           // hold
+            0.84,   // open
+            0.4,           // hold
             0.75
     );
 
@@ -102,8 +102,8 @@ public class SystemConfig {
             DCMotorConfig.MotorDirection.REVERSE,
             10,
             10,
-            0.75,   // open
-            0.55,           // hold
+            0.84,   // open
+            0.4,           // hold
             0.75
     );
 

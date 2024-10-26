@@ -25,7 +25,7 @@ public class CobraAuto extends CobraBase  {
         int visionOutputPosition = 1;
 
         TrajectoryActionBuilder tab1 = mecanumDrive.actionBuilder(SystemConfig.ROBOT_START_POSITION)
-                .lineToYSplineHeading(33, Math.toRadians(0))
+            //    .lineToYSplineHeading(33, Math.toRadians(0))
                 .waitSeconds(2)
                 .setTangent(Math.toRadians(90))
                 .lineToY(48)
