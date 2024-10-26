@@ -11,38 +11,7 @@ import org.coding.cobra.ext.MecanumDriveEx;
 import org.coding.cobra.ext.ServoMotorControllerEx;
 
 @TeleOp(name = "Manual Cobra")
-public class CobraManual extends LinearOpMode {
-
-    SystemConfig sysConfig = new SystemConfig();
-
-    MecanumDriveEx mecanumDrive;
-    DCMotorControllerEx armExtenderMotorLeft;
-    DCMotorControllerEx armExtenderMotorRight;
-
-    ServoMotorControllerEx clawRotator, flexiClawLeft, flexiClawRight;
-    LimelightEx cameclaw,ra;
-    //DCMotorControllerEx armExtenderMotor;
-    //ServoMotorControllerEx claw;
-    DCMotorControllerEx leftElevator;
-    DCMotorControllerEx rightElevator;
-
-
-    public void initialize () {
-
-        mecanumDrive = new MecanumDriveEx(hardwareMap, telemetry, sysConfig.ROBOT_START_POSITION);
-        leftElevator = new DCMotorControllerEx(hardwareMap, telemetry, sysConfig.Left_Elevator);
-        rightElevator = new DCMotorControllerEx(hardwareMap, telemetry, sysConfig.Right_Elevator);
-        //leftElevator.resetEncoders();
-        //rightElevator.resetEncoders();
-        //claw = new ServoMotorControllerEx(hardwareMap, telemetry, sysConfig.CLAW_MOTOR);
-        armExtenderMotorLeft = new DCMotorControllerEx(hardwareMap, telemetry, sysConfig.ARM_EXTENDER_LEFT);
-        armExtenderMotorRight = new DCMotorControllerEx(hardwareMap, telemetry, sysConfig.ARM_EXTENDER_RIGHT);
-        clawRotator = new ServoMotorControllerEx(hardwareMap, telemetry, sysConfig.CLAW_ROTATOR);
-        flexiClawLeft = new ServoMotorControllerEx(hardwareMap, telemetry, sysConfig.FLEXI_CLAW_MOTOR_L);
-        flexiClawRight = new ServoMotorControllerEx(hardwareMap, telemetry, sysConfig.FLEXI_CLAW_MOTOR_R);
-
-       // camera = new LimelightEx(hardwareMap, telemetry, sysConfig.CAMERA);
-    }
+public class CobraManual extends CobraBase {
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -79,7 +48,6 @@ public class CobraManual extends LinearOpMode {
         rightElevator.handleEvents(-gamepad2.left_stick_y);
         //claw.handleEvents(gamepad2.dpad_up, gamepad2.dpad_down);
         //claw.handlePresets(gamepad2.a, false, false);
-        armExtenderMotorLeft.handleEvents(-gamepad2.right_stick_y);
         armExtenderMotorRight.handleEvents(-gamepad2.right_stick_y);
 
         flexiClawLeft.handleEvents(gamepad2.dpad_left, gamepad2.dpad_right);
@@ -94,7 +62,6 @@ public class CobraManual extends LinearOpMode {
     public void resetRobot () {
         telemetry.addData("wait", "all encoders are getting reset");
         armExtenderMotorRight.resetEncoders();
-        armExtenderMotorLeft.resetEncoders();
         rightElevator.resetEncoders();
         leftElevator.resetEncoders();
     }

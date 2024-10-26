@@ -17,19 +17,6 @@ public class SystemConfig {
     public static final double DRIVE_POWER_FACTOR = 1;
 
     // DCMotor
-    public static DCMotorConfig ARM_EXTENDER_LEFT = new DCMotorConfig(
-            "leftExtender",
-            0,
-            0,
-            2500,
-            500,
-            DCMotorConfig.MotorDirection.FORWARD,
-            1,
-            1,
-            200,
-            300,
-            400
-    );
 
 
     // DCMotor
@@ -56,9 +43,9 @@ public class SystemConfig {
             DCMotorConfig.MotorDirection.REVERSE,
             1,
             1,
-            500,
-            800,
-            900
+            1000,
+            2000,
+            3000
     );
 
     public static DCMotorConfig Right_Elevator = new DCMotorConfig(

@@ -1,5 +1,9 @@
 package org.coding.cobra.ext;
 
+import androidx.annotation.NonNull;
+
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.ftc.Encoder;
 import com.acmerobotics.roadrunner.ftc.OverflowEncoder;
 import com.acmerobotics.roadrunner.ftc.RawEncoder;
@@ -9,6 +13,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
 
+import org.coding.cobra.CobraAuto;
 import org.coding.cobra.config.helpers.DCMotorConfig;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.MecanumDrive;
@@ -73,6 +78,11 @@ public class DCMotorControllerEx {
 
     }
 
+    public void handlePresets (int presetNumber) {
+
+        handlePresets (presetNumber==0, presetNumber==1, presetNumber==2);
+    }
+
     public void handlePresets (boolean preset1Trigerred, boolean preset2Triggerred, boolean preset3Triggerred ) {
 
         if (preset1Trigerred)
@@ -93,4 +103,9 @@ public class DCMotorControllerEx {
     public void resetEncoders () {
         motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
+
+    public DcMotorEx getRawMotor () {
+        return motor;
+    }
+
 }
