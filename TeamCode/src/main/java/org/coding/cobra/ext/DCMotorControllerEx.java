@@ -85,18 +85,21 @@ public class DCMotorControllerEx {
 
     public void handlePresets (boolean preset1Trigerred, boolean preset2Triggerred, boolean preset3Triggerred ) {
 
-        if (preset1Trigerred)
-            motor.setTargetPosition((int)motorConfig.preset1);
-
-        if (preset2Triggerred)
-            motor.setTargetPosition((int)motorConfig.preset2);
-
-        if (preset3Triggerred)
-            motor.setTargetPosition((int)motorConfig.preset3);
-
         if (preset1Trigerred || preset2Triggerred || preset3Triggerred) {
             telemetry.addData("DCMotor : ", motorConfig.motorName.toString() + "Postion : " + motor.getCurrentPosition());
+
+            if (preset1Trigerred)
+                motor.setTargetPosition((int)motorConfig.preset1);
+
+            if (preset2Triggerred)
+                motor.setTargetPosition((int)motorConfig.preset2);
+
+            if (preset3Triggerred)
+                motor.setTargetPosition((int)motorConfig.preset3);
+
         }
+
+
 
     }
 

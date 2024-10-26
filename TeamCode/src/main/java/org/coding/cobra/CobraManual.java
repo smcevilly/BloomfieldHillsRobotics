@@ -53,7 +53,12 @@ public class CobraManual extends CobraBase {
         flexiClawLeft.handleEvents(gamepad2.dpad_left, gamepad2.dpad_right);
         flexiClawRight.handleEvents(gamepad2.dpad_left, gamepad2.dpad_right);
         clawRotator.handleEvents(gamepad2.dpad_up, gamepad2.dpad_down);
-        clawRotator.handlePresets(gamepad2.a, false, false);
+
+
+        // presets
+        clawRotator.handlePresets(gamepad2.x, gamepad2.b, false);
+        leftElevator.handlePresets(gamepad2.y, gamepad2.a, false);
+        rightElevator.handlePresets(gamepad2.y, gamepad2.a, false);
 
      //  camera.handleEvents(gamepad1.dpad_left, gamepad1.dpad_right);
 
