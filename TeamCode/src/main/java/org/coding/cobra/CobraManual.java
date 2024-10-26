@@ -48,7 +48,7 @@ public class CobraManual extends CobraBase {
         rightElevator.handleEvents(-gamepad2.left_stick_y);
         //claw.handleEvents(gamepad2.dpad_up, gamepad2.dpad_down);
         //claw.handlePresets(gamepad2.a, false, false);
-        armExtenderMotorRight.handleEvents(-gamepad2.right_stick_y);
+        armExtenderMotor.handleEvents(-gamepad2.right_stick_y);
 
         flexiClawLeft.handleEvents(gamepad2.dpad_left, gamepad2.dpad_right);
         flexiClawRight.handleEvents(gamepad2.dpad_left, gamepad2.dpad_right);
@@ -66,7 +66,7 @@ public class CobraManual extends CobraBase {
 
     public void resetRobot () {
         telemetry.addData("wait", "all encoders are getting reset");
-        armExtenderMotorRight.resetEncoders();
+        armExtenderMotor.resetEncoders();
         rightElevator.resetEncoders();
         leftElevator.resetEncoders();
     }

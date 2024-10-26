@@ -31,6 +31,7 @@ public class DCMotorControllerEx {
     DCMotorConfig motorConfig;
     Encoder encoder;
 
+    int debounceCount;
 
     public DCMotorControllerEx(HardwareMap hardwareMap, Telemetry telemetryObject, DCMotorConfig motorConfig) {
         this.hardwareMap = hardwareMap;
@@ -73,7 +74,11 @@ public class DCMotorControllerEx {
             int motorposition = motor.getCurrentPosition();
             motorposition = (int) Range.clip(motorposition +  (motorConfig.steps * moveKey), motorConfig.minPosition, motorConfig.maxPosition);
             motor.setTargetPosition(motorposition);
-            telemetry.addData("DC Motor : ", motorConfig.motorName.toString() + " position=" + motor.getCurrentPosition() + "  target=" + motorposition);
+            telemetry.addData("DC Motor : ", motorConfig.motorName.toString() + " debounce = " + debounceCount + " position=" + motor.getCurrentPosition() + "  target=" + motorposition);
+            debounceCount++;
+        }
+        else {
+            debounceCount = 0;
         }
 
     }

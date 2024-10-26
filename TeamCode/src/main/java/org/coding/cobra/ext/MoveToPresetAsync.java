@@ -9,12 +9,29 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 public class MoveToPresetAsync implements Action {
         private boolean initialized = false;
 
-        DCMotorControllerEx motorController;
-        int preset;
-        public MoveToPresetAsync (DCMotorControllerEx motorController, int preset) {
-            this.motorController = motorController;
-            this.preset = preset;
+        DCMotorControllerEx motorController1;
+        DCMotorControllerEx motorController2;
+
+
+        int motor1Preset;
+        int motor2Preset;
+
+
+        public MoveToPresetAsync (DCMotorControllerEx motorController1, DCMotorControllerEx motorController2, int motor1Preset, int motor2Preset) {
+            this.motorController1 = motorController1;
+            this.motorController2 = motorController2;
+
+            this.motor1Preset = motor1Preset;
+            this.motor2Preset = motor2Preset;
         }
+
+    public MoveToPresetAsync (DCMotorControllerEx motorController1, int motor1Preset) {
+        this.motorController1 = motorController1;
+        motorController2 = null;
+
+        this.motor1Preset = motor1Preset;
+        this.motor2Preset = -1;
+    }
 
         @Override
         public boolean run(@NonNull TelemetryPacket packet) {
@@ -23,7 +40,12 @@ public class MoveToPresetAsync implements Action {
                 //initialized = true;
             }
 
-            motorController.handlePresets(preset);
+            motorController1.handlePresets(motor1Preset);
+
+            if (motorController2!=null) {
+                motorController2.handlePresets(motor2Preset);
+            }
+
             return false;
             /**
 

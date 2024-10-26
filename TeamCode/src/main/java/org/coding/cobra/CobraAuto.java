@@ -1,7 +1,6 @@
 package org.coding.cobra;
-import androidx.annotation.NonNull;
+
 import com.acmerobotics.dashboard.config.Config;
-import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
@@ -10,24 +9,12 @@ import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-import org.coding.cobra.config.SystemConfig;
-import org.coding.cobra.ext.DCMotorControllerEx;
-import org.coding.cobra.ext.LimelightEx;
-import org.coding.cobra.ext.MecanumDriveEx;
 import org.coding.cobra.ext.MoveToPresetAsync;
-import org.coding.cobra.ext.ServoMotorControllerEx;
 import org.firstinspires.ftc.teamcode.MecanumDrive;
 
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.Servo;
-
 @Config
-@Autonomous(name = "CobraAutos", group = "Autonomous")
+@Autonomous(name = "CobraAuto", group = "Autonomous")
 public class CobraAuto extends CobraBase  {
 
 
@@ -72,7 +59,8 @@ public class CobraAuto extends CobraBase  {
 
         // actions that need to happen on init; for instance, a claw tightening.
         //Actions.runBlocking(claw.closeClaw());
-
+        flexiClawLeft.handlePresets(false, true, false);
+        flexiClawRight.handlePresets(false, true, false);
 
         while (!isStopRequested() && !opModeIsActive()) {
             int position = visionOutputPosition;
@@ -99,11 +87,28 @@ public class CobraAuto extends CobraBase  {
         Actions.runBlocking(
                 new ParallelAction(
                         trajectoryActionChosen,
-                        new MoveToPresetAsync(armExtenderMotorRight, 2)
+                        new MoveToPresetAsync(armExtenderMotor, 2)
                         //lift.liftUp(),
                         //claw.openClaw(),
                         //lift.liftDown()
                 )
         );
+
+        Actions.runBlocking(
+                new SequentialAction(
+                        new MoveToPresetAsync(leftElevator, rightElevator, 2, 2),
+                        new MoveToPresetAsync(armExtenderMotor, 2)
+                        //lift.liftUp(),
+                        //claw.openClaw(),
+                        //lift.liftDown()
+                )
+        );
+
+        flexiClawLeft.handlePresets(true, false, false);
+        flexiClawRight.handlePresets(true, false, false);
+
+        // Return to home
+
+
     }
 }
