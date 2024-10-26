@@ -23,6 +23,8 @@ public class MecanumDriveConfig {
     public RevHubOrientationOnRobot.UsbFacingDirection usbFacingDirection =
             RevHubOrientationOnRobot.UsbFacingDirection.LEFT;
 
+    public  double maxMotorPower = 2;
+
     // drive model parameters
     public double inPerTick = 0.002;        //25153 ticks for 50 in
     public double lateralInPerTick = 0.001809123720750175;

@@ -35,8 +35,8 @@ public class SystemConfig {
     // DCMotor
     public static DCMotorConfig ARM_EXTENDER_RIGHT = new DCMotorConfig(
             "rightExtender",
-            0,
-            0,
+            31,
+            31,
             2500,
             500,
             DCMotorConfig.MotorDirection.REVERSE,
@@ -49,30 +49,30 @@ public class SystemConfig {
 
     public static DCMotorConfig Left_Elevator = new DCMotorConfig(
             "leftElevator",
+            889,
             0,
-            0,
-            5600,
-            500,
+            5800,
+            300,
             DCMotorConfig.MotorDirection.REVERSE,
             1,
             1,
-            500,
-            800,
-            900
+            889,
+            5800,
+            0
     );
 
     public static DCMotorConfig Right_Elevator = new DCMotorConfig(
             "rightElevator",
+            889,
             0,
-            0,
-            5600,
-            500 ,
+            5800,
+            300 ,
             DCMotorConfig.MotorDirection.FORWARD,
             1,
             1,
-            500,
-            800,
-            900
+            889,
+            5800,
+            2000
     );
 
     // Servo
@@ -85,8 +85,8 @@ public class SystemConfig {
             DCMotorConfig.MotorDirection.FORWARD,
             5,
             5,
-            0.25,
-            0.5,
+            0.5, // pickup - facing down
+            0.085,        // drive - facing front
             0.5
     );
 
