@@ -69,8 +69,8 @@ public class CobraAuto extends CobraBase  {
 
         Actions.runBlocking(
                 new ParallelAction(
-                        trajectoryActionChosen,
-                        new MoveToPresetAsync(armExtenderMotor, 2)
+                        trajectoryActionChosen//,
+                        //new MoveToPresetAsync(armExtenderMotor, 2)
                         //lift.liftUp(),
                         //claw.openClaw(),
                         //lift.liftDown()
@@ -82,7 +82,7 @@ public class CobraAuto extends CobraBase  {
 
         Actions.runBlocking(
                 new SequentialAction(
-                        new MoveToPresetAsync(leftElevator, rightElevator, 2, 2),
+                        new MoveToPresetAsync(leftElevator, rightElevator, 1, 1),
                         new MoveToPresetAsync(armExtenderMotor, 2)
                         //lift.liftUp(),
                         //claw.openClaw(),
