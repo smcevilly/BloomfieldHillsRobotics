@@ -2,11 +2,13 @@ package org.coding.cobra;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.coding.cobra.config.LimelightConfig;
 import org.coding.cobra.config.SystemConfig;
 import org.coding.cobra.ext.DCMotorControllerEx;
 import org.coding.cobra.ext.LimelightEx;
 import org.coding.cobra.ext.MecanumDriveEx;
 import org.coding.cobra.ext.ServoMotorControllerEx;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public  abstract class CobraBase extends LinearOpMode {
 
@@ -16,11 +18,12 @@ public  abstract class CobraBase extends LinearOpMode {
     DCMotorControllerEx armExtenderMotor;
 
     ServoMotorControllerEx clawRotator, flexiClawLeft, flexiClawRight;
-    LimelightEx cameclaw,ra;
+    LimelightEx camera;
     //DCMotorControllerEx armExtenderMotor;
     //ServoMotorControllerEx claw;
     DCMotorControllerEx leftElevator;
     DCMotorControllerEx rightElevator;
+
 
     public void initialize () {
         mecanumDrive = new MecanumDriveEx(hardwareMap, telemetry, sysConfig.ROBOT_START_POSITION);
@@ -30,6 +33,8 @@ public  abstract class CobraBase extends LinearOpMode {
         clawRotator = new ServoMotorControllerEx(hardwareMap, telemetry, sysConfig.CLAW_ROTATOR);
         flexiClawLeft = new ServoMotorControllerEx(hardwareMap, telemetry, sysConfig.FLEXI_CLAW_MOTOR_L);
         flexiClawRight = new ServoMotorControllerEx(hardwareMap, telemetry, sysConfig.FLEXI_CLAW_MOTOR_R);
+        camera = new LimelightEx(hardwareMap, telemetry,  sysConfig.CAMERA);
+        camera.init();
     }
 
 }

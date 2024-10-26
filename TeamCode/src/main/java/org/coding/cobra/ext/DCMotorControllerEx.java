@@ -98,6 +98,7 @@ public class DCMotorControllerEx {
         if (preset1Trigerred || preset2Triggerred || preset3Triggerred) {
             telemetry.addData("DCMotor : ", motorConfig.motorName.toString() + "Postion : " + motor.getCurrentPosition());
 
+
             if (preset1Trigerred)
                 motor.setTargetPosition((int)motorConfig.preset0);
 
@@ -108,9 +109,14 @@ public class DCMotorControllerEx {
                 motor.setTargetPosition((int)motorConfig.preset2);
 
         }
+    }
 
-
-
+    public double [] getPresets () {
+        double [] presets = new double [3];
+        presets[0] = motorConfig.preset0;
+        presets[1] = motorConfig.preset1;
+        presets[2] = motorConfig.preset2;
+        return presets;
     }
 
     public void resetEncoders () {
@@ -119,6 +125,10 @@ public class DCMotorControllerEx {
 
     public DcMotorEx getRawMotor () {
         return motor;
+    }
+
+    public void shutdown () {
+        motor.setTargetPosition (0);
     }
 
 }

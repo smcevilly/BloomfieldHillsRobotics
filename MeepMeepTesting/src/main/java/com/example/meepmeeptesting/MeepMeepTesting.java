@@ -20,17 +20,15 @@ public class MeepMeepTesting {
         Pose2d ROBOT_START_POSITION = new Pose2d(11.8, 61.7, Math.toRadians(0));
 
 
-        myBot.runAction(myBot.getDrive().actionBuilder(ROBOT_START_POSITION)
-                .waitSeconds(2)
-                .setTangent(Math.toRadians(90))
-                .lineToY(50)
-                .setTangent(Math.toRadians(0))
-                .lineToX(15)
-                .strafeTo(new Vector2d(55, 60))
-                .turn(Math.toRadians(36))
-                //.lineToX(47.5)
-                .waitSeconds(3)
+        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(0.17, -62.33, Math.toRadians(90.00)))
+                .splineTo(new Vector2d(0.00, -43.83), Math.toRadians(90.52))
+                .splineTo(new Vector2d(-22.17, -47.67), Math.toRadians(189.81))
+                .splineTo(new Vector2d(-27.33, -62.00), Math.toRadians(250.18))
+                .splineTo(new Vector2d(-36.17, -69.17), Math.toRadians(219.05))
                         .build());
+
+
+
 
      /*   myBot.runAction(myBot.getDrive().actionBuilder(ROBOT_START_POSITION)
                // .lineToYSplineHeading(33, Math.toRadians(0))

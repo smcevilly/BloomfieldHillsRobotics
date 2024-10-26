@@ -41,26 +41,38 @@ public class MoveToPresetAsync implements Action {
             }
 
             motorController1.handlePresets(motor1Preset);
-
             if (motorController2!=null) {
                 motorController2.handlePresets(motor2Preset);
+
+                return motorController1.getRawMotor().isBusy() || motorController1.getRawMotor().isBusy();
+            }
+            else {
+                return motorController1.getRawMotor().isBusy();
             }
 
-            return false;
-            /**
 
-            DcMotorEx motor = motorController.getRawMotor();
-            double pos = motor.getCurrentPosition();
-            packet.put("motor position ", pos);
-            if (pos < 3000.0) {
-                // keep motor powered
-                return true;
-            } else {
-                // turn off motor
-                //lift.setPower(0);
-                return false;
-            }
-             **/
+            //return presetSynchronous(motorController1, motor1Preset) || presetSynchronous(motorController2, motor2Preset);
+        }
+
+        public boolean presetSynchronous (DCMotorControllerEx motorController, int motorPreset) {
+             DcMotorEx motor = motorController.getRawMotor();
+             double pos = motor.getCurrentPosition();
+             double targetPosition = 0;
+             double[] presets = motorController.getPresets();
+
+             if (pos < presets[motorPreset] ) {
+                 motor.setPower(0.75);
+                 return false;
+             }
+             else if (pos > presets[motorPreset] ) {
+                 motor.setPower(-0.75);
+                 return false;
+             }
+             else {
+                 // turn off motor
+                 motor.setPower(0);
+                 return true;
+             }
         }
 
 }

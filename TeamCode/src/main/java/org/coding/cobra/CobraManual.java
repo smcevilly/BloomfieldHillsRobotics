@@ -9,6 +9,7 @@ import org.coding.cobra.ext.DCMotorControllerEx;
 import org.coding.cobra.ext.LimelightEx;
 import org.coding.cobra.ext.MecanumDriveEx;
 import org.coding.cobra.ext.ServoMotorControllerEx;
+import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 
 @TeleOp(name = "Manual Cobra")
 public class CobraManual extends CobraBase {
@@ -35,9 +36,24 @@ public class CobraManual extends CobraBase {
                 Handle the events on gamepad
                  */
             handleGamepadEvents();
+
+            Pose3D botpose = camera.getRobotPosition();
+            if (botpose != null) {
+                telemetry.addData("Botpose ", botpose.toString());
+            }
+
             if (isStopRequested()) return;
             telemetry.update();
         }
+
+        // Bring to home position
+
+        //armExtenderMotor.shutdown();
+        //leftElevator.shutdown();
+        //rightElevator.shutdown();
+
+        //Thread.sleep(3000);
+
     }
 
 
