@@ -71,8 +71,12 @@ public class DCMotorControllerEx {
     public void handleEvents (float moveKey) {
 
         if (moveKey!=0) {
+            double adjustedSteps = motorConfig.steps;
+            if (debounceCount<10) {
+                 adjustedSteps /= 2;
+            }
             int motorposition = motor.getCurrentPosition();
-            motorposition = (int) Range.clip(motorposition +  (motorConfig.steps * moveKey), motorConfig.minPosition, motorConfig.maxPosition);
+            motorposition = (int) Range.clip(motorposition +  (adjustedSteps * moveKey), motorConfig.minPosition, motorConfig.maxPosition);
             motor.setTargetPosition(motorposition);
             telemetry.addData("DC Motor : ", motorConfig.motorName.toString() + " debounce = " + debounceCount + " position=" + motor.getCurrentPosition() + "  target=" + motorposition);
             debounceCount++;

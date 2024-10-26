@@ -27,17 +27,17 @@ public class CobraAuto extends CobraBase  {
         TrajectoryActionBuilder tab1 = mecanumDrive.actionBuilder(SystemConfig.ROBOT_START_POSITION)
                 .waitSeconds(2)
                 .setTangent(Math.toRadians(90))
-                .lineToY(48)
+                .lineToY(58)
                 .setTangent(Math.toRadians(0))
-                .lineToX(32)
-                .strafeTo(new Vector2d(44.5, 30))
-                .turn(Math.toRadians(180))
-                .lineToX(47.5)
+                .lineToX(15)
+                .strafeTo(new Vector2d(55, 60))
+                .turn(Math.toRadians(36))
+                //.lineToX(47.5)
                 .waitSeconds(3);
 
 
         Action trajectoryActionCloseOut = tab1.fresh()
-                .strafeTo(new Vector2d(48, 12))
+              ///  .strafeTo(new Vector2d(48, 12))
                 .build();
 
         // actions that need to happen on init; for instance, a claw tightening.
@@ -80,10 +80,14 @@ public class CobraAuto extends CobraBase  {
         telemetry.addData("Lifting Action ",  mecanumDrive.pose);
         telemetry.update();
 
+        leftElevator.handlePresets(1);
+        rightElevator.handlePresets(1);
+        armExtenderMotor.handlePresets(1);
+
         Actions.runBlocking(
                 new SequentialAction(
-                        new MoveToPresetAsync(leftElevator, rightElevator, 1, 1),
-                        new MoveToPresetAsync(armExtenderMotor, 2)
+                        //new MoveToPresetAsync(leftElevator, rightElevator, 1, 1),
+                        //  new MoveToPresetAsync(armExtenderMotor, 1)
                         //lift.liftUp(),
                         //claw.openClaw(),
                         //lift.liftDown()
