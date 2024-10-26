@@ -12,8 +12,7 @@ import org.coding.cobra.config.helpers.DCMotorConfig;
 
 public class SystemConfig {
 
-    public static Pose2d ROBOT_START_POSITION = new Pose2d(0, 0, 0);
-
+    public static Pose2d ROBOT_START_POSITION = new Pose2d(11.8, 61.7, Math.toRadians(90));
     public static final double DRIVE_POWER_FACTOR = 1;
 
     // DCMotor

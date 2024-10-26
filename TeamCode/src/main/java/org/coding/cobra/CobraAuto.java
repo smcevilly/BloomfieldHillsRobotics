@@ -3,30 +3,28 @@ package org.coding.cobra;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.ParallelAction;
-import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+import org.coding.cobra.config.SystemConfig;
 import org.coding.cobra.ext.MoveToPresetAsync;
-import org.firstinspires.ftc.teamcode.MecanumDrive;
 
 @Config
 @Autonomous(name = "CobraAuto", group = "Autonomous")
 public class CobraAuto extends CobraBase  {
 
-
     @Override
     public void runOpMode() {
-        Pose2d initialPose = new Pose2d(11.8, 61.7, Math.toRadians(90));
-        MecanumDrive drive = new MecanumDrive(hardwareMap, initialPose);
+
+        initialize();
 
         // vision here that outputs position
         int visionOutputPosition = 1;
 
-        TrajectoryActionBuilder tab1 = drive.actionBuilder(initialPose)
+        TrajectoryActionBuilder tab1 = mecanumDrive.actionBuilder(SystemConfig.ROBOT_START_POSITION)
                 .lineToYSplineHeading(33, Math.toRadians(0))
                 .waitSeconds(2)
                 .setTangent(Math.toRadians(90))
@@ -38,7 +36,7 @@ public class CobraAuto extends CobraBase  {
                 .lineToX(47.5)
                 .waitSeconds(3);
 
-        TrajectoryActionBuilder tab2 = drive.actionBuilder(initialPose)
+        TrajectoryActionBuilder tab2 = mecanumDrive.actionBuilder(SystemConfig.ROBOT_START_POSITION)
                 .lineToY(37)
                 .setTangent(Math.toRadians(0))
                 .lineToX(18)
@@ -47,7 +45,7 @@ public class CobraAuto extends CobraBase  {
                 .lineToXSplineHeading(46, Math.toRadians(180))
                 .waitSeconds(3);
 
-        TrajectoryActionBuilder tab3 = drive.actionBuilder(initialPose)
+        TrajectoryActionBuilder tab3 = mecanumDrive.actionBuilder(SystemConfig.ROBOT_START_POSITION)
                 .lineToYSplineHeading(33, Math.toRadians(180))
                 .waitSeconds(2)
                 .strafeTo(new Vector2d(46, 30))
@@ -59,17 +57,20 @@ public class CobraAuto extends CobraBase  {
 
         // actions that need to happen on init; for instance, a claw tightening.
         //Actions.runBlocking(claw.closeClaw());
-        flexiClawLeft.handlePresets(false, true, false);
-        flexiClawRight.handlePresets(false, true, false);
 
         while (!isStopRequested() && !opModeIsActive()) {
             int position = visionOutputPosition;
-            telemetry.addData("Position during Init", position);
+            telemetry.addData("Initial Position : Holding the Object at position ", mecanumDrive.pose);
             telemetry.update();
+
+            // hold the initial object
+
+            flexiClawLeft.handlePresets(false, true, false);
+            flexiClawRight.handlePresets(false, true, false);
         }
 
         int startPosition = visionOutputPosition;
-        telemetry.addData("Starting Position", startPosition);
+        telemetry.addData("Determining the Move ",  mecanumDrive.pose);
         telemetry.update();
         waitForStart();
 
@@ -84,6 +85,9 @@ public class CobraAuto extends CobraBase  {
             trajectoryActionChosen = tab3.build();
         }
 
+        telemetry.addData("Moving the robot ",  mecanumDrive.pose);
+        telemetry.update();
+
         Actions.runBlocking(
                 new ParallelAction(
                         trajectoryActionChosen,
@@ -93,6 +97,9 @@ public class CobraAuto extends CobraBase  {
                         //lift.liftDown()
                 )
         );
+
+        telemetry.addData("Lifting Action ",  mecanumDrive.pose);
+        telemetry.update();
 
         Actions.runBlocking(
                 new SequentialAction(
@@ -104,11 +111,11 @@ public class CobraAuto extends CobraBase  {
                 )
         );
 
+        telemetry.addData("Dropping the object ",  mecanumDrive.pose);
+        telemetry.update();
+
         flexiClawLeft.handlePresets(true, false, false);
         flexiClawRight.handlePresets(true, false, false);
-
-        // Return to home
-
 
     }
 }
