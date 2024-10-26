@@ -65,13 +65,13 @@ public class ServoMotorControllerEx {
     public void handlePresets (boolean preset1Trigerred, boolean preset2Triggerred, boolean preset3Triggerred ) {
 
         if (preset1Trigerred)
-            motor.setPosition(motorConfig.preset1);
+            motor.setPosition(motorConfig.preset0);
 
         if (preset2Triggerred)
-            motor.setPosition(motorConfig.preset2);
+            motor.setPosition(motorConfig.preset1);
 
         if (preset3Triggerred)
-            motor.setPosition(motorConfig.preset3);
+            motor.setPosition(motorConfig.preset2);
 
         if (preset2Triggerred || preset1Trigerred || preset3Triggerred) {
             telemetry.addData("Servo : ", motorConfig.motorName + " Postion : " + motor.getPosition());

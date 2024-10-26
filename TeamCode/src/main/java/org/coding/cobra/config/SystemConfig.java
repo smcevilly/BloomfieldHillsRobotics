@@ -12,7 +12,7 @@ import org.coding.cobra.config.helpers.DCMotorConfig;
 
 public class SystemConfig {
 
-    public static Pose2d ROBOT_START_POSITION = new Pose2d(11.8, 61.7, Math.toRadians(90));
+    public static Pose2d ROBOT_START_POSITION = new Pose2d(11.8, 61.7, Math.toRadians(0));
     public static final double DRIVE_POWER_FACTOR = 1;
 
     // DCMotor
@@ -28,15 +28,15 @@ public class SystemConfig {
             DCMotorConfig.MotorDirection.REVERSE,
             1,
             1,
-            200,
-            300,
-            400
+            0,
+            1000,
+            2000
     );
 
     public static DCMotorConfig Left_Elevator = new DCMotorConfig(
             "leftElevator",
-            529,
-            529,
+            100,
+            100,
             5700,
             500,
             DCMotorConfig.MotorDirection.REVERSE,
@@ -49,8 +49,8 @@ public class SystemConfig {
 
     public static DCMotorConfig Right_Elevator = new DCMotorConfig(
             "rightElevator",
-            529,
-            529,
+            100,
+            100,
             5700,
             500 ,
             DCMotorConfig.MotorDirection.FORWARD,

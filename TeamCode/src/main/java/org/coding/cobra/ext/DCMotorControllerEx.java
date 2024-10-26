@@ -94,13 +94,13 @@ public class DCMotorControllerEx {
             telemetry.addData("DCMotor : ", motorConfig.motorName.toString() + "Postion : " + motor.getCurrentPosition());
 
             if (preset1Trigerred)
-                motor.setTargetPosition((int)motorConfig.preset1);
+                motor.setTargetPosition((int)motorConfig.preset0);
 
             if (preset2Triggerred)
-                motor.setTargetPosition((int)motorConfig.preset2);
+                motor.setTargetPosition((int)motorConfig.preset1);
 
             if (preset3Triggerred)
-                motor.setTargetPosition((int)motorConfig.preset3);
+                motor.setTargetPosition((int)motorConfig.preset2);
 
         }
 

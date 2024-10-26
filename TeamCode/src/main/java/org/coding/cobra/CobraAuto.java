@@ -25,7 +25,6 @@ public class CobraAuto extends CobraBase  {
         int visionOutputPosition = 1;
 
         TrajectoryActionBuilder tab1 = mecanumDrive.actionBuilder(SystemConfig.ROBOT_START_POSITION)
-            //    .lineToYSplineHeading(33, Math.toRadians(0))
                 .waitSeconds(2)
                 .setTangent(Math.toRadians(90))
                 .lineToY(48)
@@ -36,20 +35,6 @@ public class CobraAuto extends CobraBase  {
                 .lineToX(47.5)
                 .waitSeconds(3);
 
-        TrajectoryActionBuilder tab2 = mecanumDrive.actionBuilder(SystemConfig.ROBOT_START_POSITION)
-                .lineToY(37)
-                .setTangent(Math.toRadians(0))
-                .lineToX(18)
-                .waitSeconds(3)
-                .setTangent(Math.toRadians(0))
-                .lineToXSplineHeading(46, Math.toRadians(180))
-                .waitSeconds(3);
-
-        TrajectoryActionBuilder tab3 = mecanumDrive.actionBuilder(SystemConfig.ROBOT_START_POSITION)
-                .lineToYSplineHeading(33, Math.toRadians(180))
-                .waitSeconds(2)
-                .strafeTo(new Vector2d(46, 30))
-                .waitSeconds(3);
 
         Action trajectoryActionCloseOut = tab1.fresh()
                 .strafeTo(new Vector2d(48, 12))
@@ -64,7 +49,6 @@ public class CobraAuto extends CobraBase  {
             telemetry.update();
 
             // hold the initial object
-
             flexiClawLeft.handlePresets(false, true, false);
             flexiClawRight.handlePresets(false, true, false);
         }
@@ -77,13 +61,8 @@ public class CobraAuto extends CobraBase  {
         if (isStopRequested()) return;
 
         Action trajectoryActionChosen;
-        if (startPosition == 1) {
-            trajectoryActionChosen = tab1.build();
-        } else if (startPosition == 2) {
-            trajectoryActionChosen = tab2.build();
-        } else {
-            trajectoryActionChosen = tab3.build();
-        }
+        trajectoryActionChosen = tab1.build();
+
 
         telemetry.addData("Moving the robot ",  mecanumDrive.pose);
         telemetry.update();
@@ -114,6 +93,7 @@ public class CobraAuto extends CobraBase  {
         telemetry.addData("Dropping the object ",  mecanumDrive.pose);
         telemetry.update();
 
+        armExtenderMotor.handleEvents(1);
         flexiClawLeft.handlePresets(true, false, false);
         flexiClawRight.handlePresets(true, false, false);
 
