@@ -23,14 +23,14 @@ public class MeepMeepTesting {
         myBot.runAction(myBot.getDrive().actionBuilder(ROBOT_START_POSITION)
                 .waitSeconds(2)
                 .setTangent(Math.toRadians(90))
-                .lineToY(58)
+                .lineToY(50)
                 .setTangent(Math.toRadians(0))
                 .lineToX(15)
                 .strafeTo(new Vector2d(55, 60))
                 .turn(Math.toRadians(36))
                 //.lineToX(47.5)
                 .waitSeconds(3)
-                .build());
+                        .build());
 
      /*   myBot.runAction(myBot.getDrive().actionBuilder(ROBOT_START_POSITION)
                // .lineToYSplineHeading(33, Math.toRadians(0))
