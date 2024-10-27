@@ -25,20 +25,15 @@ public class CobraAuto extends CobraBase  {
         // vision here that outputs position
         int visionOutputPosition = 1;
 
-        TrajectoryActionBuilder tab1 = mecanumDrive.actionBuilder(new Pose2d(0.17, -62.33, Math.toRadians(90.00)))
-                .splineTo(new Vector2d(0.00, -43.83), Math.toRadians(90.52))
-                .splineTo(new Vector2d(-22.17, -47.67), Math.toRadians(189.81))
-                .splineTo(new Vector2d(-27.33, -62.00), Math.toRadians(250.18))
-                .splineTo(new Vector2d(-36.17, -69.17), Math.toRadians(219.05));
+        TrajectoryActionBuilder tab1 = mecanumDrive.actionBuilder(new Pose2d(-12.50, -62.00, Math.toRadians(90.00)))
+                .waitSeconds(2)
+                .splineTo(new Vector2d(-27.83, -49.00), Math.toRadians(139.71))
+                .splineTo(new Vector2d(-41.33, -51.00), Math.toRadians(188.43))
+                .splineTo(new Vector2d(-47.17, -53.17), Math.toRadians(200.38))
+                .splineTo(new Vector2d(-49.67, -55.50), Math.toRadians(223.03));
 
 
-
-
-
-
-
-
-                /*        (SystemConfig.ROBOT_START_POSITION)
+        /*        (SystemConfig.ROBOT_START_POSITION)
                 .waitSeconds(2)
                 .setTangent(Math.toRadians(90))
                 .lineToY(50)
