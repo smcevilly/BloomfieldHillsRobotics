@@ -62,6 +62,11 @@ public class ServoMotorControllerEx {
     }
 
 
+    public void handlePresets (int presetNumber) {
+
+        handlePresets (presetNumber==0, presetNumber==1, presetNumber==2);
+    }
+
     public void handlePresets (boolean preset1Trigerred, boolean preset2Triggerred, boolean preset3Triggerred ) {
 
         if (preset1Trigerred)

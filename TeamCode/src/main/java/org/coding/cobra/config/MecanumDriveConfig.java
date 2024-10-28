@@ -1,8 +1,10 @@
 package org.coding.cobra.config;
 
 
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 
+@Config
 public class MecanumDriveConfig {
 
     /**
@@ -19,22 +21,22 @@ public class MecanumDriveConfig {
     // TODO: fill in these values based on
     //   see https://ftc-docs.firstinspires.org/en/latest/programming_resources/imu/imu.html?highlight=imu#physical-hub-mounting
     public RevHubOrientationOnRobot.LogoFacingDirection logoFacingDirection =
-            RevHubOrientationOnRobot.LogoFacingDirection.UP;
+            RevHubOrientationOnRobot.LogoFacingDirection.FORWARD;
     public RevHubOrientationOnRobot.UsbFacingDirection usbFacingDirection =
-            RevHubOrientationOnRobot.UsbFacingDirection.LEFT;
+            RevHubOrientationOnRobot.UsbFacingDirection.UP;
 
     public  double maxMotorPower = 2;
 
     // drive model parameters
-    public double inPerTick = 0.001876759;        //25153 ticks for 50 in
-    public double lateralInPerTick = 0.00125317;
+    public double inPerTick = 0.002038043478; //0.001876759;        //25153 ticks for 50 in
+    public double lateralInPerTick = 0.0014749257266155353;
     //public double lateralInPerTick = 0.0006628730045191881;
-    public double trackWidthTicks =  5670.347145336772;  //0
+    public double trackWidthTicks =  6100;//5670.347145336772;  //0
 
     // feedforward parameters (in tick units)
-    public double kS =  0.75117123392;
-    public double kV =  0.00040636388908796826;
-    public double kA = 0.0001;
+    public double kS =  1.000501094145787;          //kV: 0.00039484730604532714, kS: 0.9444694571982062
+    public double kV =  0.00038402177770092884;
+    public double kA = 0.000001; //0.0001
 
     // path profile parameters (in inches)
     public double maxWheelVel = 15;              // 15

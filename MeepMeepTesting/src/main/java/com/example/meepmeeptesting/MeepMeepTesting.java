@@ -17,15 +17,16 @@ public class MeepMeepTesting {
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
                 .build();
 
-        Pose2d ROBOT_START_POSITION = new Pose2d(11.8, 61.7, Math.toRadians(0));
+        Pose2d ROBOT_START_POSITION = new Pose2d(-12.50, -62.00, Math.toRadians(90.00));
 
 
-        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(-12.50, -62.00, Math.toRadians(90.00)))
+        myBot.runAction(myBot.getDrive().actionBuilder(ROBOT_START_POSITION)
                 .waitSeconds(2)
-                .splineTo(new Vector2d(-27.83, -49.00), Math.toRadians(139.71))
-                .splineTo(new Vector2d(-41.33, -51.00), Math.toRadians(188.43))
-                .splineTo(new Vector2d(-47.17, -53.17), Math.toRadians(200.38))
-                .splineTo(new Vector2d(-49.67, -55.50), Math.toRadians(223.03))
+                .setTangent(Math.toRadians(90))
+                .lineToY(-50)
+                .strafeTo(new Vector2d(-50, -50))
+                .turn(Math.toRadians(135))
+                .waitSeconds(2)
                         .build());
 
 
@@ -45,7 +46,7 @@ public class MeepMeepTesting {
 
       */
 
-        meepMeep.setBackground(MeepMeep.Background.FIELD_INTO_THE_DEEP_OFFICIAL)
+        meepMeep.setBackground(MeepMeep.Background.FIELD_INTO_THE_DEEP_JUICE_LIGHT)
                 .setDarkMode(true)
                 .setBackgroundAlpha(0.95f)
                 .addEntity(myBot)

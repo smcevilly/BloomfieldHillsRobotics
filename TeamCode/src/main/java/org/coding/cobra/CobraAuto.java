@@ -1,6 +1,8 @@
 package org.coding.cobra;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
@@ -12,9 +14,10 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.coding.cobra.config.SystemConfig;
 import org.coding.cobra.ext.MoveToPresetAsync;
+import org.firstinspires.ftc.teamcode.Drawing;
 
 @Config
-@Autonomous(name = "CobraAuto", group = "Autonomous")
+@Autonomous(name = "Cobra Auto", group = "Autonomous")
 public class CobraAuto extends CobraBase  {
 
     @Override
@@ -25,26 +28,22 @@ public class CobraAuto extends CobraBase  {
         // vision here that outputs position
         int visionOutputPosition = 1;
 
-        TrajectoryActionBuilder tab1 = mecanumDrive.actionBuilder(new Pose2d(-12.50, -62.00, Math.toRadians(90.00)))
-                .waitSeconds(2)
-                .splineTo(new Vector2d(-27.83, -49.00), Math.toRadians(139.71))
-                .splineTo(new Vector2d(-41.33, -51.00), Math.toRadians(188.43))
-                .splineTo(new Vector2d(-47.17, -53.17), Math.toRadians(200.38))
-                .splineTo(new Vector2d(-49.67, -55.50), Math.toRadians(223.03));
-
-
-        /*        (SystemConfig.ROBOT_START_POSITION)
+        TrajectoryActionBuilder tab1 = mecanumDrive.actionBuilder(SystemConfig.ROBOT_START_POSITION)
                 .waitSeconds(2)
                 .setTangent(Math.toRadians(90))
-                .lineToY(50)
-                .setTangent(Math.toRadians(0))
+                .lineToY(-50)
+                .strafeTo(new Vector2d(-50, -50))
+                .turn(Math.toRadians(135))
+                .waitSeconds(4);
+
+/*                .setTangent(Math.toRadians(0))
                 .lineToX(30)
                 .strafeTo(new Vector2d(55, 60))
                 .turn(Math.toRadians(36))
                 //.lineToX(47.5)
                 .waitSeconds(3);
+*/
 
-                 */
 
 
         Action trajectoryActionCloseOut = tab1.fresh()
@@ -60,8 +59,8 @@ public class CobraAuto extends CobraBase  {
             telemetry.update();
 
             // hold the initial object
-            flexiClawLeft.handlePresets(false, true, false);
-            flexiClawRight.handlePresets(false, true, false);
+            flexiClawLeft.handlePresets(1);
+            flexiClawRight.handlePresets(1);
         }
 
         int startPosition = visionOutputPosition;
@@ -91,9 +90,6 @@ public class CobraAuto extends CobraBase  {
         telemetry.addData("Lifting Action ",  mecanumDrive.pose);
         telemetry.update();
 
-        //leftElevator.handlePresets(1);
-        //rightElevator.handlePresets(1);
-        //armExtenderMotor.handlePresets(1);
 
         Actions.runBlocking(
                 new SequentialAction(
@@ -104,6 +100,12 @@ public class CobraAuto extends CobraBase  {
                         //lift.liftDown()
                 )
         );
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
         telemetry.addData("Dropping the object ",  mecanumDrive.pose);
         telemetry.update();
