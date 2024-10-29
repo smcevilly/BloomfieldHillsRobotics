@@ -18,16 +18,71 @@ public class MeepMeepTesting {
                 .build();
 
         Pose2d ROBOT_START_POSITION = new Pose2d(-12.50, -62.00, Math.toRadians(90.00));
+Pose2d ROBOT_START_POSITION_FOR_RED_SPECIMEN= new Pose2d(12.50, -62.00, Math.toRadians(90.00));
 
-
-        myBot.runAction(myBot.getDrive().actionBuilder(ROBOT_START_POSITION)
-                .waitSeconds(2)
-                .setTangent(Math.toRadians(90))
-                .lineToY(-50)
-                .strafeTo(new Vector2d(-50, -50))
-                .turn(Math.toRadians(135))
-                .waitSeconds(2)
+        /* myBot.runAction(myBot.getDrive().actionBuilder(ROBOT_START_POSITION)
+                        .waitSeconds(2)
+                      //  .setTangent(Math.toRadians(90))
+                        .lineToY(-52)
+                        .strafeTo(new Vector2d(-55, -52))
+                        .turn(Math.toRadians(135))
+                        .waitSeconds(3)
+                       // .setTangent(Math.toRadians(90))
+                        .turn(Math.toRadians(-135))
+                        .lineToY(-48)
+                        .waitSeconds(6)
+                        .lineToY(-52)
+                        .turn(Math.toRadians(135))
                         .build());
+
+
+
+
+
+        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(-52, -52, Math.toRadians(220)))
+                        .setTangent(Math.toRadians(90))
+                        .lineToYLinearHeading(-40,Math.toRadians(90))
+                        .waitSeconds(3)
+                                .build());
+
+
+
+
+
+       myBot.runAction(myBot.getDrive().actionBuilder(ROBOT_START_POSITION)
+               .setTangent(Math.toRadians(90))
+                .splineToLinearHeading(new Pose2d(-52, -52, Math.toRadians(220)), Math.toRadians(280))
+                .build());
+
+
+
+        myBot.runAction(myBot.getDrive().actionBuilder(ROBOT_START_POSITION_FOR_RED_SPECIMEN)
+                        .lineToY(-40)
+                        .build());
+
+         */
+        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(12.5, -40, Math.toRadians(90)))
+                        .strafeTo(new Vector2d(36, -40))
+                .setTangent(Math.toRadians(90))
+                         .lineToY(-10)
+                        .setTangent(Math.toRadians(90))
+                        .strafeTo(new Vector2d(45, -10))
+                .setTangent(Math.toRadians(90))
+                        .lineToY(-55)
+                        .build());
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
