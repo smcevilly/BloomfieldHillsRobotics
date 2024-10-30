@@ -125,4 +125,9 @@ public class DCMotorControllerEx {
         motor.setTargetPosition (0);
     }
 
+    public void outputTelemetry () {
+        telemetry.addData("DCM: ", motorConfig.motorName.toString() + " Pos: " + motor.getCurrentPosition());
+
+    }
+
 }

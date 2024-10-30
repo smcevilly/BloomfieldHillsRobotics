@@ -82,4 +82,9 @@ public class ServoMotorControllerEx {
             telemetry.addData("Servo : ", motorConfig.motorName + " Postion : " + motor.getPosition());
         }
     }
+
+    public void outputTelemetry () {
+        telemetry.addData("SRV: ", motorConfig.motorName.toString() + " Pos : " + motor.getPosition());
+    }
+
 }

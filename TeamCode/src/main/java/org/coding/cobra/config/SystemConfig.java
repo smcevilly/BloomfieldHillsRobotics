@@ -27,13 +27,13 @@ public class SystemConfig {
             "rightExtender",
             0,
             0,
-            2500,
+            2800,
             500,
             DCMotorConfig.MotorDirection.REVERSE,
             1,
             1,
             0,
-            2500,
+            2800,
             2000
     );
 
@@ -68,31 +68,31 @@ public class SystemConfig {
     // Servo
     public static DCMotorConfig CLAW_ROTATOR = new DCMotorConfig(
             "clawRotator",
+            0.8,
+            0.07,
             1,
-            0.04,
-            1,
-            0.001,
+            0.02,
             DCMotorConfig.MotorDirection.FORWARD,
             5,
             5,
             0.6,
-            0.075,
+            0.28,
             0.5
     );
-
+//
 
     // Servo
     public static DCMotorConfig FLEXI_CLAW_MOTOR_L = new DCMotorConfig(
             "flexiClawLeft",
             0.7,
-            0.42,
+            0.32,
             1,
-            0.001,
+            0.02,
             DCMotorConfig.MotorDirection.FORWARD,
-            10,
-            10,
-            1,   // open
-            0.42,           // hold
+            5,
+            5,
+            0.84,   // open
+            0.2,           // hold
             0.75
     );
 
@@ -100,14 +100,14 @@ public class SystemConfig {
     public static DCMotorConfig FLEXI_CLAW_MOTOR_R = new DCMotorConfig(
             "flexiClawRight",
             0.7,
-            0.42,
-            0.85,
-            0.001,
+            0.32,
+            1,
+            0.02,
             DCMotorConfig.MotorDirection.REVERSE,
-            10,
+            8,
             10,
             0.84,   // open
-            0.5,           // hold
+            0.2,           // hold
             0.75
     );
 

@@ -9,9 +9,12 @@ import org.coding.cobra.ext.LimelightEx;
 import org.coding.cobra.ext.MecanumDriveEx;
 import org.coding.cobra.ext.ServoMotorControllerEx;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 
 public  abstract class CobraBase extends LinearOpMode {
 
+
+    Pose3D botpose;
     SystemConfig sysConfig = new SystemConfig();
 
     MecanumDriveEx mecanumDrive;
@@ -26,7 +29,7 @@ public  abstract class CobraBase extends LinearOpMode {
 
 
     public void initialize () {
-        mecanumDrive = new MecanumDriveEx(hardwareMap, telemetry, sysConfig.ROBOT_START_POSITION);
+        mecanumDrive = new MecanumDriveEx(hardwareMap, telemetry, sysConfig.ROBOT_START_POSITION_FOR_RED_SAMPLE);
         leftElevator = new DCMotorControllerEx(hardwareMap, telemetry, sysConfig.Left_Elevator);
         rightElevator = new DCMotorControllerEx(hardwareMap, telemetry, sysConfig.Right_Elevator);
         armExtenderMotor = new DCMotorControllerEx(hardwareMap, telemetry, sysConfig.ARM_EXTENDER);

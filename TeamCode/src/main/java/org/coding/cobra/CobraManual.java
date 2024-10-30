@@ -37,13 +37,9 @@ public class CobraManual extends CobraBase {
                  */
             handleGamepadEvents();
 
-            Pose3D botpose = camera.getRobotPosition();
-            if (botpose != null) {
-                telemetry.addData("Botpose ", botpose.toString());
-            }
-
+            botpose = camera.getRobotPosition();
             if (isStopRequested()) return;
-            telemetry.update();
+            telemetryOutput();
         }
 
         // Bring to home position
@@ -86,5 +82,21 @@ public class CobraManual extends CobraBase {
         rightElevator.resetEncoders();
         leftElevator.resetEncoders();
     }
+
+    public void telemetryOutput () {
+        telemetry.addData("Mecanum  ", mecanumDrive.updatePoseEstimate().toString());
+        armExtenderMotor.outputTelemetry();
+        leftElevator.outputTelemetry();
+        rightElevator.outputTelemetry();
+        clawRotator.outputTelemetry();
+        flexiClawLeft.outputTelemetry();
+        flexiClawRight.outputTelemetry();
+        if (botpose != null) {
+            telemetry.addData("Botpose ", botpose.toString());
+        }
+        telemetry.update();
+    }
+
+
 
 }
