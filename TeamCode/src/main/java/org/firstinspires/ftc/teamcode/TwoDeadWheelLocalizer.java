@@ -28,12 +28,7 @@ import org.firstinspires.ftc.teamcode.messages.TwoDeadWheelInputsMessage;
 public final class TwoDeadWheelLocalizer implements Localizer {
     MecanumDriveConfig driveConfig = new MecanumDriveConfig();
 
-    public static class Params {
-        public double parYTicks = 0.0; // y position of the parallel encoder (in tick units)
-        public double perpXTicks = 0.0; // x position of the perpendicular encoder (in tick units)
-    }
-
-    public static Params PARAMS = new Params();
+    public static MecanumDriveConfig.Params PARAMS = new MecanumDriveConfig.Params();
 
     public final Encoder par, perp;
     public final IMU imu;

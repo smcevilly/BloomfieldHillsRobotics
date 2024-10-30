@@ -84,12 +84,12 @@ public class DCMotorControllerEx {
 
     public void handlePresets (int presetNumber) {
 
-        handlePresets (presetNumber==0, presetNumber==1, presetNumber==2);
+        handlePresets (presetNumber==0, presetNumber==1, presetNumber==2, presetNumber==3, presetNumber==4);
     }
 
-    public void handlePresets (boolean preset1Trigerred, boolean preset2Triggerred, boolean preset3Triggerred ) {
+    public void handlePresets (boolean preset1Trigerred, boolean preset2Triggerred, boolean preset3Triggerred , boolean preset4Triggerred, boolean preset5Triggerred) {
 
-        if (preset1Trigerred || preset2Triggerred || preset3Triggerred) {
+        if (preset1Trigerred || preset2Triggerred || preset3Triggerred || preset4Triggerred || preset5Triggerred) {
             telemetry.addData("DCMotor : ", motorConfig.motorName.toString() + "Postion : " + motor.getCurrentPosition());
 
 
@@ -102,14 +102,22 @@ public class DCMotorControllerEx {
             if (preset3Triggerred)
                 motor.setTargetPosition((int)motorConfig.preset2);
 
+            if (preset4Triggerred)
+                motor.setTargetPosition((int)motorConfig.preset3);
+
+            if (preset5Triggerred)
+                motor.setTargetPosition((int)motorConfig.preset4);
+
         }
     }
 
     public double [] getPresets () {
-        double [] presets = new double [3];
+        double [] presets = new double [5];
         presets[0] = motorConfig.preset0;
         presets[1] = motorConfig.preset1;
         presets[2] = motorConfig.preset2;
+        presets[3] = motorConfig.preset3;
+        presets[4] = motorConfig.preset4;
         return presets;
     }
 

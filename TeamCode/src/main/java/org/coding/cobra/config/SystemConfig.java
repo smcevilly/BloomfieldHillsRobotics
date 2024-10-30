@@ -34,7 +34,9 @@ public class SystemConfig {
             1,
             0,
             2800,
-            2000
+            1651,        // autonomous reach bar
+            576,                // autonomous object hang complete
+            0
     );
 
     public static DCMotorConfig Left_Elevator = new DCMotorConfig(
@@ -48,7 +50,9 @@ public class SystemConfig {
             1,
             450,
             5700,
-            3000
+            3468,        // autonomous high bar
+            3250,                   // autonomous bar hang pull level
+            0
     );
 
     public static DCMotorConfig Right_Elevator = new DCMotorConfig(
@@ -62,7 +66,9 @@ public class SystemConfig {
             1,
             450,
             5700,
-            3000
+            3468,        // autonomous high bar
+            3250,
+            0
     );
 
     // Servo
@@ -75,9 +81,11 @@ public class SystemConfig {
             DCMotorConfig.MotorDirection.FORWARD,
             5,
             5,
-            0.6,
+            0.6,// face straight
             0.28,
-            0.5
+            0.5,
+            0,
+            0
     );
 //
 
@@ -92,8 +100,11 @@ public class SystemConfig {
             5,
             5,
             0.84,   // open
-            0.2,           // hold
-            0.75
+            0.3,           // hold
+            0.75,
+            0,
+            0
+
     );
 
     // Servo
@@ -107,8 +118,10 @@ public class SystemConfig {
             8,
             10,
             0.84,   // open
-            0.2,           // hold
-            0.75
+            0.3,           // hold
+            0.75,
+            0,
+            0
     );
 
 

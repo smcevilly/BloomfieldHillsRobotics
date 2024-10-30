@@ -13,9 +13,11 @@ public class DCMotorConfig {
     public double preset0;
     public double preset1;
     public double preset2;
+    public double preset3;
+    public double preset4;
 
     public DCMotorConfig(String motorName, double startPosition, double minPosition, double maxPosition, double steps, MotorDirection  direction, double power, double velocity,
-                         double preset0, double preset1, double preset2) {
+                         double preset0, double preset1, double preset2, double preset3, double preset4) {
         this.motorName = motorName;
         this.startPosition = startPosition;
         this.minPosition = minPosition;
@@ -27,6 +29,8 @@ public class DCMotorConfig {
         this.preset0 = preset0;
         this.preset1 = preset1;
         this.preset2 = preset2;
+        this.preset3 = preset3;
+        this.preset4 = preset4;
     }
 
     public enum MotorDirection {

@@ -64,10 +64,10 @@ public class ServoMotorControllerEx {
 
     public void handlePresets (int presetNumber) {
 
-        handlePresets (presetNumber==0, presetNumber==1, presetNumber==2);
+        handlePresets (presetNumber==0, presetNumber==1, presetNumber==2, presetNumber==3, presetNumber==4);
     }
 
-    public void handlePresets (boolean preset1Trigerred, boolean preset2Triggerred, boolean preset3Triggerred ) {
+    public void handlePresets (boolean preset1Trigerred, boolean preset2Triggerred, boolean preset3Triggerred, boolean preset4Triggerred, boolean preset5Triggerred) {
 
         if (preset1Trigerred)
             motor.setPosition(motorConfig.preset0);
@@ -77,8 +77,12 @@ public class ServoMotorControllerEx {
 
         if (preset3Triggerred)
             motor.setPosition(motorConfig.preset2);
+        if (preset4Triggerred)
+            motor.setPosition(motorConfig.preset3);
+        if (preset5Triggerred)
+            motor.setPosition(motorConfig.preset4);
 
-        if (preset2Triggerred || preset1Trigerred || preset3Triggerred) {
+        if (preset2Triggerred || preset1Trigerred || preset3Triggerred || preset4Triggerred || preset5Triggerred ) {
             telemetry.addData("Servo : ", motorConfig.motorName + " Postion : " + motor.getPosition());
         }
     }

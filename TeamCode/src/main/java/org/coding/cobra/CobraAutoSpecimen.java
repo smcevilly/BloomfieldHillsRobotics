@@ -5,6 +5,7 @@ import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
+import com.acmerobotics.roadrunner.SleepAction;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
@@ -20,21 +21,69 @@ public class CobraAutoSpecimen extends CobraBase  {
     @Override
     public void runOpMode() {
 
-        initialize();
+        initialize();;
 
-        // vision here that outputs position
-        int visionOutputPosition = 1;
+        // hold the initial object
+        clawRotator.handlePresets(0);
+        flexiClawLeft.handlePresets(1);
+        flexiClawRight.handlePresets(1);
 
-        TrajectoryActionBuilder tab1 = mecanumDrive.actionBuilder(SystemConfig.ROBOT_START_POSITION_FOR_RED_SPECIMEN)
+
+        TrajectoryActionBuilder trajectoryMoveCloserToBar = mecanumDrive.actionBuilder(SystemConfig.ROBOT_START_POSITION_FOR_RED_SPECIMEN)
                 .lineToY(-40);
 
-/*                .setTangent(Math.toRadians(0))
-                .lineToX(30)
-                .strafeTo(new Vector2d(55, 60))
-                .turn(Math.toRadians(36))
-                //.lineToX(47.5)
-                .waitSeconds(3);
-*/
+        Action actionMoveCloserToBar = trajectoryMoveCloserToBar.fresh()
+                .build();
+
+
+        telemetry.addData("Determining the Move ",  mecanumDrive.pose);
+        telemetry.update();
+        waitForStart();
+
+        Action trajectoryActionChosen;
+        trajectoryActionChosen = trajectoryMoveCloserToBar.build();
+
+
+
+
+        telemetry.addData("Extending Arm ",  mecanumDrive.pose);
+        telemetry.update();
+
+        Actions.runBlocking(
+                new SequentialAction(
+                        trajectoryActionChosen,
+                        new MoveToPresetAsync(leftElevator, rightElevator, 2, 2),
+                        new MoveToPresetAsync(armExtenderMotor, 2),
+                        new SleepAction(2),
+                        new MoveToPresetAsync(leftElevator, rightElevator, 3, 3),
+                        new SleepAction(2),
+                        new MoveToPresetAsync(armExtenderMotor, 3),
+                        new SleepAction(2)
+
+                )
+        );
+
+        flexiClawLeft.handlePresets(true, false, false, false, false);
+        flexiClawRight.handlePresets(true, false, false, false, false);
+
+        telemetry.addData("Dropping the object ",  mecanumDrive.pose);
+        telemetry.update();
+
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        Actions.runBlocking(
+                new SequentialAction(
+                        new MoveToPresetAsync(armExtenderMotor, 0),
+                        new MoveToPresetAsync(leftElevator, rightElevator, 0, 0)
+                )
+        );
+
+/*
 
         TrajectoryActionBuilder tab2 = mecanumDrive.actionBuilder(new Pose2d(12.5, -40, Math.toRadians(90)))
                 .strafeTo(new Vector2d(36, -40))
@@ -49,99 +98,15 @@ public class CobraAutoSpecimen extends CobraBase  {
 
                 .build();
 
-        Action trajectoryActionPickUpSample = tab1.fresh()
-              ///  .strafeTo(new Vector2d(48, 12))
-                .build();
-
-        // actions that need to happen on init; for instance, a claw tightening.
-        //Actions.runBlocking(claw.closeClaw());
-
-        while (!isStopRequested() && !opModeIsActive()) {
-            int position = visionOutputPosition;
-            telemetry.addData("Initial Position : Holding the Object at position ", mecanumDrive.pose);
-            telemetry.update();
-
-            // hold the initial object
-            flexiClawLeft.handlePresets(1);
-            flexiClawRight.handlePresets(1);
-        }
-
-        int startPosition = visionOutputPosition;
-        telemetry.addData("Determining the Move ",  mecanumDrive.pose);
-        telemetry.update();
-        waitForStart();
-
-        if (isStopRequested()) return;
-
-        Action trajectoryActionChosen;
-        trajectoryActionChosen = tab1.build();
-
-       // Action trajectoryActionChosen2;
-        //trajectoryActionChosen2 = tab2.build();
-
-
-        telemetry.addData("Moving the robot ",  mecanumDrive.pose);
-        telemetry.update();
 
         Actions.runBlocking(
                 new ParallelAction(
-                        trajectoryActionChosen//,
-                        //new MoveToPresetAsync(armExtenderMotor, 2)
-                        //lift.liftUp(),
-                        //claw.openClaw(),
-                        //lift.liftDown()
+                        actionMoveCloserToBar
                 )
         );
 
-        telemetry.addData("Lifting Action ",  mecanumDrive.pose);
-        telemetry.update();
-
-
-        Actions.runBlocking(
-                new SequentialAction(
-                        new MoveToPresetAsync(leftElevator, rightElevator, 1, 1),
-                        new MoveToPresetAsync(armExtenderMotor, 1)
-                        //lift.liftUp(),
-                        //claw.openClaw(),
-                        //lift.liftDown()
-                )
-        );
-
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
-        telemetry.addData("Dropping the object ",  mecanumDrive.pose);
-        telemetry.update();
-
-        flexiClawLeft.handlePresets(true, false, false);
-        flexiClawRight.handlePresets(true, false, false);
-
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
-        Actions.runBlocking(
-                new SequentialAction(
-                        new MoveToPresetAsync(armExtenderMotor, 0),
-                        new MoveToPresetAsync(leftElevator, rightElevator, 0, 0)
-                        //lift.liftUp(),
-                        //claw.openClaw(),
-                        //lift.liftDown()
-                )
-        );
-        Actions.runBlocking(
-                new ParallelAction(
-                        trajectoryActionPickUpSample
-                )
-        );
-
-
-        while (opModeIsActive()) {
+*/
+        while (opModeIsActive() && !isStopRequested()) {
 
         }
 
