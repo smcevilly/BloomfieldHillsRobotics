@@ -55,7 +55,6 @@ import java.util.List;
 @Config
 public class MecanumDrive {
     public static MecanumDriveConfig PARAMS = new MecanumDriveConfig();
-
     public final MecanumKinematics kinematics = new MecanumKinematics(
             PARAMS.inPerTick * PARAMS.trackWidthTicks, PARAMS.inPerTick / PARAMS.lateralInPerTick);
 

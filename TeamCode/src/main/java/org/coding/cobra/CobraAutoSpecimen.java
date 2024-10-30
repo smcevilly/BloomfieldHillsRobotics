@@ -83,7 +83,7 @@ public class CobraAutoSpecimen extends CobraBase  {
                 )
         );
 
-/*
+
 
         TrajectoryActionBuilder tab2 = mecanumDrive.actionBuilder(new Pose2d(12.5, -40, Math.toRadians(90)))
                 .strafeTo(new Vector2d(36, -40))
@@ -94,18 +94,24 @@ public class CobraAutoSpecimen extends CobraBase  {
                 .setTangent(Math.toRadians(90))
                 .lineToY(-55);
 
-        Action trajectoryActionPlaceSample = tab2.fresh()
+        Action pushSample = tab2.fresh()
 
                 .build();
 
+        Action trajectoryActionPushSample;
+        trajectoryActionPushSample = tab2.build();
+
+
 
         Actions.runBlocking(
-                new ParallelAction(
-                        actionMoveCloserToBar
+                new SequentialAction(
+                        trajectoryActionPushSample //
                 )
         );
 
-*/
+
+
+
         while (opModeIsActive() && !isStopRequested()) {
 
         }
