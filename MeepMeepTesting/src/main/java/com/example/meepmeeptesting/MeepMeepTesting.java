@@ -16,6 +16,7 @@ public class MeepMeepTesting {
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
                 .build();
+        Pose2d startPosition = new Pose2d(12.50, 62.00, Math.toRadians(90.00));
 
         Pose2d ROBOT_START_POSITION = new Pose2d(-12.50, -62.00, Math.toRadians(90.00));
 Pose2d ROBOT_START_POSITION_FOR_RED_SPECIMEN= new Pose2d(12.50, -62.00, Math.toRadians(90.00));
@@ -46,7 +47,7 @@ Pose2d ROBOT_START_POSITION_FOR_RED_SPECIMEN= new Pose2d(12.50, -62.00, Math.toR
                                 .build());
 
 
-
+*/
 
 
        myBot.runAction(myBot.getDrive().actionBuilder(ROBOT_START_POSITION)
@@ -56,21 +57,40 @@ Pose2d ROBOT_START_POSITION_FOR_RED_SPECIMEN= new Pose2d(12.50, -62.00, Math.toR
 
 
 
-        myBot.runAction(myBot.getDrive().actionBuilder(ROBOT_START_POSITION_FOR_RED_SPECIMEN)
-                        .lineToY(-40)
+
+
+
+                /*
+
+
+
+
+
+        myBot.runAction(myBot.getDrive().actionBuilder(startPosition)
+                .setTangent(Math.toRadians(280))
+                .splineToLinearHeading(new Pose2d(52, 52, Math.toRadians(220)), Math.toRadians(280))
+
                         .build());
 
          */
-        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(12.5, -40, Math.toRadians(90)))
-                        .strafeTo(new Vector2d(38, -40))
-                .setTangent(Math.toRadians(90))
-                         .lineToY(-7)
-                        .setTangent(Math.toRadians(90))
-                        .strafeTo(new Vector2d(50, -7))
-                .setTangent(Math.toRadians(90))
-                        .lineToY(-55)
-                        .build());
+         /*
+        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(-12.5, 41, Math.toRadians(270)))
+                .strafeTo(new Vector2d(-38, 41))
+                .setTangent(Math.toRadians(270))
+                .lineToY(7.5)
+                .setTangent(Math.toRadians(270))
+                .strafeTo(new Vector2d(-50, 7.5))
+                .setTangent(Math.toRadians(270))
+                .lineToY(55)
+                .lineToY(7)
+                .setTangent(Math.toRadians(270))
+                .strafeTo(new Vector2d(-61, 7))
+                .setTangent(Math.toRadians(270))
+                .lineToY(61)
+                .build());
 
+
+         */
 
 
 

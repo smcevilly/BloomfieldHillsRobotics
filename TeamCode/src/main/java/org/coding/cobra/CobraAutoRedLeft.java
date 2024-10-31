@@ -12,20 +12,18 @@ public class CobraAutoRedLeft extends  CobraAutoSpecimen{
     @Override
     public void runOpMode() {
 
-        initialize();
+        Pose2d startPosition = new Pose2d(-12.50, -62.00, Math.toRadians(90.00));
 
-        trajectoryMoveCloserToBar = mecanumDrive.actionBuilder(SystemConfig.ROBOT_START_POSITION_FOR_RED_LEFT)
-                .lineToY(-43);
+        initialize(startPosition);
+
+        trajectoryMoveCloserToBar = mecanumDrive.actionBuilder(startPosition)
+                .setTangent(Math.toRadians(90))
+                .splineToLinearHeading(new Pose2d(-5.25, -41, Math.toRadians(90)), Math.toRadians(90));
 
 
-        straffeObject1OnGround = mecanumDrive.actionBuilder(new Pose2d(12.5, -43, Math.toRadians(90)))
-                .strafeTo(new Vector2d(38, -40))
-                .setTangent(Math.toRadians(90))
-                .lineToY(-7)
-                .setTangent(Math.toRadians(90))
-                .strafeTo(new Vector2d(50, -7))
-                .setTangent(Math.toRadians(90))
-                .lineToY(-55);
+
+        straffeObject1OnGround = mecanumDrive.actionBuilder(new Pose2d(-12.5, -43, Math.toRadians(90)))
+                .strafeTo(new Vector2d(-40, -41));
 
         operateRunMode ();
 

@@ -1,5 +1,6 @@
 package org.coding.cobra;
 
+import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.coding.cobra.config.LimelightConfig;
@@ -9,6 +10,7 @@ import org.coding.cobra.ext.LimelightEx;
 import org.coding.cobra.ext.MecanumDriveEx;
 import org.coding.cobra.ext.ServoMotorControllerEx;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 
 public  abstract class CobraBase extends LinearOpMode {
@@ -28,8 +30,8 @@ public  abstract class CobraBase extends LinearOpMode {
     DCMotorControllerEx rightElevator;
 
 
-    public void initialize () {
-        mecanumDrive = new MecanumDriveEx(hardwareMap, telemetry, sysConfig.ROBOT_START_POSITION_FOR_RED_SAMPLE);
+    public void initialize (Pose2d startPosition) {
+        mecanumDrive = new MecanumDriveEx(hardwareMap, telemetry, startPosition);
         leftElevator = new DCMotorControllerEx(hardwareMap, telemetry, sysConfig.Left_Elevator);
         rightElevator = new DCMotorControllerEx(hardwareMap, telemetry, sysConfig.Right_Elevator);
         armExtenderMotor = new DCMotorControllerEx(hardwareMap, telemetry, sysConfig.ARM_EXTENDER);

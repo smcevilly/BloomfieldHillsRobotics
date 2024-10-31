@@ -15,8 +15,8 @@ public class SystemConfig {
 
 //    public static Pose2d ROBOT_START_POSITION = new Pose2d(11.8, 61.7, Math.toRadians(0));
 
-    public static Pose2d ROBOT_START_POSITION_FOR_RED_LEFT = new Pose2d(-12.50, -62.00, Math.toRadians(90.00));
-    public static Pose2d ROBOT_START_POSITION_FOR_RED_SPECIMEN = new Pose2d(12.50, -62.00, Math.toRadians(90.00));
+    public static Pose2d ROBOT_START_POSITION = new Pose2d(-12.50, -62.00, Math.toRadians(90.00));
+
     public static final double DRIVE_POWER_FACTOR = 1;
 
     // DCMotor
@@ -35,7 +35,7 @@ public class SystemConfig {
             0,
             2800,
             1651,        // autonomous reach bar
-            576,                // autonomous object hang complete
+            600,                // autonomous object hang complete
             0
     );
 

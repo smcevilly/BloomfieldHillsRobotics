@@ -9,29 +9,32 @@ import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.coding.cobra.config.SystemConfig;
 import org.coding.cobra.ext.MoveToPresetAction;
 
 @Config
-@Autonomous(name = "Cobra Auto Sample", group = "Autonomous")
-public class CobraAutoSample extends CobraBase  {
+@Autonomous(name = "Cobra Auto Sample Red Left", group = "Autonomous")
+public class CobraAutoSampleRedLeft extends CobraBase  {
 
     @Override
     public void runOpMode() {
 
-        initialize();
+        Pose2d startPosition = new Pose2d(-12.50, -62.00, Math.toRadians(90.00));
+
+        initialize(startPosition);
 
         // vision here that outputs position
         int visionOutputPosition = 1;
 
-        TrajectoryActionBuilder tab1 = mecanumDrive.actionBuilder(SystemConfig.ROBOT_START_POSITION_FOR_RED_SAMPLE)
+        TrajectoryActionBuilder tab1 = mecanumDrive.actionBuilder(startPosition)
                 .setTangent(Math.toRadians(90))
                 .splineToLinearHeading(new Pose2d(-52, -52, Math.toRadians(220)), Math.toRadians(280));
 
+
+
         TrajectoryActionBuilder tab2 = mecanumDrive.actionBuilder(new Pose2d(-52, -52, Math.toRadians(220)))
                 .setTangent(Math.toRadians(90))
-                .lineToYLinearHeading(-40,Math.toRadians(90))
-                .waitSeconds(3);
+              .lineToYLinearHeading(40,Math.toRadians(90))
+              .waitSeconds(3);
 /*
 */
 
@@ -56,7 +59,6 @@ public class CobraAutoSample extends CobraBase  {
             flexiClawRight.handlePresets(1);
         }
 
-        int startPosition = visionOutputPosition;
         telemetry.addData("Determining the Move ",  mecanumDrive.pose);
         telemetry.update();
         waitForStart();
@@ -125,13 +127,15 @@ public class CobraAutoSample extends CobraBase  {
                         //lift.liftDown()
                 )
         );
-        Actions.runBlocking(
+      /*  Actions.runBlocking(
                 new ParallelAction(
                         trajectoryActionMoveObjects//,
 
 
                 )
         );
+
+       */
 
 
 

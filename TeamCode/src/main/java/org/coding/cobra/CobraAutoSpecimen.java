@@ -37,23 +37,20 @@ public abstract class CobraAutoSpecimen extends CobraBase  {
                         actionMoveCloserToBar,
                         new MoveToPresetAction(leftElevator, rightElevator, 2, 2),
                         new MoveToPresetAction(armExtenderMotor, 2),
-                        new SleepAction(2),
+                        new SleepAction(1.5),
                         new MoveToPresetAction(leftElevator, rightElevator, 3, 3),
-                        new SleepAction(2),
+                        new SleepAction(1),
                         new MoveToPresetAction(armExtenderMotor, 3),
-                        new SleepAction(2),
+                        new SleepAction(0.5),
                         new MoveToPresetAction(flexiClawLeft, flexiClawRight , 0, 0)
                 )
         );
 
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        //Return to home position
 
         Actions.runBlocking(
                 new SequentialAction(
+                        new SleepAction(0.5),
                         new MoveToPresetAction(armExtenderMotor, 0),
                         new MoveToPresetAction(leftElevator, rightElevator, 0, 0)
                 )

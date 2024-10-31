@@ -17,7 +17,7 @@ public class CobraManual extends CobraBase {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        initialize();
+        initialize(SystemConfig.ROBOT_START_POSITION);
 
         waitForStart();
 
