@@ -28,7 +28,6 @@ public class CobraAutoSpecimen extends CobraBase  {
         flexiClawLeft.handlePresets(1);
         flexiClawRight.handlePresets(1);
 
-
         TrajectoryActionBuilder trajectoryMoveCloserToBar = mecanumDrive.actionBuilder(SystemConfig.ROBOT_START_POSITION_FOR_RED_SPECIMEN)
                 .lineToY(-40);
 
