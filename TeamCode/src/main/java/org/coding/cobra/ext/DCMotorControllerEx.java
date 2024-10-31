@@ -3,6 +3,7 @@ package org.coding.cobra.ext;
 import com.acmerobotics.roadrunner.ftc.Encoder;
 import com.acmerobotics.roadrunner.ftc.OverflowEncoder;
 import com.acmerobotics.roadrunner.ftc.RawEncoder;
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsAnalogOpticalDistanceSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -17,19 +18,14 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
  * Run to Position Config of DC Motor
  */
 
-public class DCMotorControllerEx {
+public class DCMotorControllerEx extends AbstractMotorControllerEx {
 
     DcMotorEx motor;
-    HardwareMap hardwareMap;
-    Telemetry telemetry;
-    DCMotorConfig motorConfig;
     Encoder encoder;
-
     int debounceCount;
 
     public DCMotorControllerEx(HardwareMap hardwareMap, Telemetry telemetryObject, DCMotorConfig motorConfig) {
-        this.hardwareMap = hardwareMap;
-        this.telemetry = telemetryObject;
+        super (hardwareMap, telemetryObject, motorConfig);
         this.motorConfig = motorConfig;
         init();
     }
@@ -82,43 +78,9 @@ public class DCMotorControllerEx {
 
     }
 
-    public void handlePresets (int presetNumber) {
 
-        handlePresets (presetNumber==0, presetNumber==1, presetNumber==2, presetNumber==3, presetNumber==4);
-    }
-
-    public void handlePresets (boolean preset1Trigerred, boolean preset2Triggerred, boolean preset3Triggerred , boolean preset4Triggerred, boolean preset5Triggerred) {
-
-        if (preset1Trigerred || preset2Triggerred || preset3Triggerred || preset4Triggerred || preset5Triggerred) {
-            telemetry.addData("DCMotor : ", motorConfig.motorName.toString() + "Postion : " + motor.getCurrentPosition());
-
-
-            if (preset1Trigerred)
-                motor.setTargetPosition((int)motorConfig.preset0);
-
-            if (preset2Triggerred)
-                motor.setTargetPosition((int)motorConfig.preset1);
-
-            if (preset3Triggerred)
-                motor.setTargetPosition((int)motorConfig.preset2);
-
-            if (preset4Triggerred)
-                motor.setTargetPosition((int)motorConfig.preset3);
-
-            if (preset5Triggerred)
-                motor.setTargetPosition((int)motorConfig.preset4);
-
-        }
-    }
-
-    public double [] getPresets () {
-        double [] presets = new double [5];
-        presets[0] = motorConfig.preset0;
-        presets[1] = motorConfig.preset1;
-        presets[2] = motorConfig.preset2;
-        presets[3] = motorConfig.preset3;
-        presets[4] = motorConfig.preset4;
-        return presets;
+    public void setTargetPosition (double position) {
+        motor.setTargetPosition((int)position);
     }
 
     public void resetEncoders () {
@@ -135,7 +97,9 @@ public class DCMotorControllerEx {
 
     public void outputTelemetry () {
         telemetry.addData("DCM: ", motorConfig.motorName.toString() + " Pos: " + motor.getCurrentPosition());
-
     }
 
+    public boolean isMotorBusy() {
+        return motor.isBusy();
+    }
 }

@@ -12,9 +12,9 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class CRServoControllerEx {
 
-    CRServo crServo;
     HardwareMap hardwareMap;
     Telemetry telemetry;
+    CRServo crServo;
     CRServoConfig crConfig;
 
     public CRServoControllerEx(HardwareMap hardwareMap, Telemetry telemetryObject, CRServoConfig crConfig) {

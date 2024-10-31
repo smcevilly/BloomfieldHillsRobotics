@@ -62,11 +62,11 @@ Pose2d ROBOT_START_POSITION_FOR_RED_SPECIMEN= new Pose2d(12.50, -62.00, Math.toR
 
          */
         myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(12.5, -40, Math.toRadians(90)))
-                        .strafeTo(new Vector2d(36, -40))
+                        .strafeTo(new Vector2d(38, -40))
                 .setTangent(Math.toRadians(90))
-                         .lineToY(-10)
+                         .lineToY(-7)
                         .setTangent(Math.toRadians(90))
-                        .strafeTo(new Vector2d(45, -10))
+                        .strafeTo(new Vector2d(50, -7))
                 .setTangent(Math.toRadians(90))
                         .lineToY(-55)
                         .build());

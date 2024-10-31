@@ -12,22 +12,16 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
  * Run to Position Config of DC Motor
  */
 
-public class ServoMotorControllerEx {
+public class ServoMotorControllerEx extends AbstractMotorControllerEx{
 
     Servo motor;
-    HardwareMap hardwareMap;
-    Telemetry telemetry;
-    DCMotorConfig motorConfig;
 
     public ServoMotorControllerEx(HardwareMap hardwareMap, Telemetry telemetryObject, DCMotorConfig motorConfig) {
-        this.hardwareMap = hardwareMap;
-        this.telemetry = telemetryObject;
-        this.motorConfig = motorConfig;
+        super (hardwareMap, telemetryObject, motorConfig);
         init();
     }
 
     public void init () {
-
         motor = hardwareMap.get(Servo.class, motorConfig.motorName);
 
         if (motorConfig.direction == DCMotorConfig.MotorDirection.FORWARD) {
@@ -40,7 +34,6 @@ public class ServoMotorControllerEx {
         telemetry.addData("Servo : ", motorConfig.motorName.toString() + " Initialized with Position, Velocity : " + motor.getPosition());
         // This will tell us the motors position on the drive hub. Anytime anything says telemtry.addData it is to send things to d the driver hub.
         motor.setPosition(Range.clip(motorConfig.startPosition, motorConfig.minPosition, motorConfig.maxPosition));
-
     }
 
     public void handleEvents (boolean upKey, boolean downKey) {
@@ -62,33 +55,17 @@ public class ServoMotorControllerEx {
     }
 
 
-    public void handlePresets (int presetNumber) {
-
-        handlePresets (presetNumber==0, presetNumber==1, presetNumber==2, presetNumber==3, presetNumber==4);
-    }
-
-    public void handlePresets (boolean preset1Trigerred, boolean preset2Triggerred, boolean preset3Triggerred, boolean preset4Triggerred, boolean preset5Triggerred) {
-
-        if (preset1Trigerred)
-            motor.setPosition(motorConfig.preset0);
-
-        if (preset2Triggerred)
-            motor.setPosition(motorConfig.preset1);
-
-        if (preset3Triggerred)
-            motor.setPosition(motorConfig.preset2);
-        if (preset4Triggerred)
-            motor.setPosition(motorConfig.preset3);
-        if (preset5Triggerred)
-            motor.setPosition(motorConfig.preset4);
-
-        if (preset2Triggerred || preset1Trigerred || preset3Triggerred || preset4Triggerred || preset5Triggerred ) {
-            telemetry.addData("Servo : ", motorConfig.motorName + " Postion : " + motor.getPosition());
-        }
+    @Override
+    public void setTargetPosition(double position) {
+        motor.setPosition(position);
     }
 
     public void outputTelemetry () {
         telemetry.addData("SRV: ", motorConfig.motorName.toString() + " Pos : " + motor.getPosition());
     }
 
+
+    public boolean isMotorBusy() {
+        return false;
+    }
 }

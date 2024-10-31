@@ -6,12 +6,11 @@ import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
-import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.coding.cobra.config.SystemConfig;
-import org.coding.cobra.ext.MoveToPresetAsync;
+import org.coding.cobra.ext.MoveToPresetAction;
 
 @Config
 @Autonomous(name = "Cobra Auto Sample", group = "Autonomous")
@@ -91,8 +90,8 @@ public class CobraAutoSample extends CobraBase  {
 
         Actions.runBlocking(
                 new SequentialAction(
-                        new MoveToPresetAsync(leftElevator, rightElevator, 1, 1),
-                        new MoveToPresetAsync(armExtenderMotor, 1)
+                        new MoveToPresetAction(leftElevator, rightElevator, 1, 1),
+                        new MoveToPresetAction(armExtenderMotor, 1)
                         //lift.liftUp(),
                         //claw.openClaw(),
                         //lift.liftDown()
@@ -119,8 +118,8 @@ public class CobraAutoSample extends CobraBase  {
 
         Actions.runBlocking(
                 new SequentialAction(
-                        new MoveToPresetAsync(armExtenderMotor, 0),
-                        new MoveToPresetAsync(leftElevator, rightElevator, 0, 0)
+                        new MoveToPresetAction(armExtenderMotor, 0),
+                        new MoveToPresetAction(leftElevator, rightElevator, 0, 0)
                         //lift.liftUp(),
                         //claw.openClaw(),
                         //lift.liftDown()

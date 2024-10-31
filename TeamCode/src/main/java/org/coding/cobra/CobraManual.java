@@ -27,7 +27,7 @@ public class CobraManual extends CobraBase {
         // Continuous loop
         while (opModeIsActive()) {
 
-            if (gamepad1.right_bumper) {
+            if (gamepad1.share) {
                 resetRobot();
                 return;
             }
@@ -68,11 +68,17 @@ public class CobraManual extends CobraBase {
 
 
         // presets
-        clawRotator.handlePresets(gamepad2.x, gamepad2.b, false, false, false);
-        leftElevator.handlePresets(gamepad2.a, gamepad2.y, false, false, false);
-        rightElevator.handlePresets(gamepad2.a, gamepad2.y, false, false, false);
+//       clawRotator.handlePresets(gamepad2.x, gamepad2.b, false, false, false);
+//        leftElevator.handlePresets(gamepad2.a, gamepad2.y, false, false, false);
+//        rightElevator.handlePresets(gamepad2.a, gamepad2.y, false, false, false);
 
-     //  camera.handleEvents(gamepad1.dpad_left, gamepad1.dpad_right);
+
+        clawRotator.handlePresets(gamepad2.x, gamepad2.b, false, false, false);
+        leftElevator.handlePresets(gamepad2.left_bumper, gamepad2.right_bumper, gamepad2.right_trigger>0, gamepad2.left_trigger>0, false);
+        rightElevator.handlePresets(gamepad2.left_bumper, gamepad2.right_bumper, gamepad2.right_trigger>0, gamepad2.left_trigger>0, false);
+
+
+        //  camera.handleEvents(gamepad1.dpad_left, gamepad1.dpad_right);
 
     }
 

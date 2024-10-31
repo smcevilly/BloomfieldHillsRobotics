@@ -2,47 +2,31 @@ package org.coding.cobra;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.Action;
-import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.SleepAction;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.coding.cobra.config.SystemConfig;
-import org.coding.cobra.ext.MoveToPresetAsync;
+import org.coding.cobra.ext.MoveToPresetAction;
 
 @Config
-@Autonomous(name = "Cobra Auto Specimen", group = "Autonomous")
-public class CobraAutoSpecimen extends CobraBase  {
+public abstract class CobraAutoSpecimen extends CobraBase  {
 
-    @Override
-    public void runOpMode() {
+    TrajectoryActionBuilder trajectoryMoveCloserToBar;
+    TrajectoryActionBuilder straffeObject1OnGround;
 
-        initialize();;
+    public void operateRunMode() {
 
         // hold the initial object
-        clawRotator.handlePresets(0);
         flexiClawLeft.handlePresets(1);
         flexiClawRight.handlePresets(1);
+        clawRotator.handlePresets(0);
 
-        TrajectoryActionBuilder trajectoryMoveCloserToBar = mecanumDrive.actionBuilder(SystemConfig.ROBOT_START_POSITION_FOR_RED_SPECIMEN)
-                .lineToY(-40);
-
-        Action actionMoveCloserToBar = trajectoryMoveCloserToBar.fresh()
-                .build();
-
-
-        telemetry.addData("Determining the Move ",  mecanumDrive.pose);
-        telemetry.update();
+        Action actionMoveCloserToBar = trajectoryMoveCloserToBar.build();
         waitForStart();
-
-        Action trajectoryActionChosen;
-        trajectoryActionChosen = trajectoryMoveCloserToBar.build();
-
-
 
 
         telemetry.addData("Extending Arm ",  mecanumDrive.pose);
@@ -50,24 +34,17 @@ public class CobraAutoSpecimen extends CobraBase  {
 
         Actions.runBlocking(
                 new SequentialAction(
-                        trajectoryActionChosen,
-                        new MoveToPresetAsync(leftElevator, rightElevator, 2, 2),
-                        new MoveToPresetAsync(armExtenderMotor, 2),
+                        actionMoveCloserToBar,
+                        new MoveToPresetAction(leftElevator, rightElevator, 2, 2),
+                        new MoveToPresetAction(armExtenderMotor, 2),
                         new SleepAction(2),
-                        new MoveToPresetAsync(leftElevator, rightElevator, 3, 3),
+                        new MoveToPresetAction(leftElevator, rightElevator, 3, 3),
                         new SleepAction(2),
-                        new MoveToPresetAsync(armExtenderMotor, 3),
-                        new SleepAction(2)
-
+                        new MoveToPresetAction(armExtenderMotor, 3),
+                        new SleepAction(2),
+                        new MoveToPresetAction(flexiClawLeft, flexiClawRight , 0, 0)
                 )
         );
-
-        flexiClawLeft.handlePresets(true, false, false, false, false);
-        flexiClawRight.handlePresets(true, false, false, false, false);
-
-        telemetry.addData("Dropping the object ",  mecanumDrive.pose);
-        telemetry.update();
-
 
         try {
             Thread.sleep(1000);
@@ -77,28 +54,19 @@ public class CobraAutoSpecimen extends CobraBase  {
 
         Actions.runBlocking(
                 new SequentialAction(
-                        new MoveToPresetAsync(armExtenderMotor, 0),
-                        new MoveToPresetAsync(leftElevator, rightElevator, 0, 0)
+                        new MoveToPresetAction(armExtenderMotor, 0),
+                        new MoveToPresetAction(leftElevator, rightElevator, 0, 0)
                 )
         );
 
 
 
-        TrajectoryActionBuilder tab2 = mecanumDrive.actionBuilder(new Pose2d(12.5, -40, Math.toRadians(90)))
-                .strafeTo(new Vector2d(36, -40))
-                .setTangent(Math.toRadians(90))
-                .lineToY(-10)
-                .setTangent(Math.toRadians(90))
-                .strafeTo(new Vector2d(45, -10))
-                .setTangent(Math.toRadians(90))
-                .lineToY(-55);
-
-        Action pushSample = tab2.fresh()
+        Action pushSample = straffeObject1OnGround.fresh()
 
                 .build();
 
         Action trajectoryActionPushSample;
-        trajectoryActionPushSample = tab2.build();
+        trajectoryActionPushSample = straffeObject1OnGround.build();
 
 
 
@@ -107,9 +75,6 @@ public class CobraAutoSpecimen extends CobraBase  {
                         trajectoryActionPushSample //
                 )
         );
-
-
-
 
         while (opModeIsActive() && !isStopRequested()) {
 
