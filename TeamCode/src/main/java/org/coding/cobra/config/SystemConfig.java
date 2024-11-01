@@ -83,7 +83,7 @@ public class SystemConfig {
             5,
             0.6,// face straight
             0.28,
-            0.5,
+            0.75,
             0,
             0
     );

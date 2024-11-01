@@ -16,7 +16,7 @@ public class MeepMeepTesting {
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
                 .build();
-        Pose2d startPosition = new Pose2d(12.50, 62.00, Math.toRadians(90.00));
+        Pose2d  startPosition = new Pose2d(-61, 61.00, Math.toRadians(90));
 
         Pose2d ROBOT_START_POSITION = new Pose2d(-12.50, -62.00, Math.toRadians(90.00));
 Pose2d ROBOT_START_POSITION_FOR_RED_SPECIMEN= new Pose2d(12.50, -62.00, Math.toRadians(90.00));
@@ -47,13 +47,20 @@ Pose2d ROBOT_START_POSITION_FOR_RED_SPECIMEN= new Pose2d(12.50, -62.00, Math.toR
                                 .build());
 
 
-*/
 
 
-       myBot.runAction(myBot.getDrive().actionBuilder(ROBOT_START_POSITION)
-               .setTangent(Math.toRadians(90))
-                .splineToLinearHeading(new Pose2d(-52, -52, Math.toRadians(220)), Math.toRadians(280))
-                .build());
+
+         */
+
+
+
+       myBot.runAction(myBot.getDrive().actionBuilder(startPosition)
+                       .turn(Math.toRadians(180))
+                       .strafeTo(new Vector2d(-12.50, 62.00))
+                       .lineToY(41).build());
+
+
+
 
 
 

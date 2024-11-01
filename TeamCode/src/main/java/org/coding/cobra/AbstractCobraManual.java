@@ -1,23 +1,14 @@
 package org.coding.cobra;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.coding.cobra.config.SystemConfig;
-import org.coding.cobra.ext.CRServoControllerEx;
-import org.coding.cobra.ext.DCMotorControllerEx;
-import org.coding.cobra.ext.LimelightEx;
-import org.coding.cobra.ext.MecanumDriveEx;
-import org.coding.cobra.ext.ServoMotorControllerEx;
-import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 
-@TeleOp(name = "Manual Cobra")
-public class CobraManual extends CobraBase {
+public abstract class  AbstractCobraManual extends CobraBase {
 
-    @Override
-    public void runOpMode() throws InterruptedException {
+    public abstract void automationSpecimenHang();
 
-        initialize(SystemConfig.ROBOT_START_POSITION);
+    public void executeOpMode() throws InterruptedException {
 
         waitForStart();
 
@@ -77,6 +68,9 @@ public class CobraManual extends CobraBase {
         leftElevator.handlePresets(gamepad2.left_bumper, gamepad2.right_bumper, gamepad2.right_trigger>0, gamepad2.left_trigger>0, false);
         rightElevator.handlePresets(gamepad2.left_bumper, gamepad2.right_bumper, gamepad2.right_trigger>0, gamepad2.left_trigger>0, false);
 
+        if (gamepad2.start) {
+            automationSpecimenHang();
+        }
 
         //  camera.handleEvents(gamepad1.dpad_left, gamepad1.dpad_right);
 
@@ -90,13 +84,13 @@ public class CobraManual extends CobraBase {
     }
 
     public void telemetryOutput () {
-        telemetry.addData("Mecanum  ", mecanumDrive.updatePoseEstimate().toString());
         armExtenderMotor.outputTelemetry();
         leftElevator.outputTelemetry();
         rightElevator.outputTelemetry();
         clawRotator.outputTelemetry();
         flexiClawLeft.outputTelemetry();
         flexiClawRight.outputTelemetry();
+        telemetry.addData("Mecanum  ", mecanumDrive.pose.toString());
         if (botpose != null) {
             telemetry.addData("Botpose ", botpose.toString());
         }

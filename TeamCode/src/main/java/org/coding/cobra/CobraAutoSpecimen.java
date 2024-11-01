@@ -28,7 +28,6 @@ public abstract class CobraAutoSpecimen extends CobraBase  {
         Action actionMoveCloserToBar = trajectoryMoveCloserToBar.build();
         waitForStart();
 
-
         telemetry.addData("Extending Arm ",  mecanumDrive.pose);
         telemetry.update();
 
@@ -65,13 +64,17 @@ public abstract class CobraAutoSpecimen extends CobraBase  {
         Action trajectoryActionPushSample;
         trajectoryActionPushSample = straffeObject1OnGround.build();
 
-
-
         Actions.runBlocking(
                 new SequentialAction(
                         trajectoryActionPushSample //
                 )
         );
+
+        telemetry.addData("Resetting to postion", "");
+        telemetry.update();
+
+        leftElevator.resetToZeroPosition();
+        rightElevator.resetToZeroPosition();
 
         while (opModeIsActive() && !isStopRequested()) {
 

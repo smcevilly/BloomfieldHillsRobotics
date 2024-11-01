@@ -9,29 +9,31 @@ import org.coding.cobra.config.SystemConfig;
 @Autonomous(name = "Cobra Blue Left", group = "Autonomous")
 public class CobraAutoBlueLeft extends  CobraAutoSpecimen{
 
+
     @Override
     public void runOpMode() {
 
-        Pose2d startPosition = new Pose2d(12.50, 62.00, Math.toRadians(270));
+        Pose2d startPosition = new Pose2d(6.5, 62.00, Math.toRadians(270));
 
         initialize(startPosition);
 
         trajectoryMoveCloserToBar = mecanumDrive.actionBuilder(startPosition)
+                .lineToY(41);
+
+        straffeObject1OnGround = mecanumDrive.actionBuilder(new Pose2d(6.5, 41, Math.toRadians(270)))
+                .lineToY(60)
+                .strafeTo(new Vector2d(-38, 60))
                 .setTangent(Math.toRadians(270))
-                .splineToLinearHeading(new Pose2d(5.25, 41, Math.toRadians(270)), Math.toRadians(270));
-
-
-
-
-        straffeObject1OnGround = mecanumDrive.actionBuilder(new Pose2d(-12.5, -43, Math.toRadians(90)))
-                .strafeTo(new Vector2d(38, -40))
-                .setTangent(Math.toRadians(90))
-                .lineToY(-7)
-                .setTangent(Math.toRadians(90))
-                .strafeTo(new Vector2d(50, -7))
-                .setTangent(Math.toRadians(90))
-                .lineToY(-55);
-
+                .lineToY(7)
+                .setTangent(Math.toRadians(270))
+                .strafeTo(new Vector2d(-50, 7.5))
+                .setTangent(Math.toRadians(270))
+                .lineToY(55)
+                .lineToY(7)
+                .setTangent(Math.toRadians(270))
+                .strafeTo(new Vector2d(-61, 7))
+                .setTangent(Math.toRadians(270))
+                .lineToY(61);
         operateRunMode ();
 
     }

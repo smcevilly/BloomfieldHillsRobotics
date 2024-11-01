@@ -57,6 +57,7 @@ public class CobraAutoSampleRedLeft extends CobraBase  {
             // hold the initial object
             flexiClawLeft.handlePresets(1);
             flexiClawRight.handlePresets(1);
+            clawRotator.handlePresets(2);
         }
 
         telemetry.addData("Determining the Move ",  mecanumDrive.pose);

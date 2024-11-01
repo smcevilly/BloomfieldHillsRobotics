@@ -68,4 +68,8 @@ public class ServoMotorControllerEx extends AbstractMotorControllerEx{
     public boolean isMotorBusy() {
         return false;
     }
+
+    public void resetToZeroPosition() {
+        motor.setPosition(0);
+    }
 }

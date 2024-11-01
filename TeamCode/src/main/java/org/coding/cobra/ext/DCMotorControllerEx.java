@@ -102,4 +102,8 @@ public class DCMotorControllerEx extends AbstractMotorControllerEx {
     public boolean isMotorBusy() {
         return motor.isBusy();
     }
+
+    public void resetToZeroPosition() {
+        motor.setTargetPosition(0);
+    }
 }

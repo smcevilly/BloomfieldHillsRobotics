@@ -59,4 +59,6 @@ public abstract class AbstractMotorControllerEx {
 
     public abstract boolean isMotorBusy ();
 
+    public abstract void resetToZeroPosition ();
+
 }
