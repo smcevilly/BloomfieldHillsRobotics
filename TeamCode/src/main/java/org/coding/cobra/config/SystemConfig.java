@@ -27,13 +27,13 @@ public class SystemConfig {
             "rightExtender",
             0,
             0,
-            2800,
+            2600,
             500,
             DCMotorConfig.MotorDirection.REVERSE,
             1,
             1,
             0,
-            2800,
+            2600,
             1651,        // autonomous reach bar
             600,                // autonomous object hang complete
             0
