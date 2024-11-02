@@ -28,11 +28,7 @@ public class CobraManualBlue extends AbstractCobraManual {
 
     public void automationSpecimenHang () {
 
-        leftElevator.resetToZeroPosition();
-        rightElevator.resetToZeroPosition();
-
-        /*
-        TrajectoryActionBuilder trajectoryMoveCloserToBar;
+      TrajectoryActionBuilder trajectoryMoveCloserToBar;
         TrajectoryActionBuilder straffeObject1OnGround;
 
         trajectoryMoveCloserToBar = mecanumDrive.actionBuilder(startPosition)
@@ -60,7 +56,6 @@ public class CobraManualBlue extends AbstractCobraManual {
                 )
         );
 
-*/
     }
 
 }

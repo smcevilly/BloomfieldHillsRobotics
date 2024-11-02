@@ -27,7 +27,7 @@ public class SystemConfig {
             "rightExtender",
             0,
             0,
-            2800,
+            2600,
             500,
             DCMotorConfig.MotorDirection.REVERSE,
             1,
@@ -51,8 +51,8 @@ public class SystemConfig {
             450,
             5700,
             3468,        // autonomous high bar
-            3250,                   // autonomous bar hang pull level
-            0
+            3200,                   // autonomous bar hang pull level
+            548
     );
 
     public static DCMotorConfig Right_Elevator = new DCMotorConfig(
@@ -67,8 +67,8 @@ public class SystemConfig {
             450,
             5700,
             3468,        // autonomous high bar
-            3250,
-            0
+            3200,
+            548
     );
 
     // Servo
