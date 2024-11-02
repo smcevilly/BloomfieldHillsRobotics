@@ -33,7 +33,7 @@ public class SystemConfig {
             1,
             1,
             0,
-            2800,
+            2600,
             1651,        // autonomous reach bar
             600,                // autonomous object hang complete
             0
