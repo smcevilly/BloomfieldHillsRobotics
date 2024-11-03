@@ -4,6 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.coding.cobra.config.SystemConfig;
 
+import org.coding.cobra.ext.ServoMotorControllerEx;
+
 public abstract class  AbstractCobraManual extends CobraBase {
 
     public abstract void automationSpecimenHang();
@@ -12,6 +14,7 @@ public abstract class  AbstractCobraManual extends CobraBase {
 
         waitForStart();
 
+        clawRotator = new ServoMotorControllerEx(hardwareMap, telemetry, sysConfig.CLAW_ROTATOR);
 
         //This is telling the robot to wait until start is clicked on the driver hub.
 

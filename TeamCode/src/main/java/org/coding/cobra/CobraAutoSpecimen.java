@@ -8,6 +8,7 @@ import com.acmerobotics.roadrunner.SleepAction;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
+import org.coding.cobra.ext.ServoMotorControllerEx;
 
 import org.coding.cobra.config.SystemConfig;
 import org.coding.cobra.ext.MoveToPresetAction;
@@ -23,10 +24,12 @@ public abstract class CobraAutoSpecimen extends CobraBase  {
         // hold the initial object
         flexiClawLeft.handlePresets(1);
         flexiClawRight.handlePresets(1);
-        clawRotator.handlePresets(0);
 
         Action actionMoveCloserToBar = trajectoryMoveCloserToBar.build();
         waitForStart();
+
+        clawRotator = new ServoMotorControllerEx(hardwareMap, telemetry, sysConfig.CLAW_ROTATOR);
+        clawRotator.handlePresets(0);
 
         telemetry.addData("Extending Arm ",  mecanumDrive.pose);
         telemetry.update();
