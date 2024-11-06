@@ -20,6 +20,8 @@ public class CobraAutoSampleRedLeft extends CobraBase  {
 
         Pose2d startPosition = new Pose2d(-12.50, -62.00, Math.toRadians(90.00));
 
+        loadPersistance();
+
         initialize(startPosition);
 
         // vision here that outputs position

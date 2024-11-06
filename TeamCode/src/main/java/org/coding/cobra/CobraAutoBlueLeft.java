@@ -4,10 +4,8 @@ import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.coding.cobra.config.SystemConfig;
-
 @Autonomous(name = "Cobra Blue Left", group = "Autonomous")
-public class CobraAutoBlueLeft extends  CobraAutoSpecimen{
+public class CobraAutoBlueLeft extends AbstractCobraAutoSpecimen {
 
 
     @Override
@@ -15,6 +13,7 @@ public class CobraAutoBlueLeft extends  CobraAutoSpecimen{
 
         Pose2d startPosition = new Pose2d(6.5, 62.00, Math.toRadians(270));
 
+        loadPersistance();
         initialize(startPosition);
 
         trajectoryMoveCloserToBar = mecanumDrive.actionBuilder(startPosition)

@@ -20,7 +20,17 @@ public class CobraManualBlue extends AbstractCobraManual {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        initialize(startPosition);
+        loadPersistance();
+        //new Pose2d(-12.50, -62.00, Math.toRadians(90.00));
+
+        float x = sharedPreferences.getFloat("x",0.0f);
+        float y = sharedPreferences.getFloat("y",0.0f);
+        float heading = sharedPreferences.getFloat("heading",0.0f);
+        Pose2d startPos = new Pose2d(x, y, heading);
+        telemetry.addData("",startPos);
+        telemetry.update();
+
+        initialize(startPos);
 
         executeOpMode();
     }
@@ -32,7 +42,8 @@ public class CobraManualBlue extends AbstractCobraManual {
         TrajectoryActionBuilder straffeObject1OnGround;
 
         trajectoryMoveCloserToBar = mecanumDrive.actionBuilder(startPosition)
-                .turn(Math.toRadians(180))
+                //.turn(Math.toRadians(-90))
+                .turnTo(Math.toRadians(-90))
                 .strafeTo(new Vector2d(-12.50, 62.00))
                 .lineToY(41);
 

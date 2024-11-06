@@ -1,5 +1,8 @@
 package org.coding.cobra;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
 import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
@@ -29,8 +32,16 @@ public  abstract class CobraBase extends LinearOpMode {
     DCMotorControllerEx leftElevator;
     DCMotorControllerEx rightElevator;
 
+    public SharedPreferences sharedPreferences;
+
+    public void loadPersistance () {
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(hardwareMap.appContext);
+    }
+
 
     public void initialize (Pose2d startPosition) {
+
+
         mecanumDrive = new MecanumDriveEx(hardwareMap, telemetry, startPosition);
         leftElevator = new DCMotorControllerEx(hardwareMap, telemetry, sysConfig.Left_Elevator);
         rightElevator = new DCMotorControllerEx(hardwareMap, telemetry, sysConfig.Right_Elevator);

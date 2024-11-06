@@ -1,20 +1,20 @@
 package org.coding.cobra;
 
+import android.content.SharedPreferences;
+
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.SleepAction;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
-import com.acmerobotics.roadrunner.Vector2d;
 import com.acmerobotics.roadrunner.ftc.Actions;
 import org.coding.cobra.ext.ServoMotorControllerEx;
 
-import org.coding.cobra.config.SystemConfig;
 import org.coding.cobra.ext.MoveToPresetAction;
 
 @Config
-public abstract class CobraAutoSpecimen extends CobraBase  {
+public abstract class AbstractCobraAutoSpecimen extends CobraBase  {
 
     TrajectoryActionBuilder trajectoryMoveCloserToBar;
     TrajectoryActionBuilder straffeObject1OnGround;
@@ -78,6 +78,18 @@ public abstract class CobraAutoSpecimen extends CobraBase  {
 
         leftElevator.resetToZeroPosition();
         rightElevator.resetToZeroPosition();
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        // Persisting position:
+
+        //Pose2d = mecanumDrive.getPoseEstimate()
+        mecanumDrive.updateRobotPose();
+
+        editor.putFloat("x", (float)mecanumDrive.pose.position.x);
+        editor.putFloat("y", (float)mecanumDrive.pose.position.y);
+        editor.putFloat("heading", (float)mecanumDrive.pose.heading.toDouble());
+
+        editor.apply();
 
         while (opModeIsActive() && !isStopRequested()) {
 

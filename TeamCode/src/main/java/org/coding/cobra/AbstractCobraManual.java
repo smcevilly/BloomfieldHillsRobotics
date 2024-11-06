@@ -1,5 +1,10 @@
 package org.coding.cobra;
 
+import android.content.SharedPreferences;
+
+import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.Time;
+import com.acmerobotics.roadrunner.Twist2dDual;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.coding.cobra.config.SystemConfig;
@@ -9,6 +14,7 @@ import org.coding.cobra.ext.ServoMotorControllerEx;
 public abstract class  AbstractCobraManual extends CobraBase {
 
     public abstract void automationSpecimenHang();
+
 
     public void executeOpMode() throws InterruptedException {
 
@@ -93,7 +99,10 @@ public abstract class  AbstractCobraManual extends CobraBase {
         clawRotator.outputTelemetry();
         flexiClawLeft.outputTelemetry();
         flexiClawRight.outputTelemetry();
-        telemetry.addData("Pos  x:", mecanumDrive.pose.position.x + " y:" + mecanumDrive.pose.position.y + " heading:" + mecanumDrive.pose.heading.toDouble());
+
+        mecanumDrive.updateRobotPose();
+        telemetry.addData("Pos  x:",
+                mecanumDrive.pose.position.x + " y:" + mecanumDrive.pose.position.y + " heading:" + mecanumDrive.pose.heading.toDouble() + " (deg) " +Math.toDegrees( mecanumDrive.pose.heading.toDouble()));
         if (botpose != null) {
             telemetry.addData("Botpose ", botpose.toString());
         }

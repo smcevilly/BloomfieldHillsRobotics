@@ -11,7 +11,16 @@ public class CobraManualRed extends AbstractCobraManual {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        initialize(new Pose2d(61, -61.00, Math.toRadians(90)));
+        loadPersistance();
+
+        float x = sharedPreferences.getFloat("x",0.0f);
+        float y = sharedPreferences.getFloat("y",0.0f);
+        float heading = sharedPreferences.getFloat("heading",0.0f);
+        Pose2d startPos = new Pose2d(x, y, heading);
+        telemetry.addData("",startPos);
+        telemetry.update();
+
+        initialize(startPos);
 
         executeOpMode();
     }
