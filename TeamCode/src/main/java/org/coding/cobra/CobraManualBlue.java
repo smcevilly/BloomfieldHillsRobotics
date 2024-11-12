@@ -36,19 +36,38 @@ public class CobraManualBlue extends AbstractCobraManual {
     }
 
 
+    public void automationPickup () {
+
+        // Pickup the object from ground
+
+        Actions.runBlocking(
+                new SequentialAction(
+                        new MoveToPresetAction(leftElevator, rightElevator, 4, 4), // level down
+                        new MoveToPresetAction(flexiClawLeft, flexiClawRight, 0,0), //opens claw
+                        new MoveToPresetAction(clawRotator, 1), // rotate claw to pickup
+                        new MoveToPresetAction(armExtenderMotor,2), //Extends arm forward
+                        new SleepAction(1.5),
+                        new MoveToPresetAction(flexiClawLeft, flexiClawRight, 1,1), // pickup
+                        new MoveToPresetAction(leftElevator, rightElevator, 0, 0), // level down
+                        new MoveToPresetAction(armExtenderMotor,3) //Extends arm forward
+                      //  new MoveToPresetAction(clawRotator, 0) // rotate claw to face straing
+                )
+        );
+
+    }
+
     public void automationSpecimenHang () {
 
       TrajectoryActionBuilder trajectoryMoveCloserToBar;
         TrajectoryActionBuilder straffeObject1OnGround;
 
-        trajectoryMoveCloserToBar = mecanumDrive.actionBuilder(startPosition)
-                //.turn(Math.toRadians(-90))
-                .turnTo(Math.toRadians(-90))
-                .strafeTo(new Vector2d(-12.50, 62.00))
-                .lineToY(41);
+        mecanumDrive.updateRobotPose();
+
+        trajectoryMoveCloserToBar = mecanumDrive.actionBuilder(mecanumDrive.pose)
+                .turnTo(Math.toRadians(270))
+                .splineToLinearHeading(new Pose2d(-12.5, 41, Math.toRadians(270)), Math.toRadians(270));
 
         Action actionMoveCloserToBar = trajectoryMoveCloserToBar.build();
-        waitForStart();
 
         telemetry.addData("Extending Arm ",  mecanumDrive.pose);
         telemetry.update();

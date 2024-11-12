@@ -39,7 +39,7 @@ public class CameraTest extends LinearOpMode {
 
     public void handleGamepadEvents () {
         // Allow for changing pipeline
-        camera.handleEvents(gamepad1.dpad_up, gamepad1.dpad_down);
+        camera.handleEvents(gamepad1.dpad_up, gamepad1.dpad_down, gamepad1.dpad_left);
     }
 
 }

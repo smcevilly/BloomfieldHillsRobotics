@@ -28,7 +28,7 @@ public class SystemConfig {
             0,
             0,
             2600,
-            500,
+            600,
             DCMotorConfig.MotorDirection.REVERSE,
             1,
             1,
@@ -44,13 +44,13 @@ public class SystemConfig {
             450,
             250,
             5700,
-            500,
+            600,
             DCMotorConfig.MotorDirection.REVERSE,
             1,
             1,
-            450,
-            5700,
-            3468,        // autonomous high bar
+            700,            // preset for pickup
+            5650,                   // preset for autonomous drop
+            3468,                   // autonomous high bar
             3200,                   // autonomous bar hang pull level
             548
     );
@@ -60,15 +60,17 @@ public class SystemConfig {
             500,
             250,
             5700,
-            500 ,
+            600 ,
             DCMotorConfig.MotorDirection.FORWARD,
             1,
             1,
-            450,
-            5700,
+            700,
+            5650,
             3468,        // autonomous high bar
             3200,
             548
+
+
     );
 
     // Servo
@@ -95,7 +97,7 @@ public class SystemConfig {
             0.7,
             0.32,
             1,
-            0.02,
+            0.025,
             DCMotorConfig.MotorDirection.FORWARD,
             5,
             5,
@@ -113,7 +115,7 @@ public class SystemConfig {
             0.7,
             0.32,
             1,
-            0.02,
+            0.025,
             DCMotorConfig.MotorDirection.REVERSE,
             8,
             10,

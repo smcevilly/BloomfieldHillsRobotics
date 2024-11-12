@@ -30,4 +30,9 @@ public class CobraManualRed extends AbstractCobraManual {
     public void automationSpecimenHang() {
 
     }
+
+    @Override
+    public void automationPickup() {
+
+    }
 }

@@ -15,6 +15,8 @@ public abstract class  AbstractCobraManual extends CobraBase {
 
     public abstract void automationSpecimenHang();
 
+    public abstract void automationPickup();
+
 
     public void executeOpMode() throws InterruptedException {
 
@@ -81,6 +83,10 @@ public abstract class  AbstractCobraManual extends CobraBase {
             automationSpecimenHang();
         }
 
+        if (gamepad2.share) {
+            automationPickup();
+        }
+
         //  camera.handleEvents(gamepad1.dpad_left, gamepad1.dpad_right);
 
     }
@@ -92,22 +98,6 @@ public abstract class  AbstractCobraManual extends CobraBase {
         leftElevator.resetEncoders();
     }
 
-    public void telemetryOutput () {
-        armExtenderMotor.outputTelemetry();
-        leftElevator.outputTelemetry();
-        rightElevator.outputTelemetry();
-        clawRotator.outputTelemetry();
-        flexiClawLeft.outputTelemetry();
-        flexiClawRight.outputTelemetry();
-
-        mecanumDrive.updateRobotPose();
-        telemetry.addData("Pos  x:",
-                mecanumDrive.pose.position.x + " y:" + mecanumDrive.pose.position.y + " heading:" + mecanumDrive.pose.heading.toDouble() + " (deg) " +Math.toDegrees( mecanumDrive.pose.heading.toDouble()));
-        if (botpose != null) {
-            telemetry.addData("Botpose ", botpose.toString());
-        }
-        telemetry.update();
-    }
 
 
 

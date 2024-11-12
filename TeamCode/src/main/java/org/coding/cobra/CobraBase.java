@@ -55,4 +55,22 @@ public  abstract class CobraBase extends LinearOpMode {
         camera.init();
     }
 
+    public void telemetryOutput () {
+        armExtenderMotor.outputTelemetry();
+        leftElevator.outputTelemetry();
+        rightElevator.outputTelemetry();
+        clawRotator.outputTelemetry();
+        flexiClawLeft.outputTelemetry();
+        flexiClawRight.outputTelemetry();
+
+        mecanumDrive.updateRobotPose();
+        telemetry.addData("Pos  x:",
+                mecanumDrive.pose.position.x + " y:" + mecanumDrive.pose.position.y + " heading:" + mecanumDrive.pose.heading.toDouble() + " (deg) " +Math.toDegrees( mecanumDrive.pose.heading.toDouble()));
+        if (botpose != null) {
+            telemetry.addData("Botpose ", botpose.toString());
+        }
+        telemetry.update();
+    }
+
+
 }

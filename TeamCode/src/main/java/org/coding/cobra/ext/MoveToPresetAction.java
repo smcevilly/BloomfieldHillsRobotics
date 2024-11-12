@@ -26,7 +26,7 @@ public class MoveToPresetAction implements Action {
             this.motor2Preset = motor2Preset;
         }
 
-        public MoveToPresetAction(DCMotorControllerEx motorController1, int motor1Preset) {
+        public MoveToPresetAction(AbstractMotorControllerEx motorController1, int motor1Preset) {
             this.motorController1 = motorController1;
             motorController2 = null;
 

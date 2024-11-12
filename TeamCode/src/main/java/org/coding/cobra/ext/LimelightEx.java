@@ -58,7 +58,29 @@ public class LimelightEx {
                 telemetry.addData("txnc", result.getTxNC());
                 telemetry.addData("ty", result.getTy());
                 telemetry.addData("tync", result.getTyNC());
+                telemetry.addData("ta", result.getTa());
+
+                double targetOffsetAngle_Vertical = result.getTy();
+
+                // how many degrees back is your limelight rotated from perfectly vertical?
+                double limelightMountAngleDegrees = 0;
+
+                // distance from the center of the Limelight lens to the floor
+                double limelightLensHeightInches = 3;
+
+                // distance from the target to the floor
+                double goalHeightInches = 0;
+
+                double angleToGoalDegrees = limelightMountAngleDegrees + targetOffsetAngle_Vertical;
+                double angleToGoalRadians = angleToGoalDegrees * (3.14159 / 180.0);
+
+                //calculate distance
+                double distanceFromLimelightToGoalInches = (goalHeightInches - limelightLensHeightInches) / Math.tan(angleToGoalRadians);
+
+                telemetry.addData("distance", distanceFromLimelightToGoalInches);
+
                 telemetry.addData("Botpose", botpose.toString());
+
                 // Access barcode results
                 List<LLResultTypes.BarcodeResult> barcodeResults = result.getBarcodeResults();
                 for (LLResultTypes.BarcodeResult br : barcodeResults) {
@@ -69,13 +91,14 @@ public class LimelightEx {
                 for (LLResultTypes.DetectorResult dr : detectorResults) {
                     telemetry.addData("Detector", "Class: %s, Area: %.2f", dr.getClassName(), dr.getTargetArea());
                 }
+
             }
         } else {
             telemetry.addData("Limelight", "No data available");
         }
         telemetry.update();
     }
-    public void handleEvents(boolean dpadLeft, boolean dpadRight) {
+    public void handleEvents(boolean dpadLeft, boolean dpadRight, boolean dpadUp) {
         int pipelinenumber = 0;
         if (dpadLeft) {
             pipelinenumber = 1;
@@ -84,6 +107,12 @@ public class LimelightEx {
             getResults();
         } else if (dpadRight) {
             pipelinenumber = 0;
+            camera.pipelineSwitch(pipelinenumber);
+            telemetry.addData("pipelinenumber", pipelinenumber);
+            getResults();
+        }
+        else if (dpadUp) {
+            pipelinenumber = 9;
             camera.pipelineSwitch(pipelinenumber);
             telemetry.addData("pipelinenumber", pipelinenumber);
             getResults();
