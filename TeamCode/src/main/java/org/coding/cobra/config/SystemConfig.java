@@ -55,7 +55,7 @@ public class SystemConfig {
             3468,                   // autonomous high bar
             3200,                   // autonomous bar hang pull level
             548,
-            1900,           // autonomous pickup specimen from wall
+            1750,           // autonomous pickup specimen from wall
             2850                    // autonomous elevator drop height
 
     );
@@ -74,7 +74,7 @@ public class SystemConfig {
             3468,        // autonomous high bar
             3200,
             548,
-            1900,           // autonomous pickup specimen from wall
+            1750,           // autonomous pickup specimen from wall
             2850                    // autonomous elevator drop height
 
     );

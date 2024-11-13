@@ -79,8 +79,14 @@ public abstract class  AbstractCobraManual extends CobraBase {
 
 
         clawRotator.handlePresets(gamepad2.x, gamepad2.b, false, false, false, false, false);
-        leftElevator.handlePresets(gamepad2.left_bumper, gamepad2.right_bumper, gamepad2.right_trigger>0, gamepad2.left_trigger>0, gamepad2.left_bumper, false, false);
-        rightElevator.handlePresets(gamepad2.left_bumper, gamepad2.right_bumper, gamepad2.right_trigger>0, gamepad2.left_trigger>0, gamepad2.left_bumper, false, false);
+
+        // old presets
+        //leftElevator.handlePresets(gamepad2.left_bumper, gamepad2.right_bumper, gamepad2.right_trigger>0, gamepad2.left_trigger>0, gamepad2.left_bumper, false, false);
+        //rightElevator.handlePresets(gamepad2.left_bumper, gamepad2.right_bumper, gamepad2.right_trigger>0, gamepad2.left_trigger>0, gamepad2.left_bumper, false, false);
+
+        // new presets
+        leftElevator.handlePresets(false, false, gamepad2.right_trigger>0, gamepad2.left_trigger>0, false, gamepad2.left_bumper, gamepad2.right_bumper);
+        rightElevator.handlePresets(false, false, gamepad2.right_trigger>0, gamepad2.left_trigger>0, false, gamepad2.left_bumper, gamepad2.right_bumper);
 
         if (gamepad2.start) {
             automationSpecimenHang();
