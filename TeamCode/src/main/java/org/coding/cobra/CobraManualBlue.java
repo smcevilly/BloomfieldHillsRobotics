@@ -15,7 +15,7 @@ import org.coding.cobra.ext.MoveToPresetAction;
 @TeleOp(name = "Manual Cobra Blue")
 public class CobraManualBlue extends AbstractCobraManual {
 
-    public Pose2d startPosition = new Pose2d(-61, 61.00, Math.toRadians(270));
+    public Pose2d startPos; // = new Pose2d(-61, 61.00, Math.toRadians(270));
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -26,7 +26,7 @@ public class CobraManualBlue extends AbstractCobraManual {
         float x = sharedPreferences.getFloat("x",0.0f);
         float y = sharedPreferences.getFloat("y",0.0f);
         float heading = sharedPreferences.getFloat("heading",0.0f);
-        Pose2d startPos = new Pose2d(x, y, heading);
+        startPos = new Pose2d(x, y, heading);
         telemetry.addData("",startPos);
         telemetry.update();
 
@@ -36,36 +36,22 @@ public class CobraManualBlue extends AbstractCobraManual {
     }
 
 
-    public void automationPickup () {
+    public void automationSpecimenHang () {
 
-        // Pickup the object from ground
+        TrajectoryActionBuilder trajectoryMoveCloserToBar;
+        //TrajectoryActionBuilder straffeObject1OnGround;
+        //mecanumDrive.updateRobotPose();
 
         Actions.runBlocking(
                 new SequentialAction(
-                        new MoveToPresetAction(leftElevator, rightElevator, 4, 4), // level down
-                        new MoveToPresetAction(flexiClawLeft, flexiClawRight, 0,0), //opens claw
-                        new MoveToPresetAction(clawRotator, 1), // rotate claw to pickup
-                        new MoveToPresetAction(armExtenderMotor,2), //Extends arm forward
-                        new SleepAction(1.5),
-                        new MoveToPresetAction(flexiClawLeft, flexiClawRight, 1,1), // pickup
-                        new MoveToPresetAction(leftElevator, rightElevator, 0, 0), // level down
-                        new MoveToPresetAction(armExtenderMotor,3) //Extends arm forward
-                      //  new MoveToPresetAction(clawRotator, 0) // rotate claw to face straing
-                )
-        );
+                        new MoveToPresetAction(armExtenderMotor, 0),
+                        new MoveToPresetAction(clawRotator, 0)
+                        ));
 
-    }
-
-    public void automationSpecimenHang () {
-
-      TrajectoryActionBuilder trajectoryMoveCloserToBar;
-        TrajectoryActionBuilder straffeObject1OnGround;
-
-        mecanumDrive.updateRobotPose();
-
-        trajectoryMoveCloserToBar = mecanumDrive.actionBuilder(mecanumDrive.pose)
+        trajectoryMoveCloserToBar = mecanumDrive.actionBuilder(startPos)
                 .turnTo(Math.toRadians(270))
-                .splineToLinearHeading(new Pose2d(-12.5, 41, Math.toRadians(270)), Math.toRadians(270));
+                .splineToLinearHeading(new Pose2d(-12.5, 41, Math.toRadians(270)), Math.toRadians(270)
+                );
 
         Action actionMoveCloserToBar = trajectoryMoveCloserToBar.build();
 
@@ -75,17 +61,19 @@ public class CobraManualBlue extends AbstractCobraManual {
         Actions.runBlocking(
                 new SequentialAction(
                         actionMoveCloserToBar,
-                        new MoveToPresetAction(leftElevator, rightElevator, 2, 2),
-                        new MoveToPresetAction(armExtenderMotor, 2),
-                        new SleepAction(1.5),
-                        new MoveToPresetAction(leftElevator, rightElevator, 3, 3),
+                        new SleepAction(2),
+                        new MoveToPresetAction(leftElevator, rightElevator, 6, 6),
                         new SleepAction(1),
-                        new MoveToPresetAction(armExtenderMotor, 3),
-                        new SleepAction(0.5),
-                        new MoveToPresetAction(flexiClawLeft, flexiClawRight , 0, 0)
+                        new MoveToPresetAction(armExtenderMotor, 4),
+                        new SleepAction(1),
+                        new MoveToPresetAction(flexiClawLeft, flexiClawRight , 0, 0),
+                        new SleepAction(1),
+                        new MoveToPresetAction(armExtenderMotor, 0),
+                        new MoveToPresetAction(leftElevator, rightElevator, 0, 0)
                 )
         );
 
     }
+
 
 }

@@ -21,14 +21,14 @@ public class CobraAutoBlueRight extends AbstractCobraAutoSpecimen {
         straffeObject1OnGround = mecanumDrive.actionBuilder(new Pose2d(-12.5, 41, Math.toRadians(270)))
                 .strafeTo(new Vector2d(-38, 41))
                 .setTangent(Math.toRadians(270))
-                .lineToY(7.5)
+                .lineToY(12)
                 .setTangent(Math.toRadians(270))
-                .strafeTo(new Vector2d(-50, 7.5))
+                .strafeTo(new Vector2d(-50, 12))
                 .setTangent(Math.toRadians(270))
                 .lineToY(55)
-                .lineToY(7)
+                .lineToY(12)
                 .setTangent(Math.toRadians(270))
-                .strafeTo(new Vector2d(-61, 7))
+                .strafeTo(new Vector2d(-61, 12))
                 .setTangent(Math.toRadians(270))
                 .lineToY(61);
 

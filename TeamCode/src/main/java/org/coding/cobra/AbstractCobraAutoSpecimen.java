@@ -56,7 +56,9 @@ public abstract class AbstractCobraAutoSpecimen extends CobraBase  {
                 new SequentialAction(
                         new SleepAction(0.5),
                         new MoveToPresetAction(armExtenderMotor, 0),
-                        new MoveToPresetAction(leftElevator, rightElevator, 0, 0)
+                        new MoveToPresetAction(leftElevator, rightElevator, 0, 0),
+                        new MoveToPresetAction(clawRotator, 0)
+
         ));
 
         telemetryOutput ();

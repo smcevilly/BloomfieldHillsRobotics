@@ -25,6 +25,13 @@ public class MecanumDriveConfig {
     public RevHubOrientationOnRobot.UsbFacingDirection usbFacingDirection =
             RevHubOrientationOnRobot.UsbFacingDirection.UP;
 
+
+    public RevHubOrientationOnRobot.LogoFacingDirection secondaryImuLogoFacingDirection =
+            RevHubOrientationOnRobot.LogoFacingDirection.BACKWARD;
+    public RevHubOrientationOnRobot.UsbFacingDirection secondaryUsbFacingDirection =
+            RevHubOrientationOnRobot.UsbFacingDirection.UP;
+
+
     public  final double maxMotorPower = 2;
 
     // drive model parameters
@@ -44,9 +51,9 @@ public class MecanumDriveConfig {
     public double kA = 0.0001; //0.0001
 
     // path profile parameters (in inches)
-    public double maxWheelVel = 75;              // 15
-    public double minProfileAccel = -50;        //  -10
-    public double maxProfileAccel = 75;         // 15
+    public double maxWheelVel = 60;              // 15
+    public double minProfileAccel = -40;        //  -10
+    public double maxProfileAccel = 60;         // 15
 
     // turn profile parameters (in radians)
     public double maxAngVel = Math.PI; // shared with path

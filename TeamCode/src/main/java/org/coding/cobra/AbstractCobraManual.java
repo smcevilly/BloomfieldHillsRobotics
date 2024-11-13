@@ -2,21 +2,24 @@ package org.coding.cobra;
 
 import android.content.SharedPreferences;
 
+import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.SequentialAction;
+import com.acmerobotics.roadrunner.SleepAction;
 import com.acmerobotics.roadrunner.Time;
+import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.Twist2dDual;
+import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.coding.cobra.config.SystemConfig;
 
+import org.coding.cobra.ext.MoveToPresetAction;
 import org.coding.cobra.ext.ServoMotorControllerEx;
 
 public abstract class  AbstractCobraManual extends CobraBase {
 
     public abstract void automationSpecimenHang();
-
-    public abstract void automationPickup();
-
 
     public void executeOpMode() throws InterruptedException {
 
@@ -75,9 +78,9 @@ public abstract class  AbstractCobraManual extends CobraBase {
 //        rightElevator.handlePresets(gamepad2.a, gamepad2.y, false, false, false);
 
 
-        clawRotator.handlePresets(gamepad2.x, gamepad2.b, false, false, false);
-        leftElevator.handlePresets(gamepad2.left_bumper, gamepad2.right_bumper, gamepad2.right_trigger>0, gamepad2.left_trigger>0, gamepad2.left_bumper);
-        rightElevator.handlePresets(gamepad2.left_bumper, gamepad2.right_bumper, gamepad2.right_trigger>0, gamepad2.left_trigger>0, gamepad2.left_bumper);
+        clawRotator.handlePresets(gamepad2.x, gamepad2.b, false, false, false, false, false);
+        leftElevator.handlePresets(gamepad2.left_bumper, gamepad2.right_bumper, gamepad2.right_trigger>0, gamepad2.left_trigger>0, gamepad2.left_bumper, false, false);
+        rightElevator.handlePresets(gamepad2.left_bumper, gamepad2.right_bumper, gamepad2.right_trigger>0, gamepad2.left_trigger>0, gamepad2.left_bumper, false, false);
 
         if (gamepad2.start) {
             automationSpecimenHang();
@@ -100,5 +103,24 @@ public abstract class  AbstractCobraManual extends CobraBase {
 
 
 
+    public void automationPickup () {
+
+        // Pickup the object from ground
+
+        Actions.runBlocking(
+                new SequentialAction(
+                        new MoveToPresetAction(leftElevator, rightElevator, 4, 4), // level down
+                        new MoveToPresetAction(flexiClawLeft, flexiClawRight, 0,0), //opens claw
+                        new MoveToPresetAction(clawRotator, 1), // rotate claw to pickup
+                        new MoveToPresetAction(armExtenderMotor,2), //Extends arm forward
+                        new SleepAction(1.5),
+                        new MoveToPresetAction(flexiClawLeft, flexiClawRight, 1,1), // pickup
+                        new MoveToPresetAction(leftElevator, rightElevator, 0, 0), // level down
+                        new MoveToPresetAction(armExtenderMotor,3) //Extends arm forward
+                        //  new MoveToPresetAction(clawRotator, 0) // rotate claw to face straing
+                )
+        );
+
+    }
 
 }

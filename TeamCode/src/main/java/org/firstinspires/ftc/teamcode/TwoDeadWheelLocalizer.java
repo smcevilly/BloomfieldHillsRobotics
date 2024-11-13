@@ -31,7 +31,7 @@ public final class TwoDeadWheelLocalizer implements Localizer {
     public static MecanumDriveConfig.Params PARAMS = new MecanumDriveConfig.Params();
 
     public final Encoder par, perp;
-    public final IMU imu;
+    public final IMU imu, secondaryImu;
 
     private int lastParPos, lastPerpPos;
     private Rotation2d lastHeading;
@@ -41,7 +41,7 @@ public final class TwoDeadWheelLocalizer implements Localizer {
     private double lastRawHeadingVel, headingVelOffset;
     private boolean initialized;
 
-    public TwoDeadWheelLocalizer(HardwareMap hardwareMap, IMU imu, double inPerTick) {
+    public TwoDeadWheelLocalizer(HardwareMap hardwareMap, IMU imu, IMU secondaryImu, double inPerTick) {
         // TODO: make sure your config has **motors** with these names (or change them)
         //   the encoders should be plugged into the slot matching the named motor
         //   see https://ftc-docs.firstinspires.org/en/latest/hardware_and_software_configuration/configuring/index.html
@@ -52,6 +52,7 @@ public final class TwoDeadWheelLocalizer implements Localizer {
         par.setDirection(DcMotorSimple.Direction.REVERSE);
 
         this.imu = imu;
+        this.secondaryImu = secondaryImu;
 
         this.inPerTick = inPerTick;
 
@@ -65,6 +66,10 @@ public final class TwoDeadWheelLocalizer implements Localizer {
         YawPitchRollAngles angles = imu.getRobotYawPitchRollAngles();
         // Use degrees here to work around https://github.com/FIRST-Tech-Challenge/FtcRobotController/issues/1070
         AngularVelocity angularVelocityDegrees = imu.getRobotAngularVelocity(AngleUnit.DEGREES);
+        if (angularVelocityDegrees.acquisitionTime==0) {
+            angularVelocityDegrees = secondaryImu.getRobotAngularVelocity(AngleUnit.DEGREES);
+        }
+
         AngularVelocity angularVelocity = new AngularVelocity(
                 UnnormalizedAngleUnit.RADIANS,
                 (float) Math.toRadians(angularVelocityDegrees.xRotationRate),
@@ -72,6 +77,8 @@ public final class TwoDeadWheelLocalizer implements Localizer {
                 (float) Math.toRadians(angularVelocityDegrees.zRotationRate),
                 angularVelocityDegrees.acquisitionTime
         );
+
+
 
         FlightRecorder.write("TWO_DEAD_WHEEL_INPUTS", new TwoDeadWheelInputsMessage(parPosVel, perpPosVel, angles, angularVelocity));
 

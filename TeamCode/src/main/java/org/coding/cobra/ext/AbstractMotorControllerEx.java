@@ -20,27 +20,24 @@ public abstract class AbstractMotorControllerEx {
 
 
     public void handlePresets(int presetNumber) {
-        handlePresets(presetNumber == 0, presetNumber == 1, presetNumber == 2, presetNumber == 3, presetNumber == 4);
+        handlePresets(presetNumber == 0, presetNumber == 1, presetNumber == 2, presetNumber == 3, presetNumber == 4, presetNumber == 5,  presetNumber == 6);
     }
 
-    public void handlePresets(boolean preset1Trigerred, boolean preset2Triggerred, boolean preset3Triggerred, boolean preset4Triggerred, boolean preset5Triggerred) {
-
-
-        if (preset1Trigerred)
+    public void handlePresets(boolean preset0Trigerred, boolean preset1Trigerred, boolean preset2Triggerred, boolean preset3Triggerred, boolean preset4Triggerred, boolean preset5Triggerred, boolean preset6Triggerred) {
+        if (preset0Trigerred)
             setTargetPosition(motorConfig.preset0);
-
-        if (preset2Triggerred)
+        else if (preset1Trigerred)
             setTargetPosition(motorConfig.preset1);
-
-        if (preset3Triggerred)
+        else if (preset2Triggerred)
             setTargetPosition(motorConfig.preset2);
-
-        if (preset4Triggerred)
+        else if (preset3Triggerred)
             setTargetPosition(motorConfig.preset3);
-
-        if (preset5Triggerred)
+        else if (preset4Triggerred)
             setTargetPosition(motorConfig.preset4);
-
+        else if (preset5Triggerred)
+            setTargetPosition(motorConfig.preset5);
+        else if (preset6Triggerred)
+            setTargetPosition(motorConfig.preset6);
     }
 
     public double [] getPresets () {

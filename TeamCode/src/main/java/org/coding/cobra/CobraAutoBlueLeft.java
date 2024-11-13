@@ -33,6 +33,7 @@ public class CobraAutoBlueLeft extends AbstractCobraAutoSpecimen {
                 .strafeTo(new Vector2d(-61, 7))
                 .setTangent(Math.toRadians(270))
                 .lineToY(61);
+
         operateRunMode ();
 
     }

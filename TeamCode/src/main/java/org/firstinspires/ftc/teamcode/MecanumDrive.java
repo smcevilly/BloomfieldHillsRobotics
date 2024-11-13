@@ -74,6 +74,8 @@ public class MecanumDrive {
 
     public final LazyImu lazyImu;
 
+    public final LazyImu backupImu;
+
     public final Localizer localizer;
     public Pose2d pose;
 
@@ -100,6 +102,7 @@ public class MecanumDrive {
             rightFront = new OverflowEncoder(new RawEncoder(MecanumDrive.this.rightFront));
 
             imu = lazyImu.get();
+
 
             // TODO: reverse encoders if needed
             leftFront.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -202,12 +205,14 @@ public class MecanumDrive {
         lazyImu = new LazyImu(hardwareMap, "imu", new RevHubOrientationOnRobot(
                 PARAMS.logoFacingDirection, PARAMS.usbFacingDirection));
 
+        backupImu = new LazyImu(hardwareMap, "imu2", new RevHubOrientationOnRobot(
+                PARAMS.secondaryImuLogoFacingDirection, PARAMS.secondaryUsbFacingDirection));
+
         voltageSensor = hardwareMap.voltageSensor.iterator().next();
 
 //        localizer = new DriveLocalizer();
 //        localizer = new ThreeDeadWheelLocalizer(hardwareMap, PARAMS.inPerTick);
-        localizer = new TwoDeadWheelLocalizer(hardwareMap, lazyImu.get(), PARAMS.inPerTick);
-
+        localizer = new TwoDeadWheelLocalizer(hardwareMap, lazyImu.get(),backupImu.get(), PARAMS.inPerTick);
 
         FlightRecorder.write("MECANUM_PARAMS", PARAMS);
     }

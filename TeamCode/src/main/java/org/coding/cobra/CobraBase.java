@@ -3,6 +3,8 @@ package org.coding.cobra;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
@@ -15,6 +17,7 @@ import org.coding.cobra.ext.ServoMotorControllerEx;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
+import org.firstinspires.ftc.teamcode.Drawing;
 
 public  abstract class CobraBase extends LinearOpMode {
 
@@ -40,8 +43,6 @@ public  abstract class CobraBase extends LinearOpMode {
 
 
     public void initialize (Pose2d startPosition) {
-
-
         mecanumDrive = new MecanumDriveEx(hardwareMap, telemetry, startPosition);
         leftElevator = new DCMotorControllerEx(hardwareMap, telemetry, sysConfig.Left_Elevator);
         rightElevator = new DCMotorControllerEx(hardwareMap, telemetry, sysConfig.Right_Elevator);
@@ -56,21 +57,39 @@ public  abstract class CobraBase extends LinearOpMode {
     }
 
     public void telemetryOutput () {
-        armExtenderMotor.outputTelemetry();
-        leftElevator.outputTelemetry();
-        rightElevator.outputTelemetry();
-        clawRotator.outputTelemetry();
-        flexiClawLeft.outputTelemetry();
-        flexiClawRight.outputTelemetry();
 
-        mecanumDrive.updateRobotPose();
-        telemetry.addData("Pos  x:",
-                mecanumDrive.pose.position.x + " y:" + mecanumDrive.pose.position.y + " heading:" + mecanumDrive.pose.heading.toDouble() + " (deg) " +Math.toDegrees( mecanumDrive.pose.heading.toDouble()));
-        if (botpose != null) {
-            telemetry.addData("Botpose ", botpose.toString());
+        if (debounce <10)
+            debounce++;
+        else {
+            mecanumDrive.updateRobotPose();
+            debounce=0;
+
+            armExtenderMotor.outputTelemetry();
+            leftElevator.outputTelemetry();
+            rightElevator.outputTelemetry();
+            clawRotator.outputTelemetry();
+            flexiClawLeft.outputTelemetry();
+            flexiClawRight.outputTelemetry();
+            telemetry.addData("Pos  x:",
+                    mecanumDrive.pose.position.x + " y:" + mecanumDrive.pose.position.y + " heading:" + mecanumDrive.pose.heading.toDouble() + " (deg) " +Math.toDegrees( mecanumDrive.pose.heading.toDouble()));
+            if (botpose != null) {
+                telemetry.addData("Botpose ", botpose.toString());
+            }
+
+            telemetry.addData("x", mecanumDrive.pose.position.x);
+            telemetry.addData("y", mecanumDrive.pose.position.y);
+            telemetry.addData("heading (deg)", Math.toDegrees(mecanumDrive.pose.heading.toDouble()));
+
+            TelemetryPacket packet = new TelemetryPacket();
+            packet.fieldOverlay().setStroke("#3F51B5");
+            Drawing.drawRobot(packet.fieldOverlay(), mecanumDrive.pose);
+            FtcDashboard.getInstance().sendTelemetryPacket(packet);
+            telemetry.update();
+
         }
-        telemetry.update();
+
     }
 
+    int debounce = 0;
 
 }

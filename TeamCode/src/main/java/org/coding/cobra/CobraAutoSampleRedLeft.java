@@ -112,8 +112,8 @@ public class CobraAutoSampleRedLeft extends CobraBase  {
         telemetry.addData("Dropping the object ",  mecanumDrive.pose);
         telemetry.update();
 
-        flexiClawLeft.handlePresets(true, false, false, false, false);
-        flexiClawRight.handlePresets(true, false, false, false, false);
+        flexiClawLeft.handlePresets(true, false, false, false, false, false, false);
+        flexiClawRight.handlePresets(true, false, false, false, false, false, false);
 
         try {
             Thread.sleep(2000);

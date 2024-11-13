@@ -36,6 +36,8 @@ public class SystemConfig {
             2600,
             1651,        // autonomous reach bar
             600,                // autonomous object hang complete
+            1900,               // automation hang on bar
+            0,
             0
     );
 
@@ -52,7 +54,10 @@ public class SystemConfig {
             5650,                   // preset for autonomous drop
             3468,                   // autonomous high bar
             3200,                   // autonomous bar hang pull level
-            548
+            548,
+            1900,           // autonomous pickup specimen from wall
+            2850                    // autonomous elevator drop height
+
     );
 
     public static DCMotorConfig Right_Elevator = new DCMotorConfig(
@@ -68,8 +73,9 @@ public class SystemConfig {
             5650,
             3468,        // autonomous high bar
             3200,
-            548
-
+            548,
+            1900,           // autonomous pickup specimen from wall
+            2850                    // autonomous elevator drop height
 
     );
 
@@ -86,8 +92,11 @@ public class SystemConfig {
             0.6,// face straight
             0.28,
             0.75,
+            1,
+            0,
             0,
             0
+
     );
 //
 
@@ -105,7 +114,10 @@ public class SystemConfig {
             0.3,           // hold
             0.75,
             0,
+            0,
+            0,
             0
+
 
     );
 
@@ -123,7 +135,10 @@ public class SystemConfig {
             0.3,           // hold
             0.75,
             0,
+            0,
+            0,
             0
+
     );
 
 
