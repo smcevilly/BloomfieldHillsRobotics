@@ -128,10 +128,10 @@ Pose2d ROBOT_START_POSITION_FOR_RED_SPECIMEN= new Pose2d(12.50, -62.00, Math.toR
 
       */
         myBot.runAction(myBot.getDrive().actionBuilder(startPosition)
-                //.turn(Math.toRadians(-90))
-                .turnTo(Math.toRadians(270))
-                .splineToLinearHeading(new Pose2d(-12.5, 41, Math.toRadians(270)), Math.toRadians(270))
-                .build());
+                .turnTo(Math.toRadians(-90))
+                .splineToLinearHeading(new Pose2d(-2.5, 45, Math.toRadians(-90)), Math.toRadians(-90)).build());
+
+
 
 
         meepMeep.setBackground(MeepMeep.Background.FIELD_INTO_THE_DEEP_JUICE_LIGHT)

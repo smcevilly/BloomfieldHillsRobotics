@@ -49,8 +49,8 @@ public class CobraManualBlue extends AbstractCobraManual {
                         ));
 
         trajectoryMoveCloserToBar = mecanumDrive.actionBuilder(startPos)
-                .turnTo(Math.toRadians(270))
-                .splineToLinearHeading(new Pose2d(-12.5, 41, Math.toRadians(270)), Math.toRadians(270)
+                .turnTo(Math.toRadians(-90))
+                .splineToLinearHeading(new Pose2d(-2.5, 45, Math.toRadians(-90)), Math.toRadians(-90)
                 );
 
         Action actionMoveCloserToBar = trajectoryMoveCloserToBar.build();
@@ -61,14 +61,15 @@ public class CobraManualBlue extends AbstractCobraManual {
         Actions.runBlocking(
                 new SequentialAction(
                         actionMoveCloserToBar,
-                        new SleepAction(2),
+                        new SleepAction(0.5),
                         new MoveToPresetAction(leftElevator, rightElevator, 6, 6),
                         new SleepAction(1),
                         new MoveToPresetAction(armExtenderMotor, 4),
                         new SleepAction(1),
                         new MoveToPresetAction(flexiClawLeft, flexiClawRight , 0, 0),
-                        new SleepAction(1),
+                        new SleepAction(0.5),
                         new MoveToPresetAction(armExtenderMotor, 0),
+                        new SleepAction(0.5),
                         new MoveToPresetAction(leftElevator, rightElevator, 0, 0)
                 )
         );

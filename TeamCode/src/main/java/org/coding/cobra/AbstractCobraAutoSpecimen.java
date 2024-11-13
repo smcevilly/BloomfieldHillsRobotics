@@ -40,11 +40,11 @@ public abstract class AbstractCobraAutoSpecimen extends CobraBase  {
                         actionMoveCloserToBar,
                         new MoveToPresetAction(leftElevator, rightElevator, 2, 2),
                         new MoveToPresetAction(armExtenderMotor, 2),
-                        new SleepAction(1),
+                        new SleepAction(0.7),
                         new MoveToPresetAction(leftElevator, rightElevator, 3, 3),
-                        new SleepAction(0.5),
+                        new SleepAction(0.3),
                         new MoveToPresetAction(armExtenderMotor, 3),
-                        new SleepAction(0.5),
+                        new SleepAction(0.3),
                         new MoveToPresetAction(flexiClawLeft, flexiClawRight , 0, 0)
                 )
         );
@@ -54,7 +54,7 @@ public abstract class AbstractCobraAutoSpecimen extends CobraBase  {
 
         Actions.runBlocking(
                 new SequentialAction(
-                        new SleepAction(0.5),
+                        new SleepAction(0.2),
                         new MoveToPresetAction(armExtenderMotor, 0),
                         new MoveToPresetAction(leftElevator, rightElevator, 0, 0),
                         new MoveToPresetAction(clawRotator, 0)
