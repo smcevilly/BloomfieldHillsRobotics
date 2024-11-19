@@ -28,7 +28,7 @@ import org.firstinspires.ftc.teamcode.messages.TwoDeadWheelInputsMessage;
 public final class TwoDeadWheelLocalizer implements Localizer {
     MecanumDriveConfig driveConfig = new MecanumDriveConfig();
 
-    public static MecanumDriveConfig.Params PARAMS = new MecanumDriveConfig.Params();
+    public static MecanumDriveConfig.TwoWheelOdoParams PARAMS = new MecanumDriveConfig.TwoWheelOdoParams();
 
     public final Encoder par, perp;
     public final IMU imu, secondaryImu;
@@ -49,7 +49,7 @@ public final class TwoDeadWheelLocalizer implements Localizer {
         perp = new OverflowEncoder(new RawEncoder(hardwareMap.get(DcMotorEx.class, driveConfig.leftRearMotor)));
 
         // TODO: reverse encoder directions if needed
-        par.setDirection(DcMotorSimple.Direction.REVERSE);
+        par.setDirection(DcMotorSimple.Direction.FORWARD);
 
         this.imu = imu;
         this.secondaryImu = secondaryImu;
@@ -68,6 +68,7 @@ public final class TwoDeadWheelLocalizer implements Localizer {
         AngularVelocity angularVelocityDegrees = imu.getRobotAngularVelocity(AngleUnit.DEGREES);
         if (angularVelocityDegrees.acquisitionTime==0) {
             angularVelocityDegrees = secondaryImu.getRobotAngularVelocity(AngleUnit.DEGREES);
+            angles = secondaryImu.getRobotYawPitchRollAngles();
         }
 
         AngularVelocity angularVelocity = new AngularVelocity(
@@ -77,8 +78,6 @@ public final class TwoDeadWheelLocalizer implements Localizer {
                 (float) Math.toRadians(angularVelocityDegrees.zRotationRate),
                 angularVelocityDegrees.acquisitionTime
         );
-
-
 
         FlightRecorder.write("TWO_DEAD_WHEEL_INPUTS", new TwoDeadWheelInputsMessage(parPosVel, perpPosVel, angles, angularVelocity));
 

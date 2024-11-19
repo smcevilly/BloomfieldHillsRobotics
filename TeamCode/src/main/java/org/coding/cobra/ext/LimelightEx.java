@@ -3,11 +3,9 @@ package org.coding.cobra.ext;
 import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.hardware.limelightvision.LLResult;
 import com.qualcomm.hardware.limelightvision.LLResultTypes;
-import com.qualcomm.hardware.limelightvision.LLStatus;
-import com.qualcomm.hardware.limelightvision.Limelight3A;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.coding.cobra.config.LimelightConfig;
+import org.coding.cobra.config.helpers.LimelightConfig;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 
@@ -20,10 +18,19 @@ public class LimelightEx {
     Telemetry telemetry;
     LimelightConfig cameraConfig;
 
+    // how many degrees back is your limelight rotated from perfectly vertical?
+    double limelightMountAngleDegrees;
+
+    // distance from the center of the Limelight lens to the floor
+    double limelightLensHeightInches;
+
+
     public LimelightEx(HardwareMap hardwareMap, Telemetry telemetryObject, LimelightConfig cameraConfig) {
         this.hardwareMap = hardwareMap;
         this.telemetry = telemetryObject;
         this.cameraConfig = cameraConfig;
+        this.limelightLensHeightInches = cameraConfig.limelightLensHeightInches;
+        this.limelightMountAngleDegrees = cameraConfig.limelightMountAngleDegrees;
         init();
     }
 
@@ -61,12 +68,6 @@ public class LimelightEx {
                 telemetry.addData("ta", result.getTa());
 
                 double targetOffsetAngle_Vertical = result.getTy();
-
-                // how many degrees back is your limelight rotated from perfectly vertical?
-                double limelightMountAngleDegrees = 0;
-
-                // distance from the center of the Limelight lens to the floor
-                double limelightLensHeightInches = 3;
 
                 // distance from the target to the floor
                 double goalHeightInches = 0;

@@ -19,7 +19,6 @@ import org.coding.cobra.ext.ServoMotorControllerEx;
 
 public abstract class  AbstractCobraManual extends CobraBase {
 
-    public abstract void automationSpecimenHang();
 
     public void executeOpMode() throws InterruptedException {
 
@@ -46,14 +45,6 @@ public abstract class  AbstractCobraManual extends CobraBase {
             if (isStopRequested()) return;
             telemetryOutput();
         }
-
-        // Bring to home position
-
-        //armExtenderMotor.shutdown();
-        //leftElevator.shutdown();
-        //rightElevator.shutdown();
-
-        //Thread.sleep(3000);
 
     }
 
@@ -105,28 +96,6 @@ public abstract class  AbstractCobraManual extends CobraBase {
         armExtenderMotor.resetEncoders();
         rightElevator.resetEncoders();
         leftElevator.resetEncoders();
-    }
-
-
-
-    public void automationPickup () {
-
-        // Pickup the object from ground
-
-        Actions.runBlocking(
-                new SequentialAction(
-                        new MoveToPresetAction(leftElevator, rightElevator, 4, 4), // level down
-                        new MoveToPresetAction(flexiClawLeft, flexiClawRight, 0,0), //opens claw
-                        new MoveToPresetAction(clawRotator, 1), // rotate claw to pickup
-                        new MoveToPresetAction(armExtenderMotor,2), //Extends arm forward
-                        new SleepAction(1.5),
-                        new MoveToPresetAction(flexiClawLeft, flexiClawRight, 1,1), // pickup
-                        new MoveToPresetAction(leftElevator, rightElevator, 0, 0), // level down
-                        new MoveToPresetAction(armExtenderMotor,3) //Extends arm forward
-                        //  new MoveToPresetAction(clawRotator, 0) // rotate claw to face straing
-                )
-        );
-
     }
 
 }

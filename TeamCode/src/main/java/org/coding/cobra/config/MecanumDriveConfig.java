@@ -15,6 +15,7 @@ public class MecanumDriveConfig {
     public String rightFrontMotor = "rightFront";
     public String leftRearMotor = "leftBack";
     public String rightRearMotor = "rightBack";
+    public String dummyMotorForDeadWheel = "parDeadWheel";
 
 
     // IMU orientation
@@ -34,26 +35,35 @@ public class MecanumDriveConfig {
 
     public  final double maxMotorPower = 2;
 
-    // drive model parameters
-    public double  inPerTick = 0.002038043478; //0.001876759;        //25153 ticks for 50 in
-    public  double lateralInPerTick = 0.0014352353650859053;
-    //public double lateralInPerTick = 0.0006628730045191881;
-    public double trackWidthTicks =  7073.8997779802285;  //0
 
-    public static class Params {
-        public double parYTicks = 0.625 * 1 / 0.0014352353650859053; // y position of the parallel encoder (in tick units)
-        public double perpXTicks = -5.75 * 1 / 0.002038043478; // x position of the perpendicular encoder (in tick units)
+    // drive model parameters
+    public double  inPerTick = 0.002; //24000 for 48 inches
+    public   double lateralInPerTick = 0.001408116138;
+    //public double lateralInPerTick = 0.0006628730045191881;
+    public double trackWidthTicks =  7275.8;  //0
+
+    public static class TwoWheelOdoParams {
+//        public double parYTicks = 0.625 * 1 / 0.001408116138; // y position of the parallel encoder (in tick units)
+        public double parYTicks = 5.15 * 1/ 0.001408116138; // y position of the first parallel encoder (in tick units)
+//        public double perpXTicks = -5.75 * 1 / 0.002038043478; // x position of the perpendicular encoder (in tick units)
+        public double perpXTicks = -5.75 * 1 / 0.002; // x position of the perpendicular encoder (in tick units)
+    }
+
+    public static class ThreeWheelOdoParams {
+        public double par0YTicks = -5.15 * 1/ 0.001408116138; // y position of the first parallel encoder (in tick units)
+        public double par1YTicks = 5.25 * 1/ 0.001408116138; // y position of the second parallel encoder (in tick units)
+        public double perpXTicks = -5.75 * 1 / 0.002; // x position of the perpendicular encoder (in tick units)
     }
 
     // feedforward parameters (in tick units)
-    public double kS =  0.8008926882822975;          //kV: 0.00039484730604532714, kS: 0.9444694571982062
-    public double kV =  0.0003935941834842941;
+    public double kS =  1.0482971343221168;
+    public double kV =  0.000379437260863952;
     public double kA = 0.0001; //0.0001
 
     // path profile parameters (in inches)
-    public double maxWheelVel = 45;              // 15
-    public double minProfileAccel = -30;        //  -10
-    public double maxProfileAccel = 45;         // 15
+    public double maxWheelVel = 45;              // 15  //45
+    public double minProfileAccel = -30;        //  -10    //-30
+    public double maxProfileAccel = 45;         // 15   //45
 
     // turn profile parameters (in radians)
     public double maxAngVel = Math.PI; // shared with path

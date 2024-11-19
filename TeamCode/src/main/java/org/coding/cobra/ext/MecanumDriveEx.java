@@ -24,7 +24,7 @@ public class MecanumDriveEx extends MecanumDrive {
 
     Telemetry telemetry;
     TrajectoryActionBuilder trajectoryActionBuilder;
-    Pose2d startPose;
+    public Pose2d startPose;
 
     public MecanumDriveEx(HardwareMap hardwareMap, Telemetry telemetryObject, Pose2d pose) {
         super(hardwareMap, pose);
@@ -32,9 +32,22 @@ public class MecanumDriveEx extends MecanumDrive {
         startPose = pose;
     }
 
-    public void updateRobotPose () {
+    public Pose2d getRobotPose () {
         Twist2dDual<Time> twist = localizer.update();
         pose = pose.plus(twist.value());
+        return pose;
+    }
+
+    public void updateRobotPose () {
+        getRobotPose();
+        telemetry.addData("x", pose.position.x);
+        telemetry.addData("y", pose.position.y);
+        telemetry.addData("heading (deg)", Math.toDegrees(pose.heading.toDouble()));
+    }
+
+    public void updateRobotPoseTelemetryUpdate () {
+        updateRobotPose ();
+        telemetry.update();
     }
 
     /*

@@ -16,122 +16,28 @@ public class MeepMeepTesting {
                 // Set bot constraints: maxVel, maxAccel, maxAngVel, maxAngAccel, track width
                 .setConstraints(60, 60, Math.toRadians(180), Math.toRadians(180), 15)
                 .build();
-         Pose2d startPosition = new Pose2d(-61, 61.00, Math.toRadians(90));
 
-        Pose2d ROBOT_START_POSITION = new Pose2d(-12.50, -62.00, Math.toRadians(90.00));
-Pose2d ROBOT_START_POSITION_FOR_RED_SPECIMEN= new Pose2d(12.50, -62.00, Math.toRadians(90.00));
+        AutomationConfig automationConfig = new AutomationConfig();
 
-        /* myBot.runAction(myBot.getDrive().actionBuilder(ROBOT_START_POSITION)
-                        .waitSeconds(2)
-                      //  .setTangent(Math.toRadians(90))
-                        .lineToY(-52)
-                        .strafeTo(new Vector2d(-55, -52))
-                        .turn(Math.toRadians(135))
-                        .waitSeconds(3)
-                       // .setTangent(Math.toRadians(90))
-                        .turn(Math.toRadians(-135))
-                        .lineToY(-48)
-                        .waitSeconds(6)
-                        .lineToY(-52)
-                        .turn(Math.toRadians(135))
-                        .build());
+        // Known Positions
 
+        // BLUE END POSITION -   -61, 61, 270
+        Pose2d BLUE_END_POSITION = new Pose2d(-61, 61, Math.toRadians(270));
+        Pose2d BLUE_END_POSITION_AFTER_PICKUP  = new Pose2d(-61, 61, Math.toRadians(-270));
+        // RED END POSITION -    61, -61, 90
+        Pose2d RED_END_POSITION = new Pose2d(61, -61, Math.toRadians(90));
+        Pose2d RED_END_POSITION_AFTER_PICKUP = new Pose2d(61, -61, Math.toRadians(-90));
 
+        Pose2d startPosition = RED_END_POSITION_AFTER_PICKUP;
 
+        // Blue End Position
+        myBot.runAction(automationConfig.getBlueRightObjectMoveTrajectory(myBot.getDrive(), automationConfig.BLUE_LEFT_START_POSITION).build());
+        //myBot.runAction(automationConfig.getBlueTurnAroundTrajectory(myBot.getDrive(), BLUE_END_POSITION_AFTER_PICKUP).build());
+        //myBot.runAction(automationConfig.getBlueTracePathToBar(myBot.getDrive(), automationConfig.BLUE_LEFT_START_POSITION).build());
 
-
-        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(-52, -52, Math.toRadians(220)))
-                        .setTangent(Math.toRadians(90))
-                        .lineToYLinearHeading(-40,Math.toRadians(90))
-                        .waitSeconds(3)
-                                .build());
-
-
-
-
-
-         */
-
-
-
-       myBot.runAction(myBot.getDrive().actionBuilder(startPosition)
-                       .turn(Math.toRadians(180))
-                       .strafeTo(new Vector2d(-12.50, 62.00))
-                       .lineToY(41).build());
-
-
-
-
-
-
-
-
-
-                /*
-
-
-
-
-
-        myBot.runAction(myBot.getDrive().actionBuilder(startPosition)
-                .setTangent(Math.toRadians(280))
-                .splineToLinearHeading(new Pose2d(52, 52, Math.toRadians(220)), Math.toRadians(280))
-
-                        .build());
-
-         */
-         /*
-        myBot.runAction(myBot.getDrive().actionBuilder(new Pose2d(-12.5, 41, Math.toRadians(270)))
-                .strafeTo(new Vector2d(-38, 41))
-                .setTangent(Math.toRadians(270))
-                .lineToY(7.5)
-                .setTangent(Math.toRadians(270))
-                .strafeTo(new Vector2d(-50, 7.5))
-                .setTangent(Math.toRadians(270))
-                .lineToY(55)
-                .lineToY(7)
-                .setTangent(Math.toRadians(270))
-                .strafeTo(new Vector2d(-61, 7))
-                .setTangent(Math.toRadians(270))
-                .lineToY(61)
-                .build());
-
-
-         */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-     /*   myBot.runAction(myBot.getDrive().actionBuilder(ROBOT_START_POSITION)
-               // .lineToYSplineHeading(33, Math.toRadians(0))
-                .waitSeconds(2)
-                .setTangent(Math.toRadians(90))
-                .lineToY(48)
-                .setTangent(Math.toRadians(0))
-                .lineToX(32)
-                .strafeTo(new Vector2d(44.5, 30))
-                .turn(Math.toRadians(180))
-                .lineToX(47.5)
-                .waitSeconds(3)
-                .build());
-
-      */
-        myBot.runAction(myBot.getDrive().actionBuilder(startPosition)
-                .turnTo(Math.toRadians(-90))
-                .splineToLinearHeading(new Pose2d(-2.5, 45, Math.toRadians(-90)), Math.toRadians(-90)).build());
-
-
+        // Red End Position
+        //myBot.runAction(automationConfig.getRedTurnAroundTrajectory(myBot.getDrive(), RED_END_POSITION).build());
+        //myBot.runAction(automationConfig.getRedTracePathToBar(myBot.getDrive(), RED_END_POSITION).build());
 
 
         meepMeep.setBackground(MeepMeep.Background.FIELD_INTO_THE_DEEP_JUICE_LIGHT)

@@ -4,11 +4,12 @@ import android.content.SharedPreferences;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.Action;
-import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.SleepAction;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.ftc.Actions;
+
+import org.coding.cobra.config.AutomationConfig;
 import org.coding.cobra.ext.ServoMotorControllerEx;
 
 import org.coding.cobra.ext.MoveToPresetAction;
@@ -16,8 +17,6 @@ import org.coding.cobra.ext.MoveToPresetAction;
 @Config
 public abstract class AbstractCobraAutoSpecimen extends CobraBase  {
 
-    TrajectoryActionBuilder trajectoryMoveCloserToBar;
-    TrajectoryActionBuilder straffeObject1OnGround;
 
     public void operateRunMode() {
 
@@ -25,7 +24,8 @@ public abstract class AbstractCobraAutoSpecimen extends CobraBase  {
         flexiClawLeft.handlePresets(1);
         flexiClawRight.handlePresets(1);
 
-        Action actionMoveCloserToBar = trajectoryMoveCloserToBar.build();
+        Action actionMoveCloserToBar = AUTO_CONFIG.getRobotCloserToBar(mecanumDrive).build();
+
         waitForStart();
 
         clawRotator = new ServoMotorControllerEx(hardwareMap, telemetry, sysConfig.CLAW_ROTATOR);
@@ -34,47 +34,38 @@ public abstract class AbstractCobraAutoSpecimen extends CobraBase  {
         telemetry.addData("Extending Arm ",  mecanumDrive.pose);
         telemetry.update();
 
-
         Actions.runBlocking(
                 new SequentialAction(
-                        actionMoveCloserToBar,
-                        new MoveToPresetAction(leftElevator, rightElevator, 2, 2),
-                        new MoveToPresetAction(armExtenderMotor, 2),
-                        new SleepAction(0.7),
-                        new MoveToPresetAction(leftElevator, rightElevator, 3, 3),
-                        new SleepAction(0.3),
-                        new MoveToPresetAction(armExtenderMotor, 3),
-                        new SleepAction(0.3),
-                        new MoveToPresetAction(flexiClawLeft, flexiClawRight , 0, 0)
-                )
-        );
+                        actionMoveCloserToBar
+                        ));
 
-        telemetryOutput ();
-        //Return to home position
-
-        Actions.runBlocking(
-                new SequentialAction(
-                        new SleepAction(0.2),
-                        new MoveToPresetAction(armExtenderMotor, 0),
-                        new MoveToPresetAction(leftElevator, rightElevator, 0, 0),
-                        new MoveToPresetAction(clawRotator, 0)
-
-        ));
+        automationSpecimenHang ();
 
         telemetryOutput ();
 
-
-        Action pushSample = straffeObject1OnGround.fresh()
-                .build();
+        TrajectoryActionBuilder straffeObject1OnGround;
+        straffeObject1OnGround = AUTO_CONFIG.getRobotObjectStaffe(mecanumDrive);
 
         Action trajectoryActionPushSample;
         trajectoryActionPushSample = straffeObject1OnGround.build();
-
+        mecanumDrive.updateRobotPoseTelemetryUpdate();
         Actions.runBlocking(
                 new SequentialAction(
                         trajectoryActionPushSample //
                 )
         );
+
+        //need to turn around
+        //getBlueTurnAroundTrajectory
+
+        mecanumDrive.updateRobotPoseTelemetryUpdate();
+
+        automationPickup();
+
+        tracePathToBar();
+
+        automationSpecimenHang();
+
 
         /*
         // Pickup the object from ground
@@ -91,6 +82,26 @@ public abstract class AbstractCobraAutoSpecimen extends CobraBase  {
         );
        */
 
+
+        /**
+         *
+         * turn around
+         *
+         * pickup
+         *
+         * move to drop
+         *
+        Action turnAround = turnAroundForPickup.build();
+        Actions.runBlocking(
+                new SequentialAction(
+                        turnAround
+                )
+        );
+        automationPickup();
+        automationSpecimenHang();
+         */
+
+
         telemetry.addData("Resetting to postion", "");
         telemetry.update();
         telemetryOutput ();
@@ -98,18 +109,11 @@ public abstract class AbstractCobraAutoSpecimen extends CobraBase  {
         leftElevator.resetToZeroPosition();
         rightElevator.resetToZeroPosition();
 
-
-        SharedPreferences.Editor editor = sharedPreferences.edit();
         // Persisting position:
 
         //Pose2d = mecanumDrive.getPoseEstimate()
         mecanumDrive.updateRobotPose();
-
-        editor.putFloat("x", (float)mecanumDrive.pose.position.x);
-        editor.putFloat("y", (float)mecanumDrive.pose.position.y);
-        editor.putFloat("heading", (float)mecanumDrive.pose.heading.toDouble());
-
-        editor.apply();
+        persistanceManager.storePosition (mecanumDrive.pose);
 
         while (opModeIsActive() && !isStopRequested()) {
 

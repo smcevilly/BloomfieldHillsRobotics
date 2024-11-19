@@ -68,7 +68,7 @@ public class MecanumDrive {
     public final AccelConstraint defaultAccelConstraint =
             new ProfileAccelConstraint(PARAMS.minProfileAccel, PARAMS.maxProfileAccel);
 
-    public final DcMotorEx leftFront, leftBack, rightBack, rightFront;
+    public final DcMotorEx leftFront, leftBack, rightBack, rightFront, dummyMotor;
 
     public final VoltageSensor voltageSensor;
 
@@ -189,15 +189,18 @@ public class MecanumDrive {
         leftBack = hardwareMap.get(DcMotorEx.class, PARAMS.leftRearMotor);
         rightBack = hardwareMap.get(DcMotorEx.class, PARAMS.rightRearMotor);
         rightFront = hardwareMap.get(DcMotorEx.class, PARAMS.rightFrontMotor);
+        dummyMotor = hardwareMap.get(DcMotorEx.class, PARAMS.dummyMotorForDeadWheel);
 
         leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightBack.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        dummyMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // TODO: reverse motor directions if needed
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
+        dummyMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
 
         // TODO: make sure your config has an IMU with this name (can be BNO or BHI)
@@ -211,8 +214,9 @@ public class MecanumDrive {
         voltageSensor = hardwareMap.voltageSensor.iterator().next();
 
 //        localizer = new DriveLocalizer();
-//        localizer = new ThreeDeadWheelLocalizer(hardwareMap, PARAMS.inPerTick);
-        localizer = new TwoDeadWheelLocalizer(hardwareMap, lazyImu.get(),backupImu.get(), PARAMS.inPerTick);
+        localizer = new ThreeDeadWheelLocalizer(hardwareMap, PARAMS.inPerTick);
+        //localizer = new TwoDeadWheelLocalizer(hardwareMap, lazyImu.get(),backupImu.get(), PARAMS.inPerTick);
+        //localizer = new TwoDeadWheelLocalizer(hardwareMap, lazyImu.get(),backupImu.get(), PARAMS.inPerTick);
 
         FlightRecorder.write("MECANUM_PARAMS", PARAMS);
     }

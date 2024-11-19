@@ -5,22 +5,28 @@ import android.preference.PreferenceManager;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.acmerobotics.roadrunner.Action;
 import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.SequentialAction;
+import com.acmerobotics.roadrunner.SleepAction;
+import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
+import com.acmerobotics.roadrunner.ftc.Actions;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.coding.cobra.config.LimelightConfig;
+import org.coding.cobra.config.AutomationConfig;
 import org.coding.cobra.config.SystemConfig;
+import org.coding.cobra.config.helpers.PersistanceManager;
 import org.coding.cobra.ext.DCMotorControllerEx;
 import org.coding.cobra.ext.LimelightEx;
 import org.coding.cobra.ext.MecanumDriveEx;
+import org.coding.cobra.ext.MoveToPresetAction;
 import org.coding.cobra.ext.ServoMotorControllerEx;
-import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 import org.firstinspires.ftc.teamcode.Drawing;
 
 public  abstract class CobraBase extends LinearOpMode {
 
+    AutomationConfig AUTO_CONFIG = new AutomationConfig();
 
     Pose3D botpose;
     SystemConfig sysConfig = new SystemConfig();
@@ -30,19 +36,25 @@ public  abstract class CobraBase extends LinearOpMode {
 
     ServoMotorControllerEx clawRotator, flexiClawLeft, flexiClawRight;
     LimelightEx camera;
-    //DCMotorControllerEx armExtenderMotor;
-    //ServoMotorControllerEx claw;
+
     DCMotorControllerEx leftElevator;
     DCMotorControllerEx rightElevator;
 
-    public SharedPreferences sharedPreferences;
+    PersistanceManager persistanceManager;
 
-    public void loadPersistance () {
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(hardwareMap.appContext);
-    }
+    Pose2d startPosition;
 
+    public void initialize () {
+        persistanceManager = new PersistanceManager(hardwareMap);
 
-    public void initialize (Pose2d startPosition) {
+        startPosition = AUTO_CONFIG.getRobotStartPosition();
+
+        if (startPosition == null) {
+            this.startPosition = persistanceManager.getLastStoredPosition();
+        }
+
+        this.startPosition = startPosition;
+
         mecanumDrive = new MecanumDriveEx(hardwareMap, telemetry, startPosition);
         leftElevator = new DCMotorControllerEx(hardwareMap, telemetry, sysConfig.Left_Elevator);
         rightElevator = new DCMotorControllerEx(hardwareMap, telemetry, sysConfig.Right_Elevator);
@@ -61,7 +73,6 @@ public  abstract class CobraBase extends LinearOpMode {
         if (debounce <10)
             debounce++;
         else {
-            mecanumDrive.updateRobotPose();
             debounce=0;
 
             armExtenderMotor.outputTelemetry();
@@ -70,15 +81,12 @@ public  abstract class CobraBase extends LinearOpMode {
             clawRotator.outputTelemetry();
             flexiClawLeft.outputTelemetry();
             flexiClawRight.outputTelemetry();
-            telemetry.addData("Pos  x:",
-                    mecanumDrive.pose.position.x + " y:" + mecanumDrive.pose.position.y + " heading:" + mecanumDrive.pose.heading.toDouble() + " (deg) " +Math.toDegrees( mecanumDrive.pose.heading.toDouble()));
+
+            mecanumDrive.updateRobotPose();
+
             if (botpose != null) {
                 telemetry.addData("Botpose ", botpose.toString());
             }
-
-            telemetry.addData("x", mecanumDrive.pose.position.x);
-            telemetry.addData("y", mecanumDrive.pose.position.y);
-            telemetry.addData("heading (deg)", Math.toDegrees(mecanumDrive.pose.heading.toDouble()));
 
             TelemetryPacket packet = new TelemetryPacket();
             packet.fieldOverlay().setStroke("#3F51B5");
@@ -92,4 +100,75 @@ public  abstract class CobraBase extends LinearOpMode {
 
     int debounce = 0;
 
+
+    public void automationPickup () {
+
+        // Pickup the object from ground
+
+        Actions.runBlocking(
+                new SequentialAction(
+                        new MoveToPresetAction(leftElevator, rightElevator, 5, 5), // pickup level
+                        new SleepAction(0.5),
+                        new MoveToPresetAction(clawRotator, 1), // rotate claw down
+                        new SleepAction(0.5),
+                        new MoveToPresetAction(flexiClawLeft, flexiClawRight, 0,0), //opens claw
+                        new SleepAction(0.5),
+                        new MoveToPresetAction(armExtenderMotor,5), //Extends arm forward
+                        new SleepAction(1),
+                        new MoveToPresetAction(flexiClawLeft, flexiClawRight, 1,1), // pickup
+                        new SleepAction(0.5),
+                        new MoveToPresetAction(leftElevator, rightElevator, 6, 6), // level up
+//                        new SleepAction(0.5),
+                        new MoveToPresetAction(armExtenderMotor,0),
+//                        new SleepAction(0.5),
+                        new MoveToPresetAction(clawRotator, 0), // rotate claw down
+//                        new SleepAction(0.5),
+                        new MoveToPresetAction(leftElevator, rightElevator, 0, 0) // level up
+                        //Extends arm forward
+                        //  new MoveToPresetAction(clawRotator, 0) // rotate claw to face straing
+                )
+        );
+    }
+
+    public void tracePathToBar() {
+        Actions.runBlocking(
+                new SequentialAction(
+                        new MoveToPresetAction(armExtenderMotor, 0),
+                        new MoveToPresetAction(clawRotator, 0)
+                ));
+
+        Action actionMoveCloserToBar = AUTO_CONFIG.getTracePathToBarTrajectory(mecanumDrive).build();
+
+        Actions.runBlocking(
+                new SequentialAction(
+                        actionMoveCloserToBar));
+    }
+
+
+    public void automationSpecimenHang () {
+
+        Actions.runBlocking(
+                new SequentialAction(
+                        new MoveToPresetAction(leftElevator, rightElevator, 2, 2),
+                        new SleepAction(0.7),
+                        new MoveToPresetAction(armExtenderMotor, 2),
+                        new SleepAction(0.7),
+                        new MoveToPresetAction(leftElevator, rightElevator, 3, 3),
+                        new SleepAction(0.3),
+                        new MoveToPresetAction(armExtenderMotor, 3),
+                        new SleepAction(0.3),
+                        new MoveToPresetAction(flexiClawLeft, flexiClawRight , 0, 0)
+                )
+        );
+
+        Actions.runBlocking(
+                new SequentialAction(
+                        new SleepAction(0.2),
+                        new MoveToPresetAction(armExtenderMotor, 0),
+                        new MoveToPresetAction(leftElevator, rightElevator, 0, 0),
+                        new MoveToPresetAction(clawRotator, 0)
+
+        ));
+
+    }
 }

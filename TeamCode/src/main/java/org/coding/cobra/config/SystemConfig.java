@@ -5,6 +5,7 @@ import com.acmerobotics.roadrunner.Pose2d;
 
 import org.coding.cobra.config.helpers.CRServoConfig;
 import org.coding.cobra.config.helpers.DCMotorConfig;
+import org.coding.cobra.config.helpers.LimelightConfig;
 
 /**
  * Class where we will populate system configuration such as motor names
@@ -37,7 +38,7 @@ public class SystemConfig {
             1651,        // autonomous reach bar
             600,                // autonomous object hang complete
             1900,               // automation hang on bar
-            0,
+            1000,                  // automation preset extend
             0
     );
 
@@ -53,7 +54,7 @@ public class SystemConfig {
             700,            // preset for pickup
             5650,                   // preset for autonomous drop
             3468,                   // autonomous high bar
-            3200,                   // autonomous bar hang pull level
+            3050,                   // autonomous bar hang pull level
             548,
             1750,           // autonomous pickup specimen from wall
             2850                    // autonomous elevator drop height
@@ -72,7 +73,7 @@ public class SystemConfig {
             700,
             5650,
             3468,        // autonomous high bar
-            3200,
+            3050,
             548,
             1750,           // autonomous pickup specimen from wall
             2850                    // autonomous elevator drop height
@@ -85,11 +86,11 @@ public class SystemConfig {
             0.8,
             0.07,
             1,
-            0.02,
+            0.01,
             DCMotorConfig.MotorDirection.FORWARD,
             5,
             5,
-            0.6,// face straight
+            0.65,// face straight
             0.28,
             0.75,
             1,
@@ -151,7 +152,9 @@ public class SystemConfig {
     );
 
     public static LimelightConfig CAMERA = new LimelightConfig(
-            "limelight"
+            "limelight",
+            0,
+            2.1
     );
 
 
