@@ -26,8 +26,9 @@ public class AutomationConfig {
 
     public TrajectoryActionBuilder getBlueTracePathToBar (DriveShim mecanumDrive, Pose2d startPosition) {
         return mecanumDrive.actionBuilder(startPosition)
-                .turnTo(Math.toRadians(270))
-                .strafeTo(new Vector2d(-10, 41));
+                .turnTo(Math.toRadians(0))
+//                .strafeTo(new Vector2d(-10, 41));
+                .splineTo(new Vector2d(-10, 41), Math.toRadians(270));
     };
 
     public TrajectoryActionBuilder getBlueMoveCloserToBarForAuto (DriveShim mecanumDrive, Pose2d startPosition) {
@@ -39,7 +40,7 @@ public class AutomationConfig {
 
     public TrajectoryActionBuilder getBlueRightObjectMoveTrajectory (DriveShim mecanumDrive, Pose2d startPosition) {
         //return mecanumDrive.actionBuilder(new Pose2d(-12.5, 41, Math.toRadians(270)))
-          return mecanumDrive.actionBuilder(startPosition)
+/*          return mecanumDrive.actionBuilder(startPosition)
                  .lineToY(60)
                 .strafeTo(new Vector2d(-38, 60))
                 .setTangent(Math.toRadians(270))
@@ -51,6 +52,13 @@ public class AutomationConfig {
                 .setTangent(Math.toRadians(270))
                 .lineToY(45)
                   .turnTo(Math.toRadians(-270));
+*/
+        return mecanumDrive.actionBuilder(startPosition)
+                .turnTo( Math.toRadians(180))
+                .splineTo(new Vector2d(-45, 20), Math.toRadians(-270))
+                .lineToY(55)
+                .lineToY(45)
+                ;
 
 
     }
@@ -61,16 +69,11 @@ public class AutomationConfig {
         return mecanumDrive.actionBuilder(startPosition)
                 .lineToY(60)
                 .strafeTo(new Vector2d(-38, 60))
-                .setTangent(Math.toRadians(270))
                 .lineToY(7)
-                .setTangent(Math.toRadians(270))
                 .strafeTo(new Vector2d(-50, 7.5))
-                .setTangent(Math.toRadians(270))
                 .lineToY(55)
                 .lineToY(7)
-                .setTangent(Math.toRadians(270))
                 .strafeTo(new Vector2d(-61, 7))
-                .setTangent(Math.toRadians(270))
                 .lineToY(61)
                 .lineToY(50)
                 .turnTo(Math.toRadians(270));
@@ -129,17 +132,13 @@ public class AutomationConfig {
         //return mecanumDrive.actionBuilder(new Pose2d(12.5, -41, Math.toRadians(90)))
         return mecanumDrive.actionBuilder(startPosition)
                 .strafeTo(new Vector2d(38, -41))
-                .setTangent(Math.toRadians(90))
                 .lineToY(-7)
-                .setTangent(Math.toRadians(90))
                 .strafeTo(new Vector2d(50, -7))
-                .setTangent(Math.toRadians(90))
                 .lineToY(-55)
                 .lineToY(-7)
-                .setTangent(Math.toRadians(90))
-                .strafeTo(new Vector2d(61, -7))
-                .setTangent(Math.toRadians(90))
-                .lineToY(-61);
+                //.strafeTo(new Vector2d(61, -7))
+                //.lineToY(-61);
+                .splineTo(new Vector2d(61, -7), Math.toRadians(270));
     }
 
 

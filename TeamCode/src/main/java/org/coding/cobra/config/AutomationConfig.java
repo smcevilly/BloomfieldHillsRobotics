@@ -43,9 +43,8 @@ public class AutomationConfig {
 
     private TrajectoryActionBuilder getBlueTracePathToBar (MecanumDriveEx mecanumDrive) {
         return mecanumDrive.actionBuilder(mecanumDrive.getRobotPose())
-                .turnTo(Math.toRadians(270))
-                .strafeTo(new Vector2d(-10, 41))
-                ;
+                .turnTo(Math.toRadians(0))
+                .splineTo(new Vector2d(-10, 41), Math.toRadians(270));
     };
 
     private TrajectoryActionBuilder getBlueMoveCloserToBarForAuto (MecanumDriveEx mecanumDrive) {
@@ -58,16 +57,11 @@ public class AutomationConfig {
     private TrajectoryActionBuilder getBlueRightObjectMoveTrajectory (MecanumDriveEx mecanumDrive) {
         mecanumDrive.updateRobotPoseTelemetryUpdate();
         return mecanumDrive.actionBuilder(mecanumDrive.getRobotPose())
-                .strafeTo(new Vector2d(-38, 60))
-                .setTangent(Math.toRadians(270))
-                .lineToY(7)
-                .setTangent(Math.toRadians(270))
-                .strafeTo(new Vector2d(-50, 7.5))
-                .setTangent(Math.toRadians(270))
+                .turnTo( Math.toRadians(180))
+                .splineTo(new Vector2d(-45, 20), Math.toRadians(-270))
                 .lineToY(55)
-                .setTangent(Math.toRadians(270))
                 .lineToY(45)
-                .turnTo(Math.toRadians(-270));
+                ;
     }
 
     private TrajectoryActionBuilder getBlueLeftObjectMoveTrajectory (MecanumDriveEx mecanumDrive) {

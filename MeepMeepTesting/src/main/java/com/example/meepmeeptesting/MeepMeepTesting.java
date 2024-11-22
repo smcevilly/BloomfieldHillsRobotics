@@ -31,9 +31,9 @@ public class MeepMeepTesting {
         Pose2d startPosition = RED_END_POSITION_AFTER_PICKUP;
 
         // Blue End Position
-        myBot.runAction(automationConfig.getBlueRightObjectMoveTrajectory(myBot.getDrive(), automationConfig.BLUE_LEFT_START_POSITION).build());
+        //myBot.runAction(automationConfig.getBlueRightObjectMoveTrajectory(myBot.getDrive(), automationConfig.BLUE_RIGHT_START_POSITION).build());
         //myBot.runAction(automationConfig.getBlueTurnAroundTrajectory(myBot.getDrive(), BLUE_END_POSITION_AFTER_PICKUP).build());
-        //myBot.runAction(automationConfig.getBlueTracePathToBar(myBot.getDrive(), automationConfig.BLUE_LEFT_START_POSITION).build());
+        myBot.runAction(automationConfig.getBlueTracePathToBar(myBot.getDrive(), BLUE_END_POSITION_AFTER_PICKUP).build());
 
         // Red End Position
         //myBot.runAction(automationConfig.getRedTurnAroundTrajectory(myBot.getDrive(), RED_END_POSITION).build());
