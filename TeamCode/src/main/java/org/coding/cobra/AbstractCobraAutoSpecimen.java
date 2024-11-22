@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.Action;
+import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.SleepAction;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
@@ -35,7 +36,8 @@ public abstract class AbstractCobraAutoSpecimen extends CobraBase  {
         telemetry.update();
 
         Actions.runBlocking(
-                new SequentialAction(
+                new ParallelAction(
+                        new MoveToPresetAction(leftElevator, rightElevator, firsthang?1:2, firsthang?1:2),
                         actionMoveCloserToBar
                         ));
 
@@ -50,8 +52,13 @@ public abstract class AbstractCobraAutoSpecimen extends CobraBase  {
         trajectoryActionPushSample = straffeObject1OnGround.build();
         mecanumDrive.updateRobotPoseTelemetryUpdate();
         Actions.runBlocking(
-                new SequentialAction(
-                        trajectoryActionPushSample //
+                new ParallelAction(
+                        trajectoryActionPushSample, //
+                        new MoveToPresetAction(clawRotator, 1), // rotate claw down
+                        //new SleepAction(0.5),
+                        new MoveToPresetAction(flexiClawLeft, flexiClawRight, 0,0) //opens claw
+                        //new SleepAction(0.5),
+
                 )
         );
 

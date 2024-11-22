@@ -38,9 +38,9 @@ public class MecanumDriveConfig {
 
     // drive model parameters
     public double  inPerTick = 0.002; //24000 for 48 inches
-    public   double lateralInPerTick = 0.001408116138;
+    public   double lateralInPerTick = 0.0013929811062764618;
     //public double lateralInPerTick = 0.0006628730045191881;
-    public double trackWidthTicks =  7275.8;  //0
+    public double trackWidthTicks =  7886.722580031681;  //0
 
     public static class TwoWheelOdoParams {
 //        public double parYTicks = 0.625 * 1 / 0.001408116138; // y position of the parallel encoder (in tick units)
@@ -50,14 +50,14 @@ public class MecanumDriveConfig {
     }
 
     public static class ThreeWheelOdoParams {
-        public double par0YTicks = -5.15 * 1/ 0.001408116138; // y position of the first parallel encoder (in tick units)
-        public double par1YTicks = 5.25 * 1/ 0.001408116138; // y position of the second parallel encoder (in tick units)
+        public double par0YTicks = -5.15 * 1/ 0.002; // y position of the first parallel encoder (in tick units)
+        public double par1YTicks = 5.25 * 1/ 0.002; // y position of the second parallel encoder (in tick units)
         public double perpXTicks = -5.75 * 1 / 0.002; // x position of the perpendicular encoder (in tick units)
     }
 
     // feedforward parameters (in tick units)
-    public double kS =  1.0482971343221168;
-    public double kV =  0.000379437260863952;
+    public double kS =  1.0181234840458475;
+    public double kV =  0.0003790152840129715;
     public double kA = 0.0001; //0.0001
 
     // path profile parameters (in inches)
@@ -70,9 +70,9 @@ public class MecanumDriveConfig {
     public double maxAngAccel = Math.PI;
 
     // path controller gains
-    public double axialGain = 10;
-    public double lateralGain = 10;//25
-    public double headingGain = 10; // shared with turn//25
+    public double axialGain = 3;
+    public double lateralGain = 3;//25
+    public double headingGain = 5; // shared with turn//25
 
     public double axialVelGain = 0.0;
     public double lateralVelGain = 0.0;

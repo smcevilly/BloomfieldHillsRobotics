@@ -56,12 +56,26 @@ public class AutomationConfig {
 
     private TrajectoryActionBuilder getBlueRightObjectMoveTrajectory (MecanumDriveEx mecanumDrive) {
         mecanumDrive.updateRobotPoseTelemetryUpdate();
+        /*return mecanumDrive.actionBuilder(mecanumDrive.getRobotPose())
+                .turnTo( Math.toRadians(180))
+                .splineTo(new Vector2d(-45, 30), Math.toRadians(-270))
+                .lineToY(53)
+                .lineToY(50)
+                ;
+            */
+
         return mecanumDrive.actionBuilder(mecanumDrive.getRobotPose())
                 .turnTo( Math.toRadians(180))
-                .splineTo(new Vector2d(-45, 20), Math.toRadians(-270))
+                .lineToX(-40)
+                .turnTo( Math.toRadians(90))
+                .lineToY(12)
+                .strafeTo(new Vector2d(-50,12))
+                .setTangent(Math.toRadians(270))
                 .lineToY(55)
-                .lineToY(45)
-                ;
+                .lineToY(12)
+                .strafeTo(new Vector2d(-60,12))
+                .setTangent(Math.toRadians(270))
+                .lineToY(50);
     }
 
     private TrajectoryActionBuilder getBlueLeftObjectMoveTrajectory (MecanumDriveEx mecanumDrive) {

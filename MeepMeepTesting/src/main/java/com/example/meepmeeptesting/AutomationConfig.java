@@ -55,9 +55,18 @@ public class AutomationConfig {
 */
         return mecanumDrive.actionBuilder(startPosition)
                 .turnTo( Math.toRadians(180))
-                .splineTo(new Vector2d(-45, 20), Math.toRadians(-270))
+                .lineToX(-35)
+                .turnTo( Math.toRadians(90))
+                .lineToY(12)
+                .strafeTo(new Vector2d(-45,12))
+                .setTangent(Math.toRadians(270))
                 .lineToY(55)
-                .lineToY(45)
+                .lineToY(12)
+                .strafeTo(new Vector2d(-55,12))
+                .setTangent(Math.toRadians(270))
+                .lineToY(55)
+
+                //                .lineToY(45)
                 ;
 
 

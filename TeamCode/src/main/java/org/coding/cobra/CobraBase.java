@@ -6,6 +6,7 @@ import android.preference.PreferenceManager;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
+import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
 import com.acmerobotics.roadrunner.SleepAction;
@@ -104,59 +105,49 @@ public  abstract class CobraBase extends LinearOpMode {
     public void automationPickup () {
 
         // Pickup the object from ground
-
+        Actions.runBlocking(
+                new ParallelAction(
+                        new MoveToPresetAction(leftElevator, rightElevator, 5, 5), // pickup level
+                        //new SleepAction(0.5),
+                        new MoveToPresetAction(armExtenderMotor,5) //Extends arm forward
+                        //Extends arm forward
+                        //  new MoveToPresetAction(clawRotator, 0) // rotate claw to face straing
+                )
+        );
         Actions.runBlocking(
                 new SequentialAction(
-                        new MoveToPresetAction(leftElevator, rightElevator, 5, 5), // pickup level
-                        new SleepAction(0.5),
-                        new MoveToPresetAction(clawRotator, 1), // rotate claw down
-                        new SleepAction(0.5),
-                        new MoveToPresetAction(flexiClawLeft, flexiClawRight, 0,0), //opens claw
-                        new SleepAction(0.5),
-                        new MoveToPresetAction(armExtenderMotor,5), //Extends arm forward
-                        new SleepAction(1),
                         new MoveToPresetAction(flexiClawLeft, flexiClawRight, 1,1), // pickup
-                        new SleepAction(0.5),
-                        new MoveToPresetAction(leftElevator, rightElevator, 6, 6), // level up
-//                        new SleepAction(0.5),
-                        new MoveToPresetAction(armExtenderMotor,0),
-//                        new SleepAction(0.5),
-                        new MoveToPresetAction(clawRotator, 0), // rotate claw down
-//                        new SleepAction(0.5),
-                        new MoveToPresetAction(leftElevator, rightElevator, 0, 0) // level up
-                        //Extends arm forward
+                        new SleepAction(0.4),
+                        new MoveToPresetAction(leftElevator, rightElevator, 1, 1) // level up
+
+        //Extends arm forward
                         //  new MoveToPresetAction(clawRotator, 0) // rotate claw to face straing
                 )
         );
     }
 
     public void tracePathToBar() {
-        Actions.runBlocking(
-                new SequentialAction(
-                        new MoveToPresetAction(armExtenderMotor, 0),
-                        new MoveToPresetAction(clawRotator, 0)
-                ));
-
         Action actionMoveCloserToBar = AUTO_CONFIG.getTracePathToBarTrajectory(mecanumDrive).build();
 
         Actions.runBlocking(
-                new SequentialAction(
-                        actionMoveCloserToBar));
+                new ParallelAction(
+                        new MoveToPresetAction(armExtenderMotor,0),
+                        new MoveToPresetAction(clawRotator, 0), // rotate claw down
+                        actionMoveCloserToBar
+                )
+        );
+
     }
 
-
+    boolean firsthang = true;
     public void automationSpecimenHang () {
 
         Actions.runBlocking(
                 new SequentialAction(
-                        new MoveToPresetAction(leftElevator, rightElevator, 2, 2),
+//                        new MoveToPresetAction(leftElevator, rightElevator, 1, 1),
+  //                      new SleepAction(0.7),
+                        new MoveToPresetAction(armExtenderMotor, firsthang?1:2),
                         new SleepAction(0.7),
-                        new MoveToPresetAction(armExtenderMotor, 2),
-                        new SleepAction(0.7),
-                        new MoveToPresetAction(leftElevator, rightElevator, 3, 3),
-                        new SleepAction(0.3),
-                        new MoveToPresetAction(armExtenderMotor, 3),
-                        new SleepAction(0.3),
                         new MoveToPresetAction(flexiClawLeft, flexiClawRight , 0, 0)
                 )
         );
@@ -165,10 +156,13 @@ public  abstract class CobraBase extends LinearOpMode {
                 new SequentialAction(
                         new SleepAction(0.2),
                         new MoveToPresetAction(armExtenderMotor, 0),
+                        new SleepAction(0.5),
                         new MoveToPresetAction(leftElevator, rightElevator, 0, 0),
                         new MoveToPresetAction(clawRotator, 0)
 
         ));
+
+        firsthang = false;
 
     }
 }

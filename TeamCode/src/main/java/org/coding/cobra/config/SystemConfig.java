@@ -31,15 +31,15 @@ public class SystemConfig {
             2600,
             600,
             DCMotorConfig.MotorDirection.REVERSE,
-            1,
-            1,
+            2,
+            2,
             0,
-            2600,
-            1651,        // autonomous reach bar
-            600,                // autonomous object hang complete
-            1900,               // automation hang on bar
-            1000,                  // automation preset extend
-            0
+            1250,          // automation v2 object hang
+            1350,                  // automation v2 object hang for second time
+            600,                   // autonomous object hang complete
+            1700,                  // automation hang on bar
+            1950,                  // automation v2 object pickup from human player
+            0          //
     );
 
     public static DCMotorConfig Left_Elevator = new DCMotorConfig(
@@ -49,15 +49,17 @@ public class SystemConfig {
             5700,
             600,
             DCMotorConfig.MotorDirection.REVERSE,
-            1,
-            1,
+            2,
+            2,
             700,            // preset for pickup
-            5650,                   // preset for autonomous drop
-            3468,                   // autonomous high bar
+            2500,                   // preset for autonomous drop   // 5650
+            2600,                   // preset for autonomous second drop   // 5650
             3050,                   // autonomous bar hang pull level
             548,
-            1750,           // autonomous pickup specimen from wall
+            1730,           // autonomous pickup specimen from wall
             2850                    // autonomous elevator drop height
+
+            //2424
 
     );
 
@@ -68,14 +70,14 @@ public class SystemConfig {
             5700,
             600 ,
             DCMotorConfig.MotorDirection.FORWARD,
-            1,
-            1,
+            2,
+            2,
             700,
-            5650,
-            3468,        // autonomous high bar
+            2500,           //preset for autonomous drop
+            2600,                   // preset for autonomous second drop   // 5650
             3050,
             548,
-            1750,           // autonomous pickup specimen from wall
+            1730,           // autonomous pickup specimen from wall
             2850                    // autonomous elevator drop height
 
     );
@@ -83,16 +85,16 @@ public class SystemConfig {
     // Servo
     public static DCMotorConfig CLAW_ROTATOR = new DCMotorConfig(
             "clawRotator",
-            0.8,
+            0.2,
             0.07,
             1,
             0.01,
             DCMotorConfig.MotorDirection.FORWARD,
             5,
             5,
-            0.65,// face straight
-            0.28,
-            0.75,
+            0.34,// face straight - little tilt
+            0.65,
+            0.1,
             1,
             0,
             0,
