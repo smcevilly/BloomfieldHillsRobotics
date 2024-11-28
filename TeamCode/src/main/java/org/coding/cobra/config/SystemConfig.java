@@ -55,7 +55,7 @@ public class SystemConfig {
             2500,                   // preset for autonomous drop   // 5650
             2600,                   // preset for autonomous second drop   // 5650
             3050,                   // autonomous bar hang pull level
-            548,
+            5600,
             1730,           // autonomous pickup specimen from wall
             2850                    // autonomous elevator drop height
 
@@ -76,7 +76,7 @@ public class SystemConfig {
             2500,           //preset for autonomous drop
             2600,                   // preset for autonomous second drop   // 5650
             3050,
-            548,
+            5600,
             1730,           // autonomous pickup specimen from wall
             2850                    // autonomous elevator drop height
 

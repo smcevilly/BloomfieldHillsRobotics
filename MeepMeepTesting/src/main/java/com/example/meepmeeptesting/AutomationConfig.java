@@ -1,6 +1,8 @@
 package com.example.meepmeeptesting;
 
+import com.acmerobotics.roadrunner.MinVelConstraint;
 import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.ProfileAccelConstraint;
 import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
 import com.acmerobotics.roadrunner.Vector2d;
 import com.noahbres.meepmeep.roadrunner.DriveShim;
@@ -40,19 +42,10 @@ public class AutomationConfig {
 
     public TrajectoryActionBuilder getBlueRightObjectMoveTrajectory (DriveShim mecanumDrive, Pose2d startPosition) {
         //return mecanumDrive.actionBuilder(new Pose2d(-12.5, 41, Math.toRadians(270)))
-/*          return mecanumDrive.actionBuilder(startPosition)
-                 .lineToY(60)
-                .strafeTo(new Vector2d(-38, 60))
-                .setTangent(Math.toRadians(270))
-                .lineToY(7)
-                .setTangent(Math.toRadians(270))
-                .strafeTo(new Vector2d(-50, 7.5))
-                .setTangent(Math.toRadians(270))
-                .lineToY(55)
-                .setTangent(Math.toRadians(270))
-                .lineToY(45)
-                  .turnTo(Math.toRadians(-270));
-*/
+
+        return mecanumDrive.actionBuilder(startPosition)
+                .strafeToLinearHeading(new Vector2d(-48, 12), Math.toRadians(90));
+/*
         return mecanumDrive.actionBuilder(startPosition)
                 .turnTo( Math.toRadians(180))
                 .lineToX(-35)
@@ -65,9 +58,9 @@ public class AutomationConfig {
                 .strafeTo(new Vector2d(-55,12))
                 .setTangent(Math.toRadians(270))
                 .lineToY(55)
-
+*/
                 //                .lineToY(45)
-                ;
+
 
 
     }
