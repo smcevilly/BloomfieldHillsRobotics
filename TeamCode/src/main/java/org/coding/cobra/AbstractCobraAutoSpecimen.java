@@ -30,18 +30,38 @@ public abstract class AbstractCobraAutoSpecimen extends CobraBase  {
         waitForStart();
 
         clawRotator = new ServoMotorControllerEx(hardwareMap, telemetry, sysConfig.CLAW_ROTATOR);
-        clawRotator.handlePresets(0);
 
         telemetry.addData("Extending Arm ",  mecanumDrive.pose);
         telemetry.update();
 
         Actions.runBlocking(
+                new SequentialAction(
+                        new MoveToPresetAction(leftElevator, rightElevator, 1, 1)
+            ));
+
+        Actions.runBlocking(
                 new ParallelAction(
-                        new MoveToPresetAction(leftElevator, rightElevator, firsthang?1:2, firsthang?1:2),
+                        new MoveToPresetAction(clawRotator, 0),
+                        new MoveToPresetAction(armExtenderMotor, 1),
                         actionMoveCloserToBar
                         ));
 
-        automationSpecimenHang ();
+
+        Actions.runBlocking(
+                new SequentialAction(
+                      new MoveToPresetAction(flexiClawLeft, flexiClawRight , 0, 0)
+                )
+        );
+
+        Actions.runBlocking(
+                new SequentialAction(
+                        new SleepAction(0.2),
+                        new MoveToPresetAction(armExtenderMotor, 0)
+
+        ));
+
+
+        //automationSpecimenHang ();
 
         telemetryOutput ();
 
@@ -53,6 +73,8 @@ public abstract class AbstractCobraAutoSpecimen extends CobraBase  {
         mecanumDrive.updateRobotPoseTelemetryUpdate();
         Actions.runBlocking(
                 new ParallelAction(
+                        new MoveToPresetAction(leftElevator, rightElevator, 0, 0),
+                        new MoveToPresetAction(clawRotator, 0),
                         trajectoryActionPushSample, //
                         new MoveToPresetAction(clawRotator, 1), // rotate claw down
                         //new SleepAction(0.5),

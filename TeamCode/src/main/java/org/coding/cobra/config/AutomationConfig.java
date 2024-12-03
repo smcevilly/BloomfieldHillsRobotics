@@ -28,8 +28,8 @@ public class AutomationConfig {
 
     // All Blue Configurations
 
-    public Pose2d BLUE_LEFT_START_POSITION = new Pose2d(6.5, 62.00, Math.toRadians(270));
-    public Pose2d BLUE_RIGHT_START_POSITION = new Pose2d(-12.50, 62.00, Math.toRadians(270));
+    public Pose2d BLUE_LEFT_START_POSITION = new Pose2d(6.5, 60.00, Math.toRadians(270));
+    public Pose2d BLUE_RIGHT_START_POSITION = new Pose2d(-12.50, 60.00, Math.toRadians(270));
 
     // BLUE END POSITION -   -61, 61, 270
 
@@ -65,6 +65,18 @@ public class AutomationConfig {
             */
 
         return mecanumDrive.actionBuilder(mecanumDrive.getRobotPose())
+                .splineTo(new Vector2d(-36.00, 41.00), Math.toRadians(270.00))
+                .splineTo(new Vector2d(-42.41, 10.92), Math.toRadians(100.00))
+                .splineTo(new Vector2d(-49.69, 50.41), Math.toRadians(90.00))
+                .lineToY(10)
+                .setTangent(Math.toRadians(90))
+                .strafeTo(new Vector2d(-59,10))
+                .setTangent(Math.toRadians(90))
+                .splineTo(new Vector2d(-55, 50), Math.toRadians(90.00));
+                // .splineTo(new Vector2d(-55, 15), Math.toRadians(90.00))
+                //.splineTo(new Vector2d(-55, 55), Math.toRadians(90.00))//10.64
+
+        /*
                 .turnTo( Math.toRadians(180))
                 .lineToX(-40)
                 .turnTo( Math.toRadians(90))
@@ -75,7 +87,7 @@ public class AutomationConfig {
                 .lineToY(12)
                 .strafeTo(new Vector2d(-60,12))
                 .setTangent(Math.toRadians(270))
-                .lineToY(50);
+                .lineToY(50);*/
     }
 
     private TrajectoryActionBuilder getBlueLeftObjectMoveTrajectory (MecanumDriveEx mecanumDrive) {
@@ -100,8 +112,8 @@ public class AutomationConfig {
 
     // RED END POSITION -   61, -61, 90
 
-    public Pose2d RED_LEFT_START_POSITION = new Pose2d(-7.50, -62.00, Math.toRadians(90.00));
-    public Pose2d RED_RIGHT_START_POSITION = new Pose2d(12.50, -62.00, Math.toRadians(90.00));
+    public Pose2d RED_LEFT_START_POSITION = new Pose2d(-7.50, -60.00, Math.toRadians(90.00));
+    public Pose2d RED_RIGHT_START_POSITION = new Pose2d(12.50, -60.00, Math.toRadians(90.00));
 
     private TrajectoryActionBuilder getRedTurnAroundTrajectory (MecanumDriveEx mecanumDrive) {
         return mecanumDrive.actionBuilder(mecanumDrive.getRobotPose())
