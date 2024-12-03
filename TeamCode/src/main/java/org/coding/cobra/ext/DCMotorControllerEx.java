@@ -53,7 +53,7 @@ public class DCMotorControllerEx extends AbstractMotorControllerEx {
         motorConfig.startPosition = motor.getCurrentPosition();
         motor.setTargetPosition((int) Math.round(Range.clip(motorConfig.startPosition, motorConfig.minPosition, motorConfig.maxPosition)));
         motor.setMode(DcMotorEx.RunMode.RUN_TO_POSITION);
-
+        //motor.setVelocityPIDFCoefficients(25,0.01,0.5,2.0);
         telemetry.addData("DC Motor : ", motorConfig.motorName.toString() + " Initialized with Position, Velocity : " + motor.getCurrentPosition()+","+motor.getVelocity());
 
     }

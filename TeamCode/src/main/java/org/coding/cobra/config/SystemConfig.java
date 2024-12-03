@@ -34,11 +34,11 @@ public class SystemConfig {
             2,
             2,
             0,
-            1250,          // automation v2 object hang
+            700,          // automation v2 object hang
             1350,                  // automation v2 object hang for second time
             600,                   // autonomous object hang complete
             1700,                  // automation hang on bar
-            1950,                  // automation v2 object pickup from human player
+            500,                  // automation v2 object pickup from human player
             0          //
     );
 
@@ -49,7 +49,7 @@ public class SystemConfig {
             5700,
             600,
             DCMotorConfig.MotorDirection.REVERSE,
-            2,
+            1,
             2,
             700,            // preset for pickup
             2500,                   // preset for autonomous drop   // 5650
