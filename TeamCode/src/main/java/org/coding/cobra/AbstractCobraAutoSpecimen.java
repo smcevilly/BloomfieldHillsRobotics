@@ -34,55 +34,14 @@ public abstract class AbstractCobraAutoSpecimen extends CobraBase  {
         telemetry.addData("Extending Arm ",  mecanumDrive.pose);
         telemetry.update();
 
-        Actions.runBlocking(
-                new SequentialAction(
-                        new MoveToPresetAction(leftElevator, rightElevator, 1, 1)
-            ));
-
-        Actions.runBlocking(
-                new ParallelAction(
-                        new MoveToPresetAction(clawRotator, 0),
-                        new MoveToPresetAction(armExtenderMotor, 1),
-                        actionMoveCloserToBar
-                        ));
-
-
-        Actions.runBlocking(
-                new SequentialAction(
-                      new MoveToPresetAction(flexiClawLeft, flexiClawRight , 0, 0)
-                )
-        );
-
-        Actions.runBlocking(
-                new SequentialAction(
-                        new SleepAction(0.2),
-                        new MoveToPresetAction(armExtenderMotor, 0)
-
-        ));
-
-
-        //automationSpecimenHang ();
+        tracePathToBar(actionMoveCloserToBar, false);
+        automationSpecimenHang(false);
 
         telemetryOutput ();
 
-        TrajectoryActionBuilder straffeObject1OnGround;
-        straffeObject1OnGround = AUTO_CONFIG.getRobotObjectStaffe(mecanumDrive);
-
-        Action trajectoryActionPushSample;
-        trajectoryActionPushSample = straffeObject1OnGround.build();
         mecanumDrive.updateRobotPoseTelemetryUpdate();
-        Actions.runBlocking(
-                new ParallelAction(
-                        new MoveToPresetAction(leftElevator, rightElevator, 0, 0),
-                        new MoveToPresetAction(clawRotator, 0),
-                        trajectoryActionPushSample, //
-                        new MoveToPresetAction(clawRotator, 1), // rotate claw down
-                        //new SleepAction(0.5),
-                        new MoveToPresetAction(flexiClawLeft, flexiClawRight, 0,0) //opens claw
-                        //new SleepAction(0.5),
 
-                )
-        );
+        moveForSpecimenPickup (AUTO_CONFIG.getRobotObjectStaffe(mecanumDrive).build());
 
         //need to turn around
         //getBlueTurnAroundTrajectory
@@ -90,10 +49,13 @@ public abstract class AbstractCobraAutoSpecimen extends CobraBase  {
         mecanumDrive.updateRobotPoseTelemetryUpdate();
 
         automationPickup();
+        tracePathToBar( AUTO_CONFIG.getTracePathToBarTrajectory(mecanumDrive, true).build(), true);
+        automationSpecimenHang(false);
 
-        tracePathToBar();
-
-        automationSpecimenHang();
+        moveForSpecimenPickup (AUTO_CONFIG.getRobotSecondObjectMove(mecanumDrive).build());
+        automationPickup();
+        tracePathToBar( AUTO_CONFIG.getTracePathToBarTrajectory(mecanumDrive, false).build(), true);
+        automationSpecimenHang(true);
 
 
         /*

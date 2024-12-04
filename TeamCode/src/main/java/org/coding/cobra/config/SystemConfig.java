@@ -22,6 +22,8 @@ public class SystemConfig {
 
     // DCMotor
 
+    public int [] armExtenderPlacement = {1300, 1400, 1200};
+
 
     // DCMotor
     public static DCMotorConfig ARM_EXTENDER = new DCMotorConfig(
@@ -34,12 +36,12 @@ public class SystemConfig {
             2,
             2,
             0,
-            700,          // automation v2 object hang
-            1350,                  // automation v2 object hang for second time
+            1400,          // automation v2 object hang
+            1600,                  // automation v2 object hang for second time
             600,                   // autonomous object hang complete
             1700,                  // automation hang on bar
-            500,                  // automation v2 object pickup from human player
-            0          //
+            375,                  // automation v2 object pickup from human player
+            500          //
     );
 
     public static DCMotorConfig Left_Elevator = new DCMotorConfig(
@@ -56,7 +58,7 @@ public class SystemConfig {
             2600,                   // preset for autonomous second drop   // 5650
             3050,                   // autonomous bar hang pull level
             5600,
-            1730,           // autonomous pickup specimen from wall
+            1550,           // autonomous pickup specimen from wall
             2850                    // autonomous elevator drop height
 
             //2424
@@ -77,7 +79,7 @@ public class SystemConfig {
             2600,                   // preset for autonomous second drop   // 5650
             3050,
             5600,
-            1730,           // autonomous pickup specimen from wall
+            1550,           // autonomous pickup specimen from wall
             2850                    // autonomous elevator drop height
 
     );

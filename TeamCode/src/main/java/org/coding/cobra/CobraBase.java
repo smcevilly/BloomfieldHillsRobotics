@@ -102,20 +102,26 @@ public  abstract class CobraBase extends LinearOpMode {
     int debounce = 0;
 
 
+    public void moveForSpecimenPickup (Action path) {
+        Actions.runBlocking(
+                new ParallelAction(
+                        new MoveToPresetAction(clawRotator, 1), // rotate claw down
+                        new MoveToPresetAction(armExtenderMotor, 0),
+                        new MoveToPresetAction(leftElevator, rightElevator, 5, 5),
+                        //new MoveToPresetAction(clawRotator, 0),
+                        path, //
+                        //new SleepAction(0.5),
+                        new MoveToPresetAction(flexiClawLeft, flexiClawRight, 0,0) //opens claw
+                        //new SleepAction(0.5),
+                )
+        );
+    }
     public void automationPickup () {
 
         // Pickup the object from ground
         Actions.runBlocking(
-                new ParallelAction(
-                        new MoveToPresetAction(leftElevator, rightElevator, 5, 5), // pickup level
-                        //new SleepAction(0.5),
-                        new MoveToPresetAction(armExtenderMotor,5) //Extends arm forward
-                        //Extends arm forward
-                        //  new MoveToPresetAction(clawRotator, 0) // rotate claw to face straing
-                )
-        );
-        Actions.runBlocking(
                 new SequentialAction(
+                        new MoveToPresetAction(armExtenderMotor,5), //Extends arm forward
                         new MoveToPresetAction(flexiClawLeft, flexiClawRight, 1,1), // pickup
                         new SleepAction(0.4),
                         new MoveToPresetAction(leftElevator, rightElevator, 1, 1) // level up
@@ -126,43 +132,63 @@ public  abstract class CobraBase extends LinearOpMode {
         );
     }
 
-    public void tracePathToBar() {
-        Action actionMoveCloserToBar = AUTO_CONFIG.getTracePathToBarTrajectory(mecanumDrive).build();
+    public void tracePathToBar(Action path, boolean retractArm) {
 
-        Actions.runBlocking(
-                new ParallelAction(
-                        new MoveToPresetAction(armExtenderMotor,0),
-                        new MoveToPresetAction(clawRotator, 0), // rotate claw down
-                        actionMoveCloserToBar
-                )
-        );
+        if (retractArm) {
+            Actions.runBlocking(
+                    new ParallelAction(
+                            //new MoveToPresetAction(armExtenderMotor,0),
+                            path,
+                            new MoveToPresetAction(leftElevator, rightElevator, 1, 1),
+                            new MoveToPresetAction(armExtenderMotor, 6),
+                            new MoveToPresetAction(clawRotator, 0) // rotate claw down
+                    )
+            );
+        }
+        else {
+            Actions.runBlocking(
+                    new ParallelAction(new MoveToPresetAction(leftElevator, rightElevator, 1, 1),
+                    new MoveToPresetAction(clawRotator, 0),
+                    new MoveToPresetAction(armExtenderMotor, 6),
+                    path));
+
+        }
+
 
     }
 
     boolean firsthang = true;
-    public void automationSpecimenHang () {
+    int hangCount = 0;
+    public void automationSpecimenHang (boolean retractArm) {
 
-        Actions.runBlocking(
-                new SequentialAction(
-//                        new MoveToPresetAction(leftElevator, rightElevator, 1, 1),
-  //                      new SleepAction(0.7),
-                        new MoveToPresetAction(armExtenderMotor, firsthang?1:2),
-                        new SleepAction(0.7),
-                        new MoveToPresetAction(flexiClawLeft, flexiClawRight , 0, 0)
-                )
-        );
+        int hangOffset;
 
-        Actions.runBlocking(
-                new SequentialAction(
-                        new SleepAction(0.2),
-                        new MoveToPresetAction(armExtenderMotor, 0),
-                        new SleepAction(0.5),
-                        new MoveToPresetAction(leftElevator, rightElevator, 0, 0),
-                        new MoveToPresetAction(clawRotator, 0)
+        if ( firsthang ) {
+            hangOffset = 1;
+            firsthang = false;
+        }
+        else {
+            hangOffset = 2;
+        }
 
-        ));
+        if (retractArm) {
+            Actions.runBlocking(
+                    new SequentialAction(
+                            new MoveToPresetAction(armExtenderMotor, hangOffset),
+                            new SleepAction(0.4),
+                            new MoveToPresetAction(flexiClawLeft, flexiClawRight , 0, 0),
+                            new MoveToPresetAction(armExtenderMotor, 0)
+                    ));
 
-        firsthang = false;
+        }
+        else {
+            Actions.runBlocking(
+                    new SequentialAction(
+                            new MoveToPresetAction(armExtenderMotor, hangOffset),
+                            new SleepAction(0.4),
+                            new MoveToPresetAction(flexiClawLeft, flexiClawRight, 0, 0)
+                    ));
+        }
 
     }
 }

@@ -41,11 +41,21 @@ public class AutomationConfig {
                 .turnTo(Math.toRadians(270));*/
     };
 
-    private TrajectoryActionBuilder getBlueTracePathToBar (MecanumDriveEx mecanumDrive) {
-        return mecanumDrive.actionBuilder(mecanumDrive.getRobotPose())
-                .turnTo(Math.toRadians(0))
-                .splineTo(new Vector2d(-10, 41), Math.toRadians(270));
-    };
+    private TrajectoryActionBuilder getBlueTracePathToBar (MecanumDriveEx mecanumDrive, boolean retractBack) {
+        tracePathUsageCountForOffset+=3;
+        if (retractBack) {
+            return mecanumDrive.actionBuilder(mecanumDrive.getRobotPose())
+            .lineToY(40)
+            .turnTo(Math.toRadians(0))
+            .splineTo(new Vector2d(-12.5+tracePathUsageCountForOffset, 41), Math.toRadians(270));
+        }
+        else
+        {
+            return mecanumDrive.actionBuilder(mecanumDrive.getRobotPose())
+                    .turnTo(Math.toRadians(0))
+                    .splineTo(new Vector2d(-12.5+tracePathUsageCountForOffset, 41), Math.toRadians(270));
+        }
+    }
 
     private TrajectoryActionBuilder getBlueMoveCloserToBarForAuto (MecanumDriveEx mecanumDrive) {
         return mecanumDrive.actionBuilder(mecanumDrive.getRobotPose())
@@ -56,15 +66,19 @@ public class AutomationConfig {
 
     private TrajectoryActionBuilder getBlueRightObjectMoveTrajectory (MecanumDriveEx mecanumDrive) {
         mecanumDrive.updateRobotPoseTelemetryUpdate();
-        /*return mecanumDrive.actionBuilder(mecanumDrive.getRobotPose())
-                .turnTo( Math.toRadians(180))
-                .splineTo(new Vector2d(-45, 30), Math.toRadians(-270))
-                .lineToY(53)
-                .lineToY(50)
-                ;
-            */
+
 
         return mecanumDrive.actionBuilder(mecanumDrive.getRobotPose())
+                .splineToConstantHeading(new Vector2d(-36.00, 45.01), Math.toRadians(270.00))
+                .splineTo(new Vector2d(-35.92, 8.11), Math.toRadians(-89.87))
+                .splineTo(new Vector2d(-43.39, 12.08), Math.toRadians(110.00))
+                .splineTo(new Vector2d(-46.68, 50.00), Math.toRadians(97.24))
+                .lineToY(8.82)
+                .setTangent(Math.toRadians(90))
+                .splineTo(new Vector2d(-54.29, 26.98), Math.toRadians(112.58))
+                .splineTo(new Vector2d(-55, 53), Math.toRadians(90));
+
+/*
                 .splineTo(new Vector2d(-36.00, 41.00), Math.toRadians(270.00))
                 .splineTo(new Vector2d(-42.41, 10.92), Math.toRadians(100.00))
                 .splineTo(new Vector2d(-49.69, 50.41), Math.toRadians(90.00))
@@ -108,6 +122,13 @@ public class AutomationConfig {
                 .lineToY(61);
     }
 
+    private TrajectoryActionBuilder getBlueSecondObjectPickupTrajectory (MecanumDriveEx mecanumDrive) {
+        return mecanumDrive.actionBuilder(mecanumDrive.getRobotPose())
+                .turnTo(Math.toRadians(150))
+                .splineTo(new Vector2d(-55, 53), Math.toRadians(90));
+    }
+
+
     // All Red Configurations
 
     // RED END POSITION -   61, -61, 90
@@ -121,7 +142,7 @@ public class AutomationConfig {
                 .turnTo(Math.toRadians(90));
     };
 
-    private TrajectoryActionBuilder getRedTracePathToBar (MecanumDriveEx mecanumDrive) {
+    private TrajectoryActionBuilder getRedTracePathToBar (MecanumDriveEx mecanumDrive, boolean retractBack) {
         return mecanumDrive.actionBuilder(mecanumDrive.getRobotPose())
                 .turnTo(Math.toRadians(0))
                 .lineToX(10)
@@ -173,6 +194,12 @@ public class AutomationConfig {
                 .lineToY(-61);
     }
 
+    private TrajectoryActionBuilder getRedSecondObjectPickupTrajectory (MecanumDriveEx mecanumDrive) {
+        return mecanumDrive.actionBuilder(mecanumDrive.getRobotPose())
+                .turnTo(Math.toRadians(150))
+                .splineTo(new Vector2d(-55, 53), Math.toRadians(90));
+    }
+
 
     /**
      *
@@ -200,6 +227,18 @@ public class AutomationConfig {
         return null;
     }
 
+    public TrajectoryActionBuilder getRobotSecondObjectMove (MecanumDriveEx mecanumDrive) {
+        mecanumDrive.updateRobotPoseTelemetryUpdate();
+        switch (robotStartMode) {
+            case AUTO_BLUE_LEFT: return getBlueSecondObjectPickupTrajectory(mecanumDrive);
+            case AUTO_BLUE_RIGHT: return getBlueSecondObjectPickupTrajectory(mecanumDrive);
+            case AUTO_RED_LEFT: return getRedSecondObjectPickupTrajectory(mecanumDrive);
+            case AUTO_RED_RIGHT: return getRedSecondObjectPickupTrajectory(mecanumDrive);
+        }
+        return null;
+    }
+
+
     public TrajectoryActionBuilder getRobotCloserToBar (MecanumDriveEx mecanumDrive) {
         //mecanumDrive.updateRobotPoseTelemetryUpdate();
         switch (robotStartMode) {
@@ -226,15 +265,16 @@ public class AutomationConfig {
         return null;
     }
 
-    public TrajectoryActionBuilder getTracePathToBarTrajectory (MecanumDriveEx mecanumDrive) {
+    int tracePathUsageCountForOffset = 0;
+    public TrajectoryActionBuilder getTracePathToBarTrajectory (MecanumDriveEx mecanumDrive, boolean retractBack) {
         mecanumDrive.updateRobotPoseTelemetryUpdate();
         switch (robotStartMode) {
-            case AUTO_BLUE_LEFT: return getBlueTracePathToBar(mecanumDrive);
-            case AUTO_BLUE_RIGHT: return getBlueTracePathToBar(mecanumDrive);
-            case TELEOP_BLUE: return getBlueTracePathToBar(mecanumDrive);
-            case AUTO_RED_LEFT: return getRedTracePathToBar(mecanumDrive);
-            case AUTO_RED_RIGHT: return getRedTracePathToBar(mecanumDrive);
-            case TELEOP_RED: return getRedTracePathToBar(mecanumDrive);
+            case AUTO_BLUE_LEFT: return getBlueTracePathToBar(mecanumDrive, retractBack);
+            case AUTO_BLUE_RIGHT: return getBlueTracePathToBar(mecanumDrive, retractBack);
+            case TELEOP_BLUE: return getBlueTracePathToBar(mecanumDrive, retractBack);
+            case AUTO_RED_LEFT: return getRedTracePathToBar(mecanumDrive, retractBack);
+            case AUTO_RED_RIGHT: return getRedTracePathToBar(mecanumDrive, retractBack);
+            case TELEOP_RED: return getRedTracePathToBar(mecanumDrive, retractBack);
         }
         return null;
     }
