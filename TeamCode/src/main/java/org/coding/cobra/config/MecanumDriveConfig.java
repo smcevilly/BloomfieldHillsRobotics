@@ -40,7 +40,7 @@ public class MecanumDriveConfig {
     public double  inPerTick = 0.002; //24000 for 48 inches
     public   double lateralInPerTick = 0.0013298353671469072;
     //public double lateralInPerTick = 0.0006628730045191881;
-    public double trackWidthTicks =  8000;//7800;//7250; // measred //7886.722580031681;  //0
+    public double trackWidthTicks =  7407.1582839962175;//7800;//7250; // measred //7886.722580031681;  //0
 
     public static class TwoWheelOdoParams {
 //        public double parYTicks = 0.625 * 1 / 0.001408116138; // y position of the parallel encoder (in tick units)
@@ -50,9 +50,9 @@ public class MecanumDriveConfig {
     }
 
     public static class ThreeWheelOdoParams {
-        public double par0YTicks = -2276;//-2276.11;//-5.125 * 1/ 0.002; // y position of the first parallel encoder (in tick units)
-        public double par1YTicks = 2866;//2866.59;//5.125 * 1/ 0.002; // y position of the second parallel encoder (in tick units)
-        public double perpXTicks = -2869.9991971076024;//-2529.56;//-7.125* 1 / 0.002; //-5.75  // x position of the perpendicular encoder (in tick units)
+        public double par0YTicks = -2562;//-2276.11;//-5.125 * 1/ 0.002; // y position of the first parallel encoder (in tick units)
+        public double par1YTicks = 2800;//2866.59;//5.125 * 1/ 0.002; // y position of the second parallel encoder (in tick units)
+        public double perpXTicks = -2875;//-2529.56;//-7.125* 1 / 0.002; //-5.75  // x position of the perpendicular encoder (in tick units)
     }
 
     // feedforward parameters (in tick units)
@@ -70,11 +70,11 @@ public class MecanumDriveConfig {
     public double maxAngAccel = Math.PI;
 
     // path controller gains
-    public double axialGain = 0;
-    public double lateralGain = 3;//25
-    public double headingGain = 0.8; // responsible for drift to right correction //5; // shared with turn//25
+    public double axialGain = 0.5;
+    public double lateralGain = 1;//25
+    public double headingGain = 0.5; // responsible for drift to right correction //5; // shared with turn//25
 
-    public double axialVelGain = 0.5;
-    public double headingVelGain = 1; // shared with turn
-    public double lateralVelGain = 0.5;
+    public double axialVelGain = 0;
+    public double headingVelGain = 0; // shared with turn
+    public double lateralVelGain = 0;
 }

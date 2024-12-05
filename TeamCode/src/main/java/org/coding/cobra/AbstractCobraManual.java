@@ -41,7 +41,7 @@ public abstract class  AbstractCobraManual extends CobraBase {
                  */
             handleGamepadEvents();
 
-            botpose = camera.getRobotPosition();
+            //botpose = camera.getRobotPosition();
             if (isStopRequested()) return;
             telemetryOutput();
         }
