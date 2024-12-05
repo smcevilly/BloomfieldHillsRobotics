@@ -54,13 +54,13 @@ public abstract class  AbstractCobraManual extends CobraBase {
         mecanumDrive.moveRobot(-gamepad1.left_stick_y, -gamepad1.left_stick_x, -gamepad1.right_stick_x,sysConfig.DRIVE_POWER_FACTOR);
         leftElevator.handleEvents(-gamepad2.left_stick_y);
         rightElevator.handleEvents(-gamepad2.left_stick_y);
-        //claw.handleEvents(gamepad2.dpad_up, gamepad2.dpad_down);
+        hangingArm.handleEvents(gamepad1.dpad_up, gamepad1.dpad_down);
         //claw.handlePresets(gamepad2.a, false, false);
         armExtenderMotor.handleEvents(-gamepad2.right_stick_y);
 
         flexiClawLeft.handleEvents(gamepad2.dpad_left, gamepad2.dpad_right);
         flexiClawRight.handleEvents(gamepad2.dpad_left, gamepad2.dpad_right);
-        clawRotator.handleEvents(gamepad2.dpad_up, gamepad2.dpad_down);
+        clawRotator.handleEvents(gamepad2.dpad_down, gamepad2.dpad_up);
 
 
         // presets

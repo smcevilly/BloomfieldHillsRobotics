@@ -78,6 +78,13 @@ public class DCMotorControllerEx extends AbstractMotorControllerEx {
 
     }
 
+    public void handleEvents (boolean upKey, boolean downKey) {
+        if   (upKey){
+            handleEvents (1);
+        } else if (downKey) {
+            handleEvents (-1);
+        }
+    }
 
     public void setTargetPosition (double position) {
         motor.setTargetPosition((int)position);

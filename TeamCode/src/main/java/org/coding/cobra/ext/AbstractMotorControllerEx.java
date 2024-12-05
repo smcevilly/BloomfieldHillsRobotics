@@ -58,4 +58,5 @@ public abstract class AbstractMotorControllerEx {
 
     public abstract void resetToZeroPosition ();
 
+    public abstract void handleEvents(boolean dpadUp, boolean dpadDown);
 }

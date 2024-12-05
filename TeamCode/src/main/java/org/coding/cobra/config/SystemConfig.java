@@ -25,6 +25,26 @@ public class SystemConfig {
     public int [] armExtenderPlacement = {1300, 1400, 1200};
 
 
+
+
+    // DCMotor
+    public static DCMotorConfig HANGING_ARM = new DCMotorConfig(
+            "hangingArm",
+            0,
+            0,
+            2600,
+            200,
+            DCMotorConfig.MotorDirection.REVERSE,
+            2,
+            2,
+            0,
+            1400,
+            1600,
+            600,
+            1700,
+            375,
+            500
+    );
     // DCMotor
     public static DCMotorConfig ARM_EXTENDER = new DCMotorConfig(
             "rightExtender",

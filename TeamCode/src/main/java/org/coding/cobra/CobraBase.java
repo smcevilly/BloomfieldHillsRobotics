@@ -40,6 +40,7 @@ public  abstract class CobraBase extends LinearOpMode {
 
     DCMotorControllerEx leftElevator;
     DCMotorControllerEx rightElevator;
+    DCMotorControllerEx hangingArm;
 
     PersistanceManager persistanceManager;
 
@@ -60,6 +61,9 @@ public  abstract class CobraBase extends LinearOpMode {
         leftElevator = new DCMotorControllerEx(hardwareMap, telemetry, sysConfig.Left_Elevator);
         rightElevator = new DCMotorControllerEx(hardwareMap, telemetry, sysConfig.Right_Elevator);
         armExtenderMotor = new DCMotorControllerEx(hardwareMap, telemetry, sysConfig.ARM_EXTENDER);
+        hangingArm = new DCMotorControllerEx(hardwareMap, telemetry, sysConfig.HANGING_ARM);
+
+
         // To delay the start of the claw rotator movement after init is pressed
         //
         // clawRotator = new ServoMotorControllerEx(hardwareMap, telemetry, sysConfig.CLAW_ROTATOR);
@@ -79,6 +83,7 @@ public  abstract class CobraBase extends LinearOpMode {
             armExtenderMotor.outputTelemetry();
             leftElevator.outputTelemetry();
             rightElevator.outputTelemetry();
+            hangingArm.outputTelemetry();
             clawRotator.outputTelemetry();
             flexiClawLeft.outputTelemetry();
             flexiClawRight.outputTelemetry();
