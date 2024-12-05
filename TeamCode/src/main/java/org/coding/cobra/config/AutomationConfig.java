@@ -69,6 +69,7 @@ public class AutomationConfig {
 
 
         return mecanumDrive.actionBuilder(mecanumDrive.getRobotPose())
+
                 .splineToConstantHeading(new Vector2d(-36.00, 45.01), Math.toRadians(270.00))
                 .splineTo(new Vector2d(-35.92, 8.11), Math.toRadians(-89.87))
                 .splineTo(new Vector2d(-43.39, 12.08), Math.toRadians(110.00))

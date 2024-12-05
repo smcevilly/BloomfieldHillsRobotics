@@ -80,12 +80,12 @@ public abstract class  AbstractCobraManual extends CobraBase {
         rightElevator.handlePresets(false, false, gamepad2.right_trigger>0, gamepad2.left_trigger>0, false, gamepad2.left_bumper, gamepad2.right_bumper);
 
         if (gamepad2.start) {
-            tracePathToBar(AUTO_CONFIG.getRobotCloserToBar(mecanumDrive).build(), false);
+            tracePathToBar(AUTO_CONFIG.getTracePathToBarTrajectory(mecanumDrive, false).build(), false);
             automationSpecimenHang(true);
         }
 
         if (gamepad2.share) {
-            automationPickup();
+            automationPickup(true);
         }
 
         //  camera.handleEvents(gamepad1.dpad_left, gamepad1.dpad_right);
@@ -97,6 +97,7 @@ public abstract class  AbstractCobraManual extends CobraBase {
         armExtenderMotor.resetEncoders();
         rightElevator.resetEncoders();
         leftElevator.resetEncoders();
+        hangingArm.resetEncoders();
     }
 
 }

@@ -99,7 +99,6 @@ public  abstract class CobraBase extends LinearOpMode {
             Drawing.drawRobot(packet.fieldOverlay(), mecanumDrive.pose);
             FtcDashboard.getInstance().sendTelemetryPacket(packet);
             telemetry.update();
-
         }
 
     }
@@ -121,7 +120,15 @@ public  abstract class CobraBase extends LinearOpMode {
                 )
         );
     }
-    public void automationPickup () {
+    public void automationPickup (boolean levelElevators) {
+
+        if (levelElevators) {
+            Actions.runBlocking(
+                    new SequentialAction(
+                            new MoveToPresetAction(leftElevator, rightElevator, 5, 5)
+                    ));
+
+        }
 
         // Pickup the object from ground
         Actions.runBlocking(

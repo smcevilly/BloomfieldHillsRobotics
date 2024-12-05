@@ -15,7 +15,7 @@ public class MecanumDriveConfig {
     public String rightFrontMotor = "rightFront";
     public String leftRearMotor = "leftBack";
     public String rightRearMotor = "rightBack";
-    public String dummyMotorForDeadWheel = "parDeadWheel";
+    //public String dummyMotorForDeadWheel = "parDeadWheel";
 
 
     // IMU orientation

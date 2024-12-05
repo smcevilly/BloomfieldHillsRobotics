@@ -48,12 +48,12 @@ public abstract class AbstractCobraAutoSpecimen extends CobraBase  {
 
         mecanumDrive.updateRobotPoseTelemetryUpdate();
 
-        automationPickup();
+        automationPickup(false);
         tracePathToBar( AUTO_CONFIG.getTracePathToBarTrajectory(mecanumDrive, true).build(), true);
         automationSpecimenHang(false);
 
         moveForSpecimenPickup (AUTO_CONFIG.getRobotSecondObjectMove(mecanumDrive).build());
-        automationPickup();
+        automationPickup(false);
         tracePathToBar( AUTO_CONFIG.getTracePathToBarTrajectory(mecanumDrive, false).build(), true);
         automationSpecimenHang(true);
 

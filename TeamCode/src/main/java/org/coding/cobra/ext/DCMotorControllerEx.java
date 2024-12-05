@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.util.Range;
 
 import org.coding.cobra.config.helpers.DCMotorConfig;
@@ -84,6 +85,9 @@ public class DCMotorControllerEx extends AbstractMotorControllerEx {
         } else if (downKey) {
             handleEvents (-1);
         }
+        else {
+            handleEvents (0);
+        }
     }
 
     public void setTargetPosition (double position) {
@@ -103,7 +107,10 @@ public class DCMotorControllerEx extends AbstractMotorControllerEx {
     }
 
     public void outputTelemetry () {
+        PIDFCoefficients pidf = motor.getPIDFCoefficients(DcMotor.RunMode.RUN_TO_POSITION);
         telemetry.addData("DCM: ", motorConfig.motorName.toString() + " Pos: " + motor.getCurrentPosition());
+        telemetry.addData("P, I, D, F", pidf.p + "," + pidf.i + " " + pidf.d +" " + pidf.f);
+        telemetry.update();
     }
 
     public boolean isMotorBusy() {
