@@ -36,7 +36,7 @@ public abstract class AbstractCobraAutoSpecimen extends CobraBase  {
 
         leftElevator.handlePresets(1);
         rightElevator.handlePresets(1);
-        clawRotator.handlePresets(0);
+        clawRotator.handlePresets(0); // face straight
         try {
             Thread.sleep(400);
         } catch (InterruptedException e) {
@@ -50,7 +50,7 @@ public abstract class AbstractCobraAutoSpecimen extends CobraBase  {
         );
 
         //tracePathToBar(actionMoveCloserToBar, false);
-        automationSpecimenHang(true);
+        automationSpecimenHang(true, true);
 
         telemetryOutput ();
 
@@ -65,28 +65,13 @@ public abstract class AbstractCobraAutoSpecimen extends CobraBase  {
 
         automationPickup(false);
         tracePathToBar( AUTO_CONFIG.getTracePathToBarTrajectory(mecanumDrive, true).build(), true);
-        automationSpecimenHang(false);
+        automationSpecimenHang(true, true);
 
         moveForSpecimenPickup (AUTO_CONFIG.getRobotSecondObjectMove(mecanumDrive).build());
         automationPickup(false);
         tracePathToBar( AUTO_CONFIG.getTracePathToBarTrajectory(mecanumDrive, false).build(), true);
-        automationSpecimenHang(true);
+        automationSpecimenHang(true, true);
 
-
-        /*
-        // Pickup the object from ground
-
-        Actions.runBlocking(
-                new SequentialAction(
-                        new MoveToPresetAction(leftElevator, rightElevator, 0, 0), // level down
-                        new MoveToPresetAction(clawRotator, 1), // rotate claw to pickup
-                        new SleepAction(1.5),
-                        new MoveToPresetAction(flexiClawLeft, flexiClawRight, 1,1), // pickup
-                        new MoveToPresetAction(leftElevator, rightElevator, 1, 1),  // level up
-                        new MoveToPresetAction(clawRotator, 0) // rotate claw to face straing
-                )
-        );
-       */
 
 
         /**

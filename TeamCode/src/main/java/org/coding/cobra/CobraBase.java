@@ -64,7 +64,6 @@ public  abstract class CobraBase extends LinearOpMode {
         armExtenderMotor = new DCMotorControllerEx(hardwareMap, telemetry, sysConfig.ARM_EXTENDER);
         hangingArm = new DCMotorControllerEx(hardwareMap, telemetry, sysConfig.HANGING_ARM);
 
-
         // To delay the start of the claw rotator movement after init is pressed
         //
         // clawRotator = new ServoMotorControllerEx(hardwareMap, telemetry, sysConfig.CLAW_ROTATOR);
@@ -153,7 +152,7 @@ public  abstract class CobraBase extends LinearOpMode {
                             //new MoveToPresetAction(armExtenderMotor,0),
                             path,
                             new MoveToPresetAction(leftElevator, rightElevator, 1, 1),
-                            new MoveToPresetAction(clawRotator, 0), // rotate claw down
+                            new MoveToPresetAction(clawRotator, 0), // rotate claw facing forward
                             new MoveToPresetAction(armExtenderMotor, 6)
                     )
             );
@@ -172,26 +171,24 @@ public  abstract class CobraBase extends LinearOpMode {
 
     boolean firsthang = true;
     int hangCount = 0;
-    public void automationSpecimenHang (boolean retractArm) {
+    public void automationSpecimenHang (boolean retractArm, boolean releasePiece) {
 
         int hangOffset;
         double delay = 0.4;
 
-        if ( firsthang ) {
-            Actions.runBlocking(
-                    new SequentialAction(
-                            new MoveToPresetAction(flexiClawLeft, flexiClawRight, 0, 0)
-                    ));
-
-        }
-        else {
+        if ( !firsthang ) {
             Actions.runBlocking(
                     new SequentialAction(
                             new MoveToPresetAction(armExtenderMotor, 2),
-                            new SleepAction(delay),
-                            new MoveToPresetAction(flexiClawLeft, flexiClawRight , 0, 0)
+                            new SleepAction(delay)
                     ));
         }
+
+        if (releasePiece) {
+            flexiClawLeft.handlePresets(0);
+            flexiClawLeft.handlePresets(0);
+        }
+
         if (retractArm) {
             armExtenderMotor.setTargetPosition(0);
         }

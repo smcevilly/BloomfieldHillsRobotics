@@ -35,10 +35,7 @@ public class AutomationConfig {
 
     private TrajectoryActionBuilder getBlueTurnAroundTrajectory (MecanumDriveEx mecanumDrive) {
         return null;
-        /*mecanumDrive.actionBuilder(mecanumDrive.getRobotPose())
-                .setTangent(Math.toRadians(270))
-                .lineToY(50)
-                .turnTo(Math.toRadians(270));*/
+
     };
 
     private TrajectoryActionBuilder getBlueTracePathToBar (MecanumDriveEx mecanumDrive, boolean retractBack) {
@@ -47,7 +44,7 @@ public class AutomationConfig {
             return mecanumDrive.actionBuilder(mecanumDrive.getRobotPose())
             .lineToY(45)
             .turnTo(Math.toRadians(0))
-            .splineTo(new Vector2d(-12.5+tracePathUsageCountForOffset, 43), Math.toRadians(270));
+            .splineTo(new Vector2d(-12.5+tracePathUsageCountForOffset, 41), Math.toRadians(270));
         }
         else
         {
@@ -59,7 +56,7 @@ public class AutomationConfig {
 
     private TrajectoryActionBuilder getBlueMoveCloserToBarForAuto (MecanumDriveEx mecanumDrive) {
         return mecanumDrive.actionBuilder(mecanumDrive.getRobotPose())
-                .lineToY(40);
+                .lineToY(38);
     }
 
     private TrajectoryActionBuilder getBlueRightObjectMoveTrajectory (MecanumDriveEx mecanumDrive) {
@@ -69,12 +66,12 @@ public class AutomationConfig {
                 .strafeTo(new Vector2d(-36, 40))
                 .setTangent(Math.toRadians(270))
 //                .splineToConstantHeading(new Vector2d(-36.91, 45), Math.toRadians(270.00))
-                .splineTo(new Vector2d(-38.72, 12.08), Math.toRadians(124.07))
-                .splineTo(new Vector2d(-39.2, 34.59), Math.toRadians(84.12))
+                .splineTo(new Vector2d(-38.72, 12.08), Math.toRadians(90))
+//                .splineTo(new Vector2d(-39.2, 34.59), Math.toRadians(84.12))
                 .splineTo(new Vector2d(-40.03, 56.61), Math.toRadians(90.00))
                 .lineToY(5.25)
                 .setTangent(Math.toRadians(90))
-                .splineTo(new Vector2d(-56, 12.25), Math.toRadians(125.61))
+                .splineTo(new Vector2d(-56, 12.25), Math.toRadians(90))
                 .splineTo(new Vector2d(-56, 29.30), Math.toRadians(90.00))
                 .splineTo(new Vector2d(-56, 58), Math.toRadians(90.00));
 

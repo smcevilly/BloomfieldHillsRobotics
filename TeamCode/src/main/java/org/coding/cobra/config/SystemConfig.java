@@ -74,7 +74,7 @@ public class SystemConfig {
             1,
             2,
             700,            // preset for pickup
-            2500,                   // preset for autonomous drop   // 5650
+            2550,                   // preset for autonomous drop   // 5650
             2600,                   // preset for autonomous second drop   // 5650
             3050,                   // autonomous bar hang pull level
             5600,
@@ -95,7 +95,7 @@ public class SystemConfig {
             2,
             2,
             700,
-            2500,           //preset for autonomous drop
+            2550,           //preset for autonomous drop
             2600,                   // preset for autonomous second drop   // 5650
             3050,
             5600,
@@ -108,18 +108,18 @@ public class SystemConfig {
     public static DCMotorConfig CLAW_ROTATOR = new DCMotorConfig(
             "clawRotator",
             0.2,
-            0.07,
+            0.15,
             1,
-            0.01,
+            0.005,
             DCMotorConfig.MotorDirection.FORWARD,
             5,
             5,
-            0.32,// face straight - little tilt
-            0.65,
-            0.1,
+            0.52, // 0.32,// face straight - little tilt
+            0.83,         // face down
+            0.9,
             1,
-            0,
-            0,
+            0.15,
+            0.15,
             0
 
     );

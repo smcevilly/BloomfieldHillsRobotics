@@ -1,18 +1,5 @@
 package org.coding.cobra;
 
-import android.content.SharedPreferences;
-
-import com.acmerobotics.roadrunner.Action;
-import com.acmerobotics.roadrunner.Pose2d;
-import com.acmerobotics.roadrunner.SequentialAction;
-import com.acmerobotics.roadrunner.SleepAction;
-import com.acmerobotics.roadrunner.Time;
-import com.acmerobotics.roadrunner.TrajectoryActionBuilder;
-import com.acmerobotics.roadrunner.Twist2dDual;
-import com.acmerobotics.roadrunner.ftc.Actions;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-
-import org.coding.cobra.config.SystemConfig;
 
 import org.coding.cobra.ext.MoveToPresetAction;
 import org.coding.cobra.ext.ServoMotorControllerEx;
@@ -81,10 +68,11 @@ public abstract class  AbstractCobraManual extends CobraBase {
 
         if (gamepad2.start) {
             tracePathToBar(AUTO_CONFIG.getTracePathToBarTrajectory(mecanumDrive, false).build(), false);
-            automationSpecimenHang(true);
+            automationSpecimenHang(true, false);
         }
 
         if (gamepad2.share) {
+            clawRotator.handlePresets(1);
             automationPickup(true);
         }
 
