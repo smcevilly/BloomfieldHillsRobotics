@@ -56,12 +56,12 @@ public class SystemConfig {
             2,
             2,
             0,
-            1400,          // automation v2 object hang
-            1600,                  // automation v2 object hang for second time
+            1600,          // automation v2 object hang
+            1100,                  // automation v2 object hang for second time
             600,                   // autonomous object hang complete
             1700,                  // automation hang on bar
-            375,                  // automation v2 object pickup from human player
-            500          //
+            500,                  // automation v2 object pickup from human player
+            800          //
     );
 
     public static DCMotorConfig Left_Elevator = new DCMotorConfig(

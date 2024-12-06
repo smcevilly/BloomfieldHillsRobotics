@@ -6,6 +6,7 @@ import android.preference.PreferenceManager;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.acmerobotics.roadrunner.Action;
+import com.acmerobotics.roadrunner.InstantAction;
 import com.acmerobotics.roadrunner.ParallelAction;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.acmerobotics.roadrunner.SequentialAction;
@@ -150,19 +151,21 @@ public  abstract class CobraBase extends LinearOpMode {
             Actions.runBlocking(
                     new ParallelAction(
                             //new MoveToPresetAction(armExtenderMotor,0),
-                            path,
                             new MoveToPresetAction(leftElevator, rightElevator, 1, 1),
-                            new MoveToPresetAction(armExtenderMotor, 6),
-                            new MoveToPresetAction(clawRotator, 0) // rotate claw down
+                            new MoveToPresetAction(clawRotator, 0), // rotate claw down
+                            path
+                            //, new MoveToPresetAction(armExtenderMotor, 6)
                     )
             );
         }
         else {
             Actions.runBlocking(
-                    new ParallelAction(new MoveToPresetAction(leftElevator, rightElevator, 1, 1),
-                    new MoveToPresetAction(clawRotator, 0),
-                    new MoveToPresetAction(armExtenderMotor, 6),
-                    path));
+                    new ParallelAction(
+                            new MoveToPresetAction(leftElevator, rightElevator, 1, 1),
+                            new MoveToPresetAction(clawRotator, 0),
+                            path
+                    //new MoveToPresetAction(armExtenderMotor, 6),
+                    ));
 
         }
 
@@ -174,32 +177,26 @@ public  abstract class CobraBase extends LinearOpMode {
     public void automationSpecimenHang (boolean retractArm) {
 
         int hangOffset;
+        double delay = 0.5;
 
         if ( firsthang ) {
-            hangOffset = 1;
-            firsthang = false;
-        }
-        else {
-            hangOffset = 2;
-        }
-
-        if (retractArm) {
-            Actions.runBlocking(
+            flexiClawLeft.handlePresets(0);
+            flexiClawRight.handlePresets(0);
+/*            Actions.runBlocking(
                     new SequentialAction(
-                            new MoveToPresetAction(armExtenderMotor, hangOffset),
-                            new SleepAction(0.4),
-                            new MoveToPresetAction(flexiClawLeft, flexiClawRight , 0, 0),
-                            new MoveToPresetAction(armExtenderMotor, 0)
-                    ));
-
-        }
-        else {
-            Actions.runBlocking(
-                    new SequentialAction(
-                            new MoveToPresetAction(armExtenderMotor, hangOffset),
-                            new SleepAction(0.4),
                             new MoveToPresetAction(flexiClawLeft, flexiClawRight, 0, 0)
+                    ));*/
+        }
+        else {
+            Actions.runBlocking(
+                    new SequentialAction(
+                            new MoveToPresetAction(armExtenderMotor, 2),
+                            new SleepAction(delay),
+                            new MoveToPresetAction(flexiClawLeft, flexiClawRight , 0, 0)
                     ));
+        }
+        if (retractArm) {
+            armExtenderMotor.setTargetPosition(0);
         }
 
     }
