@@ -39,7 +39,7 @@ public class AutomationConfig {
     };
 
     private TrajectoryActionBuilder getBlueTracePathToBar (MecanumDriveEx mecanumDrive, boolean retractBack) {
-        tracePathUsageCountForOffset+=3;
+        tracePathUsageCountForOffset+=4;
         if (retractBack) {
             return mecanumDrive.actionBuilder(mecanumDrive.getRobotPose())
             .lineToY(45)
@@ -50,7 +50,7 @@ public class AutomationConfig {
         {
             return mecanumDrive.actionBuilder(mecanumDrive.getRobotPose())
                     .turnTo(Math.toRadians(0))
-                    .splineTo(new Vector2d(-12.5+tracePathUsageCountForOffset, 43), Math.toRadians(270));
+                    .splineTo(new Vector2d(-12.5+tracePathUsageCountForOffset, 41), Math.toRadians(270));
         }
     }
 
