@@ -36,14 +36,20 @@ public abstract class AbstractCobraAutoSpecimen extends CobraBase  {
 
         leftElevator.handlePresets(1);
         rightElevator.handlePresets(1);
-
+        clawRotator.handlePresets(0);
         try {
-            Thread.sleep(300);
+            Thread.sleep(400);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
 
-        tracePathToBar(actionMoveCloserToBar, false);
+        Actions.runBlocking(
+                new SequentialAction(
+                        //new MoveToPresetAction(armExtenderMotor,0),
+                        actionMoveCloserToBar)
+        );
+
+        //tracePathToBar(actionMoveCloserToBar, false);
         automationSpecimenHang(true);
 
         telemetryOutput ();

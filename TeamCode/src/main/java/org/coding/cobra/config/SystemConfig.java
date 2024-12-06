@@ -56,7 +56,7 @@ public class SystemConfig {
             2,
             2,
             0,
-            1600,          // automation v2 object hang
+            1200,          // automation v2 object hang
             1100,                  // automation v2 object hang for second time
             600,                   // autonomous object hang complete
             1700,                  // automation hang on bar
@@ -114,7 +114,7 @@ public class SystemConfig {
             DCMotorConfig.MotorDirection.FORWARD,
             5,
             5,
-            0.34,// face straight - little tilt
+            0.32,// face straight - little tilt
             0.65,
             0.1,
             1,

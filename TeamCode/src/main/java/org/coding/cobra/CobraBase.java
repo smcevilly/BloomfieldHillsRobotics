@@ -151,21 +151,19 @@ public  abstract class CobraBase extends LinearOpMode {
             Actions.runBlocking(
                     new ParallelAction(
                             //new MoveToPresetAction(armExtenderMotor,0),
+                            path,
                             new MoveToPresetAction(leftElevator, rightElevator, 1, 1),
                             new MoveToPresetAction(clawRotator, 0), // rotate claw down
-                            path
-                            //, new MoveToPresetAction(armExtenderMotor, 6)
+                            new MoveToPresetAction(armExtenderMotor, 6)
                     )
             );
         }
         else {
             Actions.runBlocking(
-                    new ParallelAction(
-                            new MoveToPresetAction(leftElevator, rightElevator, 1, 1),
-                            new MoveToPresetAction(clawRotator, 0),
-                            path
-                    //new MoveToPresetAction(armExtenderMotor, 6),
-                    ));
+                    new ParallelAction(new MoveToPresetAction(leftElevator, rightElevator, 1, 1),
+                    new MoveToPresetAction(clawRotator, 0),
+                    new MoveToPresetAction(armExtenderMotor, 6),
+                    path));
 
         }
 
@@ -177,15 +175,14 @@ public  abstract class CobraBase extends LinearOpMode {
     public void automationSpecimenHang (boolean retractArm) {
 
         int hangOffset;
-        double delay = 0.5;
+        double delay = 0.4;
 
         if ( firsthang ) {
-            flexiClawLeft.handlePresets(0);
-            flexiClawRight.handlePresets(0);
-/*            Actions.runBlocking(
+            Actions.runBlocking(
                     new SequentialAction(
                             new MoveToPresetAction(flexiClawLeft, flexiClawRight, 0, 0)
-                    ));*/
+                    ));
+
         }
         else {
             Actions.runBlocking(

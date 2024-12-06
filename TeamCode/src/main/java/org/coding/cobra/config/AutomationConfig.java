@@ -45,29 +45,30 @@ public class AutomationConfig {
         tracePathUsageCountForOffset+=3;
         if (retractBack) {
             return mecanumDrive.actionBuilder(mecanumDrive.getRobotPose())
-            .lineToY(42)
+            .lineToY(45)
             .turnTo(Math.toRadians(0))
-            .splineTo(new Vector2d(-12.5+tracePathUsageCountForOffset, 41), Math.toRadians(270));
+            .splineTo(new Vector2d(-12.5+tracePathUsageCountForOffset, 43), Math.toRadians(270));
         }
         else
         {
             return mecanumDrive.actionBuilder(mecanumDrive.getRobotPose())
                     .turnTo(Math.toRadians(0))
-                    .splineTo(new Vector2d(-12.5+tracePathUsageCountForOffset, 41), Math.toRadians(270));
+                    .splineTo(new Vector2d(-12.5+tracePathUsageCountForOffset, 43), Math.toRadians(270));
         }
     }
 
     private TrajectoryActionBuilder getBlueMoveCloserToBarForAuto (MecanumDriveEx mecanumDrive) {
         return mecanumDrive.actionBuilder(mecanumDrive.getRobotPose())
-                .lineToY(38);
+                .lineToY(40);
     }
 
     private TrajectoryActionBuilder getBlueRightObjectMoveTrajectory (MecanumDriveEx mecanumDrive) {
         mecanumDrive.updateRobotPoseTelemetryUpdate();
 
         return mecanumDrive.actionBuilder(mecanumDrive.getRobotPose())
-                .lineToY(42)
-              .splineToConstantHeading(new Vector2d(-36.91, 45), Math.toRadians(270.00))
+                .strafeTo(new Vector2d(-36, 40))
+                .setTangent(Math.toRadians(270))
+//                .splineToConstantHeading(new Vector2d(-36.91, 45), Math.toRadians(270.00))
                 .splineTo(new Vector2d(-38.72, 12.08), Math.toRadians(124.07))
                 .splineTo(new Vector2d(-39.2, 34.59), Math.toRadians(84.12))
                 .splineTo(new Vector2d(-40.03, 56.61), Math.toRadians(90.00))
@@ -76,8 +77,6 @@ public class AutomationConfig {
                 .splineTo(new Vector2d(-56, 12.25), Math.toRadians(125.61))
                 .splineTo(new Vector2d(-56, 29.30), Math.toRadians(90.00))
                 .splineTo(new Vector2d(-56, 58), Math.toRadians(90.00));
-
-
 
     }
 
@@ -120,23 +119,29 @@ public class AutomationConfig {
     };
 
     private TrajectoryActionBuilder getRedTracePathToBar (MecanumDriveEx mecanumDrive, boolean retractBack) {
-        return mecanumDrive.actionBuilder(mecanumDrive.getRobotPose())
-                .turnTo(Math.toRadians(0))
-                .lineToX(10)
-                .turnTo(Math.toRadians(-90))
-                .lineToY(-44)
-                ;
+        tracePathUsageCountForOffset+=4;
+        if (retractBack) {
+            return mecanumDrive.actionBuilder(mecanumDrive.getRobotPose())
+                    .lineToY(-45)
+                    .turnTo(Math.toRadians(180))
+                    .splineTo(new Vector2d(12.5-tracePathUsageCountForOffset, -41), Math.toRadians(90));
+        }
+        else
+        {
+            return mecanumDrive.actionBuilder(mecanumDrive.getRobotPose())
+                    .turnTo(Math.toRadians(180))
+                    .splineTo(new Vector2d(12.5-tracePathUsageCountForOffset, -41), Math.toRadians(90));
+        }
     };
 
     private TrajectoryActionBuilder getRedMoveCloserToBarForAuto (MecanumDriveEx mecanumDrive) {
         return mecanumDrive.actionBuilder(mecanumDrive.getRobotPose())
-                .lineToY(-41);
+                .lineToY(-38);
     }
 
 
     private TrajectoryActionBuilder getRedLeftObjectMoveTrajectory (MecanumDriveEx mecanumDrive) {
 
-        //return mecanumDrive.actionBuilder(new Pose2d(-7.5, -41, Math.toRadians(90)))
         return mecanumDrive.actionBuilder(mecanumDrive.getRobotPose())
                 .lineToY(-60)
                 .strafeTo(new Vector2d(38, -60))
@@ -157,32 +162,22 @@ public class AutomationConfig {
 
     private TrajectoryActionBuilder getRedRightObjectMoveTrajectory(MecanumDriveEx mecanumDrive) {
         return mecanumDrive.actionBuilder(mecanumDrive.getRobotPose())
-                .splineToConstantHeading(new Vector2d(36.08, -41.05), Math.toRadians(90.00))
-                .splineTo(new Vector2d(37.99, -9.43), Math.toRadians(84.40))
-                .splineTo(new Vector2d( 47.02, -50.95), Math.toRadians(270))
-                .lineToY(-7.78)
-                .setTangent(270)
-                .splineToConstantHeading(new Vector2d(53.81, -12.41), Math.toRadians(-42.14))
-                .splineToConstantHeading(new Vector2d(55.96, -20.19), Math.toRadians(-67.00))
-                .splineToConstantHeading(new Vector2d(55.00, -55.00), Math.toRadians(270.00));
-                /*.strafeTo(new Vector2d(38, -41))
+                .strafeTo(new Vector2d(36, -40))
                 .setTangent(Math.toRadians(90))
-                .lineToY(-7)
-                .setTangent(Math.toRadians(90))
-                .strafeTo(new Vector2d(50, -7))
-                .setTangent(Math.toRadians(90))
-                .lineToY(-55)
-                .lineToY(-7)
-                .setTangent(Math.toRadians(90))
-                .strafeTo(new Vector2d(61, -7))
-                .setTangent(Math.toRadians(90))
-                .lineToY(-61);*/
+                .splineTo(new Vector2d(39.5, -12.08), Math.toRadians(270))
+//                .splineTo(new Vector2d(40.2, -34.59), Math.toRadians(270))
+                .splineTo(new Vector2d(41.03, -56.61), Math.toRadians(270))
+                .lineToY(-5.25)
+                .setTangent(Math.toRadians(270))
+                .splineTo(new Vector2d(56, -12.25), Math.toRadians(270))
+                .splineTo(new Vector2d(56, -29.30), Math.toRadians(270))
+                .splineTo(new Vector2d(56, -58), Math.toRadians(270));
     }
 
     private TrajectoryActionBuilder getRedSecondObjectPickupTrajectory (MecanumDriveEx mecanumDrive) {
         return mecanumDrive.actionBuilder(mecanumDrive.getRobotPose())
-                .turnTo(Math.toRadians(150))
-                .splineTo(new Vector2d(-55, 53), Math.toRadians(90));
+                .turnTo(Math.toRadians(0))
+                .splineTo(new Vector2d(56, -57), Math.toRadians(270));
     }
 
 

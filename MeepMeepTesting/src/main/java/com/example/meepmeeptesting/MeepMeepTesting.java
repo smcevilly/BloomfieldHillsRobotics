@@ -49,14 +49,16 @@ public class MeepMeepTesting {
         //sample
        myBot.runAction(
                 myBot.getDrive().actionBuilder(BLUE_RIGHT_START_POSITION_2)
-                        .splineTo(new Vector2d(-36.00, 41.00), Math.toRadians(270.00))
-                        .splineTo(new Vector2d(-42.41, 10.92), Math.toRadians(100.00))
-                        .splineTo(new Vector2d(-49.69, 50.41), Math.toRadians(90.00))
-                        .lineToY(10)
+                        .strafeTo(new Vector2d(36, -40))
                         .setTangent(Math.toRadians(90))
-                        .strafeTo(new Vector2d(-59,10))
-                        .setTangent(Math.toRadians(90))
-                        .splineTo(new Vector2d(-55, 55), Math.toRadians(90.00))
+                        .splineTo(new Vector2d(39.5, -12.08), Math.toRadians(270))
+                        //.splineTo(new Vector2d(40.2, -34.59), Math.toRadians(270))
+                        .splineTo(new Vector2d(41.03, -56.61), Math.toRadians(270))
+                        .lineToY(-5.25)
+                        .setTangent(Math.toRadians(270))
+                        .splineTo(new Vector2d(56, -12.25), Math.toRadians(270))
+                        .splineTo(new Vector2d(56, -29.30), Math.toRadians(270))
+                        .splineTo(new Vector2d(56, -58), Math.toRadians(270))
                        // .splineTo(new Vector2d(-55, 15), Math.toRadians(90.00))
                         //.splineTo(new Vector2d(-55, 55), Math.toRadians(90.00))//10.64
                         .build());
