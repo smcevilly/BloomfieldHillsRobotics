@@ -33,7 +33,7 @@ public class MecanumDriveConfig {
             RevHubOrientationOnRobot.UsbFacingDirection.UP;
 
 
-    public  final double maxMotorPower = 3;
+    public  final double maxMotorPower = 1; // lower is faster
 
     public double  inPerTick = 0.002; //24000 for 48 inches
     // feedforward parameters (in tick units)
