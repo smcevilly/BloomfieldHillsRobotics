@@ -60,7 +60,7 @@ public class SystemConfig {
             1100,                  // automation v2 object hang for second time
             600,                   // autonomous object hang complete
             1700,                  // automation hang on bar
-            500,                  // automation v2 object pickup from human player
+            475,                  // automation v2 object pickup from human player
             800          //
     );
 
@@ -68,15 +68,15 @@ public class SystemConfig {
             "leftElevator",
             450,
             250,
-            5700,
+            5900,
             600,
             DCMotorConfig.MotorDirection.REVERSE,
             1,
             2,
             700,            // preset for pickup
-            2550,                   // preset for autonomous drop   // 5650
+            2600,                   // preset for autonomous drop   // 5650
             2600,                   // preset for autonomous second drop   // 5650
-            3050,                   // autonomous bar hang pull level
+            0,                      // reset position
             5600,
             1550,           // autonomous pickup specimen from wall
             2850                    // autonomous elevator drop height
@@ -89,15 +89,15 @@ public class SystemConfig {
             "rightElevator",
             500,
             250,
-            5700,
+            5900,
             600 ,
             DCMotorConfig.MotorDirection.FORWARD,
             2,
             2,
             700,
-            2550,           //preset for autonomous drop
+            2600,           //preset for autonomous drop
             2600,                   // preset for autonomous second drop   // 5650
-            3050,
+            0,                      // reset position
             5600,
             1550,           // autonomous pickup specimen from wall
             2850                    // autonomous elevator drop height
@@ -107,18 +107,18 @@ public class SystemConfig {
     // Servo
     public static DCMotorConfig CLAW_ROTATOR = new DCMotorConfig(
             "clawRotator",
-            0.2,
-            0.15,
-            1,
+            0.14,
+            0.14,
+            0.86,
             0.005,
             DCMotorConfig.MotorDirection.FORWARD,
             5,
             5,
-            0.52, // 0.32,// face straight - little tilt
-            0.83,         // face down
+            0.4688, // 0.32,// face straight - little tilt
+            0.8077,         // face down
             0.9,
             1,
-            0.15,
+            0.14, // face up
             0.15,
             0
 

@@ -56,7 +56,7 @@ public class AutomationConfig {
 
     private TrajectoryActionBuilder getBlueMoveCloserToBarForAuto (MecanumDriveEx mecanumDrive) {
         return mecanumDrive.actionBuilder(mecanumDrive.getRobotPose())
-                .lineToY(38);
+                .lineToY(37);
     }
 
     private TrajectoryActionBuilder getBlueRightObjectMoveTrajectory (MecanumDriveEx mecanumDrive) {
@@ -73,7 +73,7 @@ public class AutomationConfig {
                 .setTangent(Math.toRadians(90))
                 .splineTo(new Vector2d(-56, 12.25), Math.toRadians(90))
                 .splineTo(new Vector2d(-56, 29.30), Math.toRadians(90.00))
-                .splineTo(new Vector2d(-56, 58), Math.toRadians(90.00));
+                .splineTo(new Vector2d(-56, 59.5), Math.toRadians(90.00));
 
     }
 
@@ -133,7 +133,7 @@ public class AutomationConfig {
 
     private TrajectoryActionBuilder getRedMoveCloserToBarForAuto (MecanumDriveEx mecanumDrive) {
         return mecanumDrive.actionBuilder(mecanumDrive.getRobotPose())
-                .lineToY(-38);
+                .lineToY(-37);
     }
 
 
@@ -168,7 +168,7 @@ public class AutomationConfig {
                 .setTangent(Math.toRadians(270))
                 .splineTo(new Vector2d(56, -12.25), Math.toRadians(270))
                 .splineTo(new Vector2d(56, -29.30), Math.toRadians(270))
-                .splineTo(new Vector2d(56, -58), Math.toRadians(270));
+                .splineTo(new Vector2d(56, -60), Math.toRadians(270));
     }
 
     private TrajectoryActionBuilder getRedSecondObjectPickupTrajectory (MecanumDriveEx mecanumDrive) {

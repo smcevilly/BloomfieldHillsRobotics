@@ -70,35 +70,24 @@ public abstract class AbstractCobraAutoSpecimen extends CobraBase  {
         moveForSpecimenPickup (AUTO_CONFIG.getRobotSecondObjectMove(mecanumDrive).build());
         automationPickup(false);
         tracePathToBar( AUTO_CONFIG.getTracePathToBarTrajectory(mecanumDrive, false).build(), true);
+
         automationSpecimenHang(true, true);
+        /*
+        This is experimental action to move claw up and bring the arms down
+        Risk to be reviewed is will claw rotate up faster than elevators coming down
 
-
-
-        /**
-         *
-         * turn around
-         *
-         * pickup
-         *
-         * move to drop
-         *
-        Action turnAround = turnAroundForPickup.build();
         Actions.runBlocking(
-                new SequentialAction(
-                        turnAround
-                )
-        );
-        automationPickup();
-        automationSpecimenHang();
-         */
-
-
+                new ParallelAction(
+                        new MoveToPresetAction(leftElevator, rightElevator, 0, 0),
+                        new MoveToPresetAction(clawRotator, 4)
+                ));
+        */
         telemetry.addData("Resetting to postion", "");
         telemetry.update();
         telemetryOutput ();
 
-        leftElevator.resetToZeroPosition();
-        rightElevator.resetToZeroPosition();
+        //leftElevator.resetToZeroPosition();
+        //rightElevator.resetToZeroPosition();
 
         // Persisting position:
 

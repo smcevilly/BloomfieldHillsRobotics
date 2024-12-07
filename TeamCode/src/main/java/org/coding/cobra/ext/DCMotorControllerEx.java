@@ -65,7 +65,7 @@ public class DCMotorControllerEx extends AbstractMotorControllerEx {
             double adjustedSteps = motorConfig.steps;
             if (debounceCount<10) {
                  //adjustedSteps /= 2;
-                 adjustedSteps = adjustedSteps * debounceCount / 10;
+                 adjustedSteps = adjustedSteps * debounceCount / 15;
             }
             int motorposition = motor.getCurrentPosition();
             motorposition = (int) Range.clip(motorposition +  (adjustedSteps * moveKey), motorConfig.minPosition, motorConfig.maxPosition);
