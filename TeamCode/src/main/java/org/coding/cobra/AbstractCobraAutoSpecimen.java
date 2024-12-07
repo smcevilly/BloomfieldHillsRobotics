@@ -72,6 +72,9 @@ public abstract class AbstractCobraAutoSpecimen extends CobraBase  {
         tracePathToBar( AUTO_CONFIG.getTracePathToBarTrajectory(mecanumDrive, false).build(), true);
 
         automationSpecimenHang(true, true);
+
+        clawRotator.handlePresets(4);
+
         /*
         This is experimental action to move claw up and bring the arms down
         Risk to be reviewed is will claw rotate up faster than elevators coming down

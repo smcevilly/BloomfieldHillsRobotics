@@ -186,7 +186,7 @@ public  abstract class CobraBase extends LinearOpMode {
 
         if (releasePiece) {
             flexiClawLeft.handlePresets(0);
-            flexiClawLeft.handlePresets(0);
+            flexiClawRight.handlePresets(0);
         }
 
         if (retractArm) {
